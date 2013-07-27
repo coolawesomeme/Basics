@@ -1,0 +1,3 @@
+# Basics config file. You should edit these (server-owners can have multiple usernames, separated by commas)
+server-owners: 
+message: This a survival server!

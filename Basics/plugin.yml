@@ -1,0 +1,26 @@
+name: Basics
+main: coolawesomeme.basics_plugin.Basics
+version: 0.2.9
+
+commands:
+  serverhelp:
+    description: This command gets you started on the server, as well as gives you basic items.
+    usage: "Usage: /<command> [playerName]"
+  brb:
+    description: Can only be used by server console, or the owner. For regular users, use /afk
+    usage: "Usage: /<command> [true/false]"
+  banroulette:
+    description: Randomly bans a player for 30 mins.
+    usage: "Usage: /<command>"
+  banthecoon:
+    description: Bans the coon (player with highest annoying factor) lolol
+    usage: "Usage: /<command>"
+  banhammer:
+    description: Surprise!
+    usage: "Usage: /<command>"
+  afactor:
+    description: Check/ Update a player's annoying factor
+    usage: "Usage: /<command> playerName [set] [amount]"
+  tproulette:
+    description: Puts a player or a group of players at random coordinates
+    usage: "Usage: /<command> [playerName/all] [world]"
