@@ -59,7 +59,7 @@ public final class Basics extends JavaPlugin {
     
 	private void config(){
     	ownersRaw = this.getConfig().getString("server-owners");
-    	if(!ownersRaw.isEmpty()){
+    	if(ownersRaw.length()!= 0){
     		if(ownersRaw.contains(" ")){
     			ownersRaw.replace(" ", "");
     		}if(ownersRaw.contains(",")){
