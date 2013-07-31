@@ -5,18 +5,21 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
+import coolawesomeme.basics_plugin.commands.BrbCommand;
+import coolawesomeme.basics_plugin.commands.ServerHelpCommand;
+
 public class EventListener implements Listener{
 	
 	@EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
 		PlayerDataStorage.makePlayerDataFile(event.getPlayer().getName());
-    	if(ServerCommands.isOwnerBRBing){
+    	if(BrbCommand.isOwnerBRBing){
     		if(!event.getPlayer().hasPlayedBefore()){
     			final PlayerJoinEvent newEvent = event;
     			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(new Basics(), new Runnable() {
     				@Override 
     				public void run() {
-    					ServerCommands.actualServerHelp(newEvent.getPlayer());
+    					ServerHelpCommand.actualServerHelp(newEvent.getPlayer());
     				}
     			}, 20L);
     		}else{

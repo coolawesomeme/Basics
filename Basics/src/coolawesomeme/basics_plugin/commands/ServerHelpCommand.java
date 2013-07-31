@@ -1,30 +1,46 @@
-package coolawesomeme.basics_plugin;
+package coolawesomeme.basics_plugin.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-public class ServerCommands {
+import coolawesomeme.basics_plugin.Basics;
+import coolawesomeme.basics_plugin.MinecraftColors;
+import coolawesomeme.basics_plugin.PlayerDataStorage;
 
-	protected static boolean isOwnerBRBing = false;
+public class ServerHelpCommand implements CommandExecutor{
+	
+	public ServerHelpCommand(Basics instance){
+	}
 
-	public static void serverHelpCommand(CommandSender sender, Command cmd, String label, String[] args) {
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if (!(sender instanceof Player)) {
+			sender.sendMessage("This command can only be run by a player.");
+			return true;
+		} else {
+			return serverHelpCommand(sender, cmd, label, args);
+		}
+	}
+
+	private boolean serverHelpCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player player = (Player)null;
 		if(args == null || args.equals(null) || args.length == 0){
 			player = (Player)sender;
 		}else{
 			if(args.length > 1){
 				sender.sendMessage("This command has only 1 optional argument!");
-				sender.sendMessage("/serverhelp <player>");
+				return false;
 			}
 			else{
 				player = Bukkit.getServer().getPlayer(args[0]);
 			}
 		}	
 		actualServerHelp(player);
+		return true;
 	}
 
 	public static void actualServerHelp(Player player){
@@ -41,27 +57,6 @@ public class ServerCommands {
 		}
 		player.sendMessage(Basics.message);
 	}
-	
-	public static void brbCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(args == null || args.equals(null) || args.length == 0){
-			if(isOwnerBRBing){
-				isOwnerBRBing = false;
-				Bukkit.broadcastMessage(MinecraftColors.lightPink + "[Basics] The server owner is no longer away!");
-			}else{
-				isOwnerBRBing = true;
-				Bukkit.broadcastMessage(MinecraftColors.lightPink + "[Basics] The server owner is away!");
-			}
-		}else{
-			if(args.length > 1){
-				sender.sendMessage("This command has 1 arguments!");
-			}
-			else{
-				boolean oldBRB = isOwnerBRBing;
-				isOwnerBRBing = Boolean.parseBoolean(args[0]);
-				if(oldBRB != isOwnerBRBing)
-					Bukkit.broadcastMessage(isOwnerBRBing ? (MinecraftColors.lightPink + "[Basics] The server owner is away!") : (MinecraftColors.lightPink + "[Basics] The server ownder is no longer away!"));
-			}
-		}
-	}
+
 	
 }
