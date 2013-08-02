@@ -1,1 +1,1 @@
-0.4.0-Auto Updating!-And command classes restructured!-0-4-0-https://dl.dropboxusercontent.com/s/ew0695k8l7qetha/Basics%200.4.0.jar
+0.4.0-New /tpr command!-And minor bug fixes!-0-4-0-https://dl.dropboxusercontent.com/s/ew0695k8l7qetha/Basics%200.4.0.jar
