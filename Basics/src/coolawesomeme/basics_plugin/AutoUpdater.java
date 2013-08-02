@@ -24,7 +24,7 @@ public class AutoUpdater {
                 	while ((pluginAcquiredVersion = in.readLine()) != null) {
                 		String[] temp;
                 		temp = pluginAcquiredVersion.split("-");
-                		if(temp[0].equals("null") || temp[0].equals("void") || temp[0].equals("missingno") || temp[0].equals("")){
+                		if(temp[0].contains("null") || temp[0].contains("void") || temp[0].contains("missingno") || temp[0].equals("")){
                 			temp[0] = version;
                 			temp[0].equals(version);
                 		}else{
@@ -71,6 +71,7 @@ public class AutoUpdater {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private static boolean isUpdated(int release, int build, int revision){
 		if(pluginMajor == release && pluginMinor == build && pluginRevision == revision){
 			return true;
