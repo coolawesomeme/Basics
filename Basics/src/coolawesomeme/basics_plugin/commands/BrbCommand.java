@@ -35,7 +35,8 @@ public class BrbCommand implements CommandExecutor{
 				brbCommand(sender, cmd, label, args);
 				return true;
 			}else{
-				return false;
+				sender.sendMessage("You must be the owner to do that!");
+				return true;
 			}
 		}
 	}
