@@ -3,7 +3,6 @@ package coolawesomeme.basics_plugin;
 import java.io.File;
 
 import org.bukkit.Bukkit;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,6 +12,7 @@ import coolawesomeme.basics_plugin.commands.BanRouletteCommand;
 import coolawesomeme.basics_plugin.commands.BanTheCoonCommand;
 import coolawesomeme.basics_plugin.commands.BrbCommand;
 import coolawesomeme.basics_plugin.commands.ServerHelpCommand;
+import coolawesomeme.basics_plugin.commands.TPRCommand;
 import coolawesomeme.basics_plugin.commands.TPRouletteCommand;
 
 public final class Basics extends JavaPlugin {
@@ -21,12 +21,13 @@ public final class Basics extends JavaPlugin {
 	public String[] owners;
 	public static String serverName = Bukkit.getServerName();
 	public static String message;
-	public static String version;
 	public static int versionMajor = 0;
-	public static int versionMinor = 3;
-	public static int versionRevision = 1;
+	public static int versionMinor = 4;
+	public static int versionRevision = 0;
+	public static String version = versionMajor + "." + versionMinor + "." + versionRevision;
 	public static boolean isBetaVersion = true;
 	public static boolean download;
+	public static boolean teleportRequests;
 	
 	@Override
     public void onEnable(){
@@ -35,8 +36,6 @@ public final class Basics extends JavaPlugin {
 		this.saveDefaultConfig();
 		this.config();
 		this.createFolder();
-		PluginDescriptionFile pdf = this.getDescription();
-		version = pdf.getVersion();
 		this.commandHandlers();
 		AutoUpdater.checkForUpdate(this);
         getLogger().info("Plugin enabled!");
@@ -55,6 +54,7 @@ public final class Basics extends JavaPlugin {
     	getCommand("brb").setExecutor(new BrbCommand(this));
     	getCommand("serverhelp").setExecutor(new ServerHelpCommand(this));
     	getCommand("tproulette").setExecutor(new TPRouletteCommand(this));
+    	getCommand("tpr").setExecutor(new TPRCommand(this));
     }
     
 	private void config(){
@@ -73,6 +73,7 @@ public final class Basics extends JavaPlugin {
     	}
     	message = this.getConfig().getString("message");
     	download = this.getConfig().getBoolean("download-latest-version", true);
+    	teleportRequests = this.getConfig().getBoolean("teleport-requests", true);
     }
 	
 	private void createFolder(){

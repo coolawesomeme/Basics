@@ -1,6 +1,6 @@
 name: Basics
 main: coolawesomeme.basics_plugin.Basics
-version: 0.3.1
+version: 0.4.0
 
 commands:
   serverhelp:
@@ -22,5 +22,8 @@ commands:
     description: Check/ Update a player's annoying factor
     usage: "Usage: /<command> playerName [set] [amount]"
   tproulette:
-    description: Puts a player or a group of players at random coordinates
+    description: Puts a player or all players at random coordinates
     usage: "Usage: /<command> [playerName/all] [world]"
+  tpr:
+    description: Requests to teleport to a user, or allows to accept/ decline a teleport request
+    usage: "Usage: /<command> [playerName/accept/decline/setRequest true/false]"
