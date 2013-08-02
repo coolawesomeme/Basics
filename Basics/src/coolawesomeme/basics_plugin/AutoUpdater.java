@@ -23,7 +23,7 @@ public class AutoUpdater {
                 BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
                 	while ((pluginAcquiredVersion = in.readLine()) != null) {
                 		String[] temp;
-                		temp = pluginAcquiredVersion.split("|");
+                		temp = pluginAcquiredVersion.split("-");
                 		if(temp[0].equals("null") || temp[0].equals("void") || temp[0].equals("missingno") || temp[0].equals("")){
                 			temp[0] = version;
                 			temp[0].equals(version);
