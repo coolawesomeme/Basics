@@ -28,7 +28,7 @@ public class EventListener implements Listener{
     			event.getPlayer().sendMessage(MinecraftColors.lightRed + "Server is currently in BRB mode because the server owner is brbing!");
     		}
     	}else{
-        event.getPlayer().sendMessage("Welcome to the " + Basics.serverName + ", " + event.getPlayer().getDisplayName() + "!");
+    		event.getPlayer().sendMessage("Welcome to the " + Basics.serverName + ", " + event.getPlayer().getDisplayName() + "!");
         }
     }
 	
