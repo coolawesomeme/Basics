@@ -28,7 +28,7 @@ public class AutoUpdater {
                 			temp[0] = version;
                 			temp[0].equals(version);
                 		}else{
-                			System.out.println("Latest plugin version found: Basics " + temp[0] + ".");                
+                			System.out.println("[Basics] Latest plugin version found: Basics " + temp[0] + ".");                
                 			if(!isOutdated(Integer.parseInt(temp[3]), Integer.parseInt(temp[4]), Integer.parseInt(temp[5]))){
                 				System.out.println("[Basics] Plugin up to date!");
                 			}else{
@@ -47,12 +47,6 @@ public class AutoUpdater {
                 					basics.getLogger().info(temp[1]);
                 				} if(!temp[2].isEmpty()){
                 					basics.getLogger().info(temp[2]);
-                				}
-                				System.out.println("An update of " + "Basics (Version " + temp[0] + ") " + "is available!");
-                				if(isDownloaded){
-                					System.out.println("Located at: " + basics.getDataFolder() + "\\updates");
-                				}else{
-                					System.out.println("http://coolawesomeme.github.io/Basics");
                 				}
                 			}
                 		}
