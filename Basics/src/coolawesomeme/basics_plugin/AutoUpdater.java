@@ -33,13 +33,16 @@ public class AutoUpdater {
                 				System.out.println("[Basics] Plugin up to date!");
                 			}else{
                 				boolean isDownloaded = downloadLatestModFile(basics, temp[6], temp[0]);
-                				basics.getLogger().info("");
+                				basics.getLogger().info("******************************************************");
+                				basics.getLogger().info("******************************************************");
                 				basics.getLogger().info("An update of " + "Basics (Version " + temp[0] + ") " + "is available!");
                 				if(isDownloaded){
-                					basics.getLogger().info("Located at: " + basics.getDataFolder() + "/updates");
+                					basics.getLogger().info("Located at: " + basics.getDataFolder() + "\\updates");
                 				}else{
                 					basics.getLogger().info("http://coolawesomeme.github.io/Basics");
                 				}
+                				basics.getLogger().info("******************************************************");
+                				basics.getLogger().info("******************************************************");
                 				if(!temp[1].isEmpty()){
                 					basics.getLogger().info(temp[1]);
                 				} if(!temp[2].isEmpty()){
@@ -47,7 +50,7 @@ public class AutoUpdater {
                 				}
                 				System.out.println("An update of " + "Basics (Version " + temp[0] + ") " + "is available!");
                 				if(isDownloaded){
-                					System.out.println("Located at: " + basics.getDataFolder() + "/updates");
+                					System.out.println("Located at: " + basics.getDataFolder() + "\\updates");
                 				}else{
                 					System.out.println("http://coolawesomeme.github.io/Basics");
                 				}
