@@ -23,7 +23,7 @@ public final class Basics extends JavaPlugin {
 	public static String message;
 	public static int versionMajor = 0;
 	public static int versionMinor = 4;
-	public static int versionRevision = 0;
+	public static int versionRevision = 1;
 	public static String version = versionMajor + "." + versionMinor + "." + versionRevision;
 	public static boolean isBetaVersion = true;
 	public static boolean download;
