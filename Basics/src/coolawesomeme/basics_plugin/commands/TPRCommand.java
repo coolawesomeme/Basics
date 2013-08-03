@@ -15,6 +15,7 @@ public class TPRCommand implements CommandExecutor{
 	
 	private Basics basics;
 	private HashMap<Player, Player> pendingTeleports = new HashMap<Player, Player>();
+	private boolean requests = Basics.teleportRequests;
 	
 	public TPRCommand(Basics instance){
 		basics = instance;
@@ -71,17 +72,26 @@ public class TPRCommand implements CommandExecutor{
 					if(target == null || target.equals(null)){
 						sender.sendMessage(MinecraftColors.lightRed + "Player " + args[0] + " not found!");
 					}else{
-						if(pendingTeleports.containsKey(target)){
-							pendingTeleports.remove(target);
+						if(this.requests){
+							if(pendingTeleports.containsKey(target)){
+								pendingTeleports.remove(target);
+							}
+							pendingTeleports.put(target, Bukkit.getPlayer(sender.getName()));
+							target.sendMessage(MinecraftColors.lightRed + sender.getName() + " would like to teleport to you.");
+							target.sendMessage(MinecraftColors.lightRed + "Type /tpr a or /tpr d, to accept or decline, respectfully.");
+						}else{
+							sender.sendMessage("Teleporting...");
+							Bukkit.getPlayer(sender.getName()).teleport(target);
 						}
-						pendingTeleports.put(target, Bukkit.getPlayer(sender.getName()));
-						target.sendMessage(MinecraftColors.lightRed + sender.getName() + " would like to teleport to you.");
-						target.sendMessage(MinecraftColors.lightRed + "Type /tpr a or /tpr d, to accept or decline, respectfully.");
 					}
 					return true;
 				}
 			}else{
-				basics.getConfig().set("teleport-requests", Boolean.parseBoolean(args[1]));
+				if(sender.isOp()){
+					basics.getConfig().set("teleport-requests", Boolean.parseBoolean(args[1]));
+				}else{
+					sender.sendMessage("You must be OP to do that!");
+				}
 				return true;
 			}
 		}
