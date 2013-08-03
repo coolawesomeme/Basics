@@ -14,17 +14,17 @@ public class AutoUpdater {
 	private static int pluginMajor = Basics.versionMajor;
 	private static int pluginMinor = Basics.versionMinor;
 	private static int pluginRevision = Basics.versionRevision;
-	private static String pluginAcquiredVersion;
 	private static boolean download = Basics.download;
 	
 	public static void checkForUpdate(Basics basics){
             try {
                 URL url = new URL("https://raw.github.com/coolawesomeme/Basics/master/UPDATE.txt");
                 BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+                String pluginAcquiredVersion;
                 	while ((pluginAcquiredVersion = in.readLine()) != null) {
                 		String[] temp;
                 		temp = pluginAcquiredVersion.split("-");
-                		if(temp[0].contains("null") || temp[0].contains("void") || temp[0].contains("missingno") || temp[0].equals("")){
+                		if(temp[0].equals("null") || temp[0].equals("void") || temp[0].equals("missingno") || temp[0].equals("")){
                 			temp[0] = version;
                 			temp[0].equals(version);
                 		}else{
@@ -32,11 +32,10 @@ public class AutoUpdater {
                 			if(!isOutdated(Integer.parseInt(temp[3]), Integer.parseInt(temp[4]), Integer.parseInt(temp[5]))){
                 				System.out.println("[Basics] Plugin up to date!");
                 			}else{
-                				boolean isDownloaded = downloadLatestModFile(basics, temp[6], temp[0]);
                 				basics.getLogger().info("******************************************************");
                 				basics.getLogger().info("******************************************************");
                 				basics.getLogger().info("An update of " + "Basics (Version " + temp[0] + ") " + "is available!");
-                				if(isDownloaded){
+                				if(downloadLatestModFile(basics, temp[6], temp[0])){
                 					basics.getLogger().info("Located at: " + basics.getDataFolder() + "\\updates");
                 				}else{
                 					basics.getLogger().info("http://coolawesomeme.github.io/Basics");
@@ -58,20 +57,18 @@ public class AutoUpdater {
 		}
 	
 	private static boolean isOutdated(int release, int build, int revision){
-		if(pluginMajor <= release && pluginMinor <= build && pluginRevision < revision){
+		if(pluginMajor <= release){
 			return true;
 		}else{
-			return false;
+			if(pluginMinor <= build){
+				return true;
+			}else{
+				if(pluginRevision < revision){
+					return true;
+				}
+			}
 		}
-	}
-	
-	@SuppressWarnings("unused")
-	private static boolean isUpdated(int release, int build, int revision){
-		if(pluginMajor == release && pluginMinor == build && pluginRevision == revision){
-			return true;
-		}else{
-			return false;
-		}
+		return false;
 	}
 	
 	private static boolean downloadLatestModFile(Basics basics, String updateURL, String pluginVersion){
