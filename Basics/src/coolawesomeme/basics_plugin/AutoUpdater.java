@@ -28,25 +28,24 @@ public class AutoUpdater {
                 			temp[0] = version;
                 			temp[0].equals(version);
                 		}else{
-                			System.out.println("[Basics] Latest plugin version found: Basics " + temp[0] + ".");                
+                			basics.getLogger().info(" Latest plugin version found: Basics " + temp[0] + ".");                
                 			if(!isOutdated(Integer.parseInt(temp[3]), Integer.parseInt(temp[4]), Integer.parseInt(temp[5]))){
-                				System.out.println("[Basics] Plugin up to date!");
+                				basics.getLogger().info("Plugin up to date!");
                 			}else{
                 				basics.getLogger().info("******************************************************");
                 				basics.getLogger().info("******************************************************");
                 				basics.getLogger().info("An update of " + "Basics (Version " + temp[0] + ") " + "is available!");
                 				if(downloadLatestModFile(basics, temp[6], temp[0])){
-                					basics.getLogger().info("Located at: " + basics.getDataFolder() + "\\updates");
                 				}else{
                 					basics.getLogger().info("http://coolawesomeme.github.io/Basics");
                 				}
-                				basics.getLogger().info("******************************************************");
-                				basics.getLogger().info("******************************************************");
                 				if(!temp[1].isEmpty()){
                 					basics.getLogger().info(temp[1]);
                 				} if(!temp[2].isEmpty()){
                 					basics.getLogger().info(temp[2]);
                 				}
+                				basics.getLogger().info("******************************************************");
+                				basics.getLogger().info("******************************************************");
                 			}
                 		}
                 	}
@@ -57,18 +56,19 @@ public class AutoUpdater {
 		}
 	
 	private static boolean isOutdated(int release, int build, int revision){
-		if(pluginMajor <= release){
+		if(pluginMajor < release){
 			return true;
 		}else{
-			if(pluginMinor <= build){
+			if(pluginMinor < build){
 				return true;
 			}else{
 				if(pluginRevision < revision){
 					return true;
+				}else{
+					return false;
 				}
 			}
 		}
-		return false;
 	}
 	
 	private static boolean downloadLatestModFile(Basics basics, String updateURL, String pluginVersion){
@@ -80,18 +80,19 @@ public class AutoUpdater {
     	        URL url = new URL(updateURL);
     	        URLConnection conn = url.openConnection();
     	        InputStream in = conn.getInputStream();
-    	        FileOutputStream out = new FileOutputStream(saveTo + "/Basics " + pluginVersion + ".jar");
+    	        FileOutputStream out = new FileOutputStream(saveTo + "\\Basics " + pluginVersion + ".jar");
     	        byte[] b = new byte[1024];
     	        int count;
     	        while ((count = in.read(b)) >= 0) {
     	            out.write(b, 0, count);
     	        }
     	        out.flush(); out.close(); in.close();                   
-    	        System.out.println("Latest plugin version is downloaded!");
-    	        System.out.println("Located here: " + saveTo + "/Basics "+ pluginVersion + ".jar");
-    	        System.out.println("Put in 'plugins' folder & delete the old version.");
+    	        basics.getLogger().info("Latest plugin version is downloaded!");
+    	        basics.getLogger().info("Located here: " + saveTo + "\\Basics "+ pluginVersion + ".jar");
+    	        basics.getLogger().info("Put in 'plugins' folder & delete the old version.");
     	        return true;
     	    } catch (Exception e) {
+    	    	basics.getLogger().info("http://coolawesomeme.github.io/Basics");
     	        e.printStackTrace();
     	    }
     	}else{

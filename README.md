@@ -1,5 +1,5 @@
 A [Bukkit](http://bukkit.org) Plugin
 
-**Current Version: v0.4.1**
+**Current Version: v0.4.2**
 
 ~coolawesomeme

@@ -1,1 +1,1 @@
-0.4.1-New /tpr command!-And minor bug fixes!-0-4-1-https://dl.dropboxusercontent.com/s/k1nvfdq4tcs2t5r/Basics%200.4.1.jar
+0.4.2-New /tpr command!-And finally fixed auto updating!-0-4-2-https://dl.dropboxusercontent.com/s/awy1l0surgcuzk5/Basics%200.4.2.jar
