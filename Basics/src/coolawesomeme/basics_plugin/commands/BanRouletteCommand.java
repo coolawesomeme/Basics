@@ -21,7 +21,7 @@ public class BanRouletteCommand implements CommandExecutor{
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(sender.isOp()){
-		if(banRouletteVictim == null || banRouletteVictim == (Player)null){
+		if(banRouletteVictim == null || banRouletteVictim.equals(null)){
 				Player[] onlinePlayers = Bukkit.getServer().getOnlinePlayers();
 				if(onlinePlayers.length > 0){
 					Random random = new Random();
