@@ -23,7 +23,7 @@ public final class Basics extends JavaPlugin {
 	public static String message;
 	public static int versionMajor = 0;
 	public static int versionMinor = 4;
-	public static int versionRevision = 2;
+	public static int versionRevision = 3;
 	public static String version = versionMajor + "." + versionMinor + "." + versionRevision;
 	public static boolean isBetaVersion = true;
 	public static boolean download;
@@ -35,10 +35,11 @@ public final class Basics extends JavaPlugin {
         pm.registerEvents(new EventListener(), this);
 		this.saveDefaultConfig();
 		this.config();
-		this.createFolder();
+		this.createPlayerFolder();
 		this.commandHandlers();
 		AutoUpdater.checkForUpdate(this);
         getLogger().info("Plugin enabled!");
+        getLogger().info("Use /help basics for commands!");
     }
  
     @Override
@@ -76,7 +77,7 @@ public final class Basics extends JavaPlugin {
     	teleportRequests = this.getConfig().getBoolean("teleport-requests", true);
     }
 	
-	private void createFolder(){
+	private void createPlayerFolder(){
 		File f = new File(this.getDataFolder().getAbsolutePath() + "/players");
 		f.mkdirs();
 		PlayerDataStorage.setDataFolder(this.getDataFolder().getAbsolutePath() + "/players");
