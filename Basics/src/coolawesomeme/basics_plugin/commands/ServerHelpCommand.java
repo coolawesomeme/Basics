@@ -19,8 +19,12 @@ public class ServerHelpCommand implements CommandExecutor{
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender instanceof Player)) {
-			sender.sendMessage("This command can only be run by a player.");
-			return true;
+			if(args.length == 1){
+				return serverHelpCommand(sender, cmd, label, args);
+			}else{
+				sender.sendMessage("You must be a player to do that!");
+				return true;
+			}
 		} else {
 			return serverHelpCommand(sender, cmd, label, args);
 		}
@@ -28,7 +32,7 @@ public class ServerHelpCommand implements CommandExecutor{
 
 	private boolean serverHelpCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		Player player = (Player)null;
-		if(args == null || args.equals(null) || args.length == 0){
+		if(args.length == 0){
 			player = (Player)sender;
 		}else{
 			if(args.length > 1){

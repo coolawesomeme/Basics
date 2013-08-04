@@ -22,8 +22,7 @@ public class BrbCommand implements CommandExecutor{
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender instanceof Player)) {
-			brbCommand(sender, cmd, label, args);
-			return true;
+			return brbCommand(sender, cmd, label, args);
 		} else {
 			boolean flag = false;
 			for(int i=0;i<owners.length;i++){
@@ -32,8 +31,7 @@ public class BrbCommand implements CommandExecutor{
 				}
 			}
 			if(flag){
-				brbCommand(sender, cmd, label, args);
-				return true;
+				return brbCommand(sender, cmd, label, args);
 			}else{
 				sender.sendMessage("You must be the owner to do that!");
 				return true;
@@ -41,8 +39,8 @@ public class BrbCommand implements CommandExecutor{
 		}
 	}
 	
-	private void brbCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(args == null || args.equals(null) || args.length == 0){
+	private boolean brbCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if(args.length == 0){
 			if(isOwnerBRBing){
 				isOwnerBRBing = false;
 				Bukkit.broadcastMessage(MinecraftColors.lightPink + "[Basics] The server owner is no longer away!");
@@ -50,15 +48,18 @@ public class BrbCommand implements CommandExecutor{
 				isOwnerBRBing = true;
 				Bukkit.broadcastMessage(MinecraftColors.lightPink + "[Basics] The server owner is away!");
 			}
+			return true;
 		}else{
 			if(args.length > 1){
 				sender.sendMessage("This command has 1 arguments!");
+				return false;
 			}
 			else{
 				boolean oldBRB = isOwnerBRBing;
 				isOwnerBRBing = Boolean.parseBoolean(args[0]);
 				if(oldBRB != isOwnerBRBing)
 					Bukkit.broadcastMessage(isOwnerBRBing ? (MinecraftColors.lightPink + "[Basics] The server owner is away!") : (MinecraftColors.lightPink + "[Basics] The server ownder is no longer away!"));
+				return true;
 			}
 		}
 	}
