@@ -37,7 +37,7 @@ public class TPRCommand implements CommandExecutor{
 			}
 		}else{
 			if(args.length == 1){
-				if(args[0].equals("a") || args[0].equals("accept")){
+				if(args[0].equalsIgnoreCase("a") || args[0].equalsIgnoreCase("accept")){
 					Player target = Bukkit.getPlayer(sender.getName());
 					if(pendingTeleports.containsKey(target)){
 						Player originalSender = pendingTeleports.get(target);
@@ -54,7 +54,7 @@ public class TPRCommand implements CommandExecutor{
 						sender.sendMessage(MinecraftColors.lightRed + "You have no pending teleports!");
 					}
 					return true;
-				}else if(args[0].equals("d") || args[0].equals("decline")){
+				}else if(args[0].equalsIgnoreCase("d") || args[0].equalsIgnoreCase("decline")){
 					Player target = Bukkit.getPlayer(sender.getName());
 					if(pendingTeleports.containsKey(target)){
 						Player originalSender = pendingTeleports.get(target);
@@ -65,6 +65,13 @@ public class TPRCommand implements CommandExecutor{
 						pendingTeleports.remove(target);
 					}else{
 						sender.sendMessage(MinecraftColors.lightRed + "You have no pending teleports!");
+					}
+					return true;
+				}else if(args[0].equalsIgnoreCase("setrequest")){
+					if(sender.isOp()){
+						basics.getConfig().set("teleport-requests", Boolean.parseBoolean(args[1]));
+					}else{
+						sender.sendMessage("You must be OP to do that!");
 					}
 					return true;
 				}else{
@@ -86,13 +93,6 @@ public class TPRCommand implements CommandExecutor{
 					}
 					return true;
 				}
-			}else{
-				if(sender.isOp()){
-					basics.getConfig().set("teleport-requests", Boolean.parseBoolean(args[1]));
-				}else{
-					sender.sendMessage("You must be OP to do that!");
-				}
-				return true;
 			}
 		}
 		return false;
