@@ -17,7 +17,7 @@ public class AFactorCommand implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(args.length > 0){
 			if(args.length > 1){
-				if(args[1].equals("set")){
+				if(args[1].equalsIgnoreCase("set")){
 					if(sender.isOp()){
 						PlayerDataStorage.setPlayerAFactor(Bukkit.getPlayer(args[0]), Integer.parseInt(args[2]));
 						sender.sendMessage("Annoying factor set!");

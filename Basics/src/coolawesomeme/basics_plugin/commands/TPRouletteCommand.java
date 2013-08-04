@@ -24,7 +24,7 @@ public class TPRouletteCommand implements CommandExecutor{
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(args.length > 0){
-			if(args[0].equals("all")){
+			if(args[0].equalsIgnoreCase("all")){
 				if(sender.isOp()){
 					World world;
 					if(args.length > 1){
