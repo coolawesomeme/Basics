@@ -28,7 +28,7 @@ public class AutoUpdater {
                 			temp[0] = version;
                 			temp[0].equals(version);
                 		}else{
-                			basics.getLogger().info(" Latest plugin version found: Basics " + temp[0] + ".");                
+                			basics.getLogger().info("Latest plugin version found: Basics " + temp[0] + ".");                
                 			if(!isOutdated(Integer.parseInt(temp[3]), Integer.parseInt(temp[4]), Integer.parseInt(temp[5]))){
                 				basics.getLogger().info("Plugin up to date!");
                 			}else{
@@ -51,7 +51,8 @@ public class AutoUpdater {
                 	}
                 	in.close();
             } catch (Exception e) {
-            	System.err.println("[Basics] Error: " + e);
+            	basics.getLogger().severe("Plugin update check failed. Is there an internet connection?");
+            	basics.getLogger().severe("Error: " + e.getMessage());
             }
 		}
 	
@@ -89,7 +90,7 @@ public class AutoUpdater {
     	        out.flush(); out.close(); in.close();                   
     	        basics.getLogger().info("Latest plugin version is downloaded!");
     	        basics.getLogger().info("Located here: " + saveTo + "\\Basics "+ pluginVersion + ".jar");
-    	        basics.getLogger().info("Put in 'plugins' folder & delete the old version.");
+    	        basics.getLogger().info("Put in 'plugins' folder, delete the old version and reload/ restart your server.");
     	        return true;
     	    } catch (Exception e) {
     	    	basics.getLogger().info("http://coolawesomeme.github.io/Basics");
