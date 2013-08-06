@@ -21,6 +21,9 @@ public class ServerHelpCommand implements CommandExecutor{
 		if (!(sender instanceof Player)) {
 			if(args.length == 1){
 				return serverHelpCommand(sender, cmd, label, args);
+			}else if(args.length > 1){
+				sender.sendMessage("This command has only 1 optional argument!");
+				return false;
 			}else{
 				sender.sendMessage("You must be a player to do that!");
 				return true;
@@ -31,7 +34,7 @@ public class ServerHelpCommand implements CommandExecutor{
 	}
 
 	private boolean serverHelpCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		Player player = (Player)null;
+		Player player = null;
 		if(args.length == 0){
 			player = (Player)sender;
 		}else{

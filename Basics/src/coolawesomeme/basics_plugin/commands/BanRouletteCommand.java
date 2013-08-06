@@ -21,7 +21,10 @@ public class BanRouletteCommand implements CommandExecutor{
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(sender.isOp()){
-		if(banRouletteVictim == null || banRouletteVictim.equals(null)){
+			if(args.length > 0){
+				sender.sendMessage("This command has no arguments!");
+				return false;
+			}else if(banRouletteVictim == null || banRouletteVictim.equals(null)){
 				Player[] onlinePlayers = Bukkit.getServer().getOnlinePlayers();
 				if(onlinePlayers.length > 0){
 					Random random = new Random();
@@ -33,7 +36,7 @@ public class BanRouletteCommand implements CommandExecutor{
 						public void run() {
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pardon " + banRouletteVictim.getName());
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "unban " + banRouletteVictim.getName());
-							basics.getLogger().info("The ban roulette victim (" + banRouletteVictim.getName() + ") has been unbanned.");
+							Bukkit.getServer().broadcastMessage("The ban roulette victim (" + banRouletteVictim.getName() + ") has been unbanned.");
 							banRouletteVictim = null;
 						}
 					}, 30000L);

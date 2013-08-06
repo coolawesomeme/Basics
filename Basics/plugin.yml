@@ -20,10 +20,10 @@ commands:
     usage: "Usage: /<command>"
   afactor:
     description: Check/ Update a player's annoying factor
-    usage: "Usage: /<command> playerName [set] [amount]"
+    usage: "Usage: /<command> [playerName] [set <amount>]"
   tproulette:
     description: Puts a player or all players at random coordinates
     usage: "Usage: /<command> [playerName/all] [world]"
   tpr:
     description: Requests to teleport to a user, or allows to accept/ decline a teleport request
-    usage: "Usage: /<command> [playerName/accept/decline/setRequest true/false]"
+    usage: "Usage: /<command> [playerName/accept/decline/setRequest <true/false>]"

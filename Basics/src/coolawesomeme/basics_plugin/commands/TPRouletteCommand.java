@@ -23,7 +23,10 @@ public class TPRouletteCommand implements CommandExecutor{
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(args.length > 0){
+		if(args.length > 2){
+			sender.sendMessage("This command only has 2 optional arguments!");
+			return false;
+		}else if(args.length > 0){
 			if(args[0].equalsIgnoreCase("all")){
 				if(sender.isOp()){
 					World world;

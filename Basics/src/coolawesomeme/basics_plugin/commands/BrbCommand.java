@@ -49,18 +49,15 @@ public class BrbCommand implements CommandExecutor{
 				Bukkit.broadcastMessage(MinecraftColors.lightPink + "[Basics] The server owner is away!");
 			}
 			return true;
+		}else if(args.length > 1){
+			sender.sendMessage("This command has only 1 optional argument!");
+			return false;
 		}else{
-			if(args.length > 1){
-				sender.sendMessage("This command has 1 arguments!");
-				return false;
-			}
-			else{
-				boolean oldBRB = isOwnerBRBing;
-				isOwnerBRBing = Boolean.parseBoolean(args[0]);
-				if(oldBRB != isOwnerBRBing)
-					Bukkit.broadcastMessage(isOwnerBRBing ? (MinecraftColors.lightPink + "[Basics] The server owner is away!") : (MinecraftColors.lightPink + "[Basics] The server ownder is no longer away!"));
-				return true;
-			}
+			boolean oldBRB = isOwnerBRBing;
+			isOwnerBRBing = Boolean.parseBoolean(args[0]);
+			if(oldBRB != isOwnerBRBing)
+				Bukkit.broadcastMessage(isOwnerBRBing ? (MinecraftColors.lightPink + "[Basics] The server owner is away!") : (MinecraftColors.lightPink + "[Basics] The server ownder is no longer away!"));
+			return true;
 		}
 	}
 

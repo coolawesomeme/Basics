@@ -34,6 +34,12 @@ public class TPRCommand implements CommandExecutor{
 					}
 				}
 				return true;
+			}else if(args.length > 2){
+				sender.sendMessage("This command only has 2 optional arguments!");
+				return false;
+			}else if(args.length < 2){
+				sender.sendMessage("You must be a player to do that!");
+				return false;
 			}
 		}else{
 			if(args.length == 1){
@@ -93,6 +99,23 @@ public class TPRCommand implements CommandExecutor{
 					}
 					return true;
 				}
+			}else if(args.length == 2){
+				if(Bukkit.getPlayer(args[0]) == null || Bukkit.getPlayer(args[0]).equals(null)){
+					sender.sendMessage(MinecraftColors.lightRed + "Player" + args[0] + " not found!");
+				}else{
+					if((Bukkit.getPlayer(args[1]) == null || Bukkit.getPlayer(args[1]).equals(null))){
+						sender.sendMessage(MinecraftColors.lightRed + "Player " + args[1] + " not found!");
+					}else{
+						Bukkit.getPlayer(args[0]).teleport(Bukkit.getPlayer(args[1]));
+					}
+				}
+				return true;
+			}else if(args.length < 1){
+				sender.sendMessage("This command needs at least 1 argument!");
+				return false;
+			}else if(args.length > 2){
+				sender.sendMessage("This command only has a maximum of 2 arguments!");
+				return false;
 			}
 		}
 		return false;

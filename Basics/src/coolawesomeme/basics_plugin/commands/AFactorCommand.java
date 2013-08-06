@@ -15,24 +15,34 @@ public class AFactorCommand implements CommandExecutor{
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(args.length > 0){
-			if(args.length > 1){
+		if(args.length > 3){
+			sender.sendMessage("This command only has 3 optional arguments!");
+			return false;
+		}else if(args.length > 0){
+			if(args.length == 3){
 				if(args[1].equalsIgnoreCase("set")){
 					if(sender.isOp()){
-						PlayerDataStorage.setPlayerAFactor(Bukkit.getPlayer(args[0]), Integer.parseInt(args[2]));
+						try{
+							PlayerDataStorage.setPlayerAFactor(Bukkit.getPlayer(args[0]), Integer.parseInt(args[2]));
+						}catch(Exception e){
+							PlayerDataStorage.setPlayerAFactor(Bukkit.getOfflinePlayer(args[0]), Integer.parseInt(args[2]));
+						}
 						sender.sendMessage("Annoying factor set!");
 					}else{
 						sender.sendMessage("You must be OP to do that!");	
 					}
 					return true;
 				}
-			}else{
+			}else if(args.length == 1){
 				try{
 					sender.sendMessage("Annoying Factor: " + PlayerDataStorage.getPlayerAFactor(Bukkit.getPlayer(args[0])));
 				}catch(Exception e){
 					sender.sendMessage("Annoying Factor: " + PlayerDataStorage.getPlayerAFactor(Bukkit.getOfflinePlayer(args[0])));
 				}
 				return true;
+			}else{
+				sender.sendMessage("Invalid number of arguments!");
+				return false;
 			}
 		}else{
 			if(sender instanceof Player){

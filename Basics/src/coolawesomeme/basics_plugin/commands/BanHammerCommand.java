@@ -19,26 +19,31 @@ public class BanHammerCommand implements CommandExecutor{
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(sender.isOp()){
-			Player[] onlinePlayers = Bukkit.getServer().getOnlinePlayers();
-			if(onlinePlayers.length > 0){
-				for(int i = 0; i < onlinePlayers.length; i++){
-					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ban " + onlinePlayers[i].getName() + " THOU HATH BEEN BAN HAMMERED");
-					banHammerVictims[i] = onlinePlayers[i];
-				}
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
-					@Override 
-					public void run() {
-						for(int i = 0; i < banHammerVictims.length; i++){
-							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pardon " + banHammerVictims[i].getName());
-							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "unban " + banHammerVictims[i].getName());
-						}
-						basics.getLogger().info("All ban hammer victims have been unbanned.");
-					}
-				}, 1200L);
-				return true;
+			if(args.length > 0){
+				sender.sendMessage("This command has no arguments!");
+				return false;
 			}else{
-				basics.getLogger().info("There must be player(s) online to use this command!");
-				return true;
+				Player[] onlinePlayers = Bukkit.getServer().getOnlinePlayers();
+				if(onlinePlayers.length > 0){
+					for(int i = 0; i < onlinePlayers.length; i++){
+						Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ban " + onlinePlayers[i].getName() + " THOU HATH BEEN BAN HAMMERED");
+						banHammerVictims[i] = onlinePlayers[i];
+					}
+					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
+						@Override 
+						public void run() {
+							for(int i = 0; i < banHammerVictims.length; i++){
+								Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pardon " + banHammerVictims[i].getName());
+								Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "unban " + banHammerVictims[i].getName());
+							}
+							basics.getLogger().info("All ban hammer victims have been unbanned.");
+						}
+					}, 1200L);
+					return true;
+				}else{
+					basics.getLogger().info("There must be player(s) online to use this command!");
+					return true;
+				}
 			}
 		}else{
 			sender.sendMessage("You must be OP to use this command!");
