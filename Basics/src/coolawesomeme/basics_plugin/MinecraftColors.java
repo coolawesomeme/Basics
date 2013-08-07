@@ -3,17 +3,18 @@ package coolawesomeme.basics_plugin;
 /** Not sure about the rest, but the colors *should* work.*/
 public class MinecraftColors {	
 	public static String darkRed = "\u00A74";
-	public static String lightRed = "\u00A7c";
+	public static String red = "\u00A7c";
 	public static String brown = "\u00A76";
 	public static String yellow = "\u00A7e";
 	public static String darkGreen = "\u00A72";
-	public static String lightGreen = "\u00A7a";
+	public static String green = "\u00A7a";
 	public static String darkBlue = "\u00A71";
-	public static String lightBlue = "\u00A7b";
-	public static String turquois = "\u00A73";
-	public static String purple = "\u00A79";
-	public static String darkPink = "\u00A75";
-	public static String lightPink = "\u00A7d";
+	public static String aqua = "\u00A7b";
+	public static String darkAqua = "\u00A73";
+	public static String blue = "\u00A79";
+	public static String purple = "\u00A75";
+	public static String lightPurple = "\u00A7d";
+	public static String gold = "\u00A76";
 	public static String white = "\u00A7f";
 	public static String darkGray = "\u00A78";
 	public static String lightGray = "\u00A77";

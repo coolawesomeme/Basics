@@ -43,10 +43,10 @@ public class BrbCommand implements CommandExecutor{
 		if(args.length == 0){
 			if(isOwnerBRBing){
 				isOwnerBRBing = false;
-				Bukkit.broadcastMessage(MinecraftColors.lightPink + "[Basics] The server owner is no longer away!");
+				Bukkit.broadcastMessage(MinecraftColors.lightPurple + "[Basics] The server owner is no longer away!");
 			}else{
 				isOwnerBRBing = true;
-				Bukkit.broadcastMessage(MinecraftColors.lightPink + "[Basics] The server owner is away!");
+				Bukkit.broadcastMessage(MinecraftColors.lightPurple + "[Basics] The server owner is away!");
 			}
 			return true;
 		}else if(args.length > 1){
@@ -56,7 +56,7 @@ public class BrbCommand implements CommandExecutor{
 			boolean oldBRB = isOwnerBRBing;
 			isOwnerBRBing = Boolean.parseBoolean(args[0]);
 			if(oldBRB != isOwnerBRBing)
-				Bukkit.broadcastMessage(isOwnerBRBing ? (MinecraftColors.lightPink + "[Basics] The server owner is away!") : (MinecraftColors.lightPink + "[Basics] The server ownder is no longer away!"));
+				Bukkit.broadcastMessage(isOwnerBRBing ? (MinecraftColors.lightPurple + "[Basics] The server owner is away!") : (MinecraftColors.lightPurple + "[Basics] The server ownder is no longer away!"));
 			return true;
 		}
 	}

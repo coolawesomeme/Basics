@@ -25,10 +25,10 @@ public class TPRCommand implements CommandExecutor{
 		if(!(sender instanceof Player)){
 			if(args.length == 2){
 				if(Bukkit.getPlayer(args[0]) == null || Bukkit.getPlayer(args[0]).equals(null)){
-					sender.sendMessage(MinecraftColors.lightRed + "Player" + args[0] + " not found!");
+					sender.sendMessage(MinecraftColors.red + "Player" + args[0] + " not found!");
 				}else{
 					if((Bukkit.getPlayer(args[1]) == null || Bukkit.getPlayer(args[1]).equals(null))){
-						sender.sendMessage(MinecraftColors.lightRed + "Player " + args[1] + " not found!");
+						sender.sendMessage(MinecraftColors.red + "Player " + args[1] + " not found!");
 					}else{
 						Bukkit.getPlayer(args[0]).teleport(Bukkit.getPlayer(args[1]));
 					}
@@ -48,16 +48,16 @@ public class TPRCommand implements CommandExecutor{
 					if(pendingTeleports.containsKey(target)){
 						Player originalSender = pendingTeleports.get(target);
 						if(originalSender == null || originalSender.equals(null)){
-							target.sendMessage(target.getName() + MinecraftColors.lightRed + " is not currently online!");
-							target.sendMessage(MinecraftColors.lightRed + "Request failed!");
+							target.sendMessage(target.getName() + MinecraftColors.red + " is not currently online!");
+							target.sendMessage(MinecraftColors.red + "Request failed!");
 						}else{
-							originalSender.sendMessage(MinecraftColors.lightGreen + "Teleport request accepted!");
-							originalSender.sendMessage(MinecraftColors.lightGreen + "Teleporting...");
+							originalSender.sendMessage(MinecraftColors.green + "Teleport request accepted!");
+							originalSender.sendMessage(MinecraftColors.green + "Teleporting...");
 							originalSender.teleport(target);
 						}
 						pendingTeleports.remove(target);
 					}else{
-						sender.sendMessage(MinecraftColors.lightRed + "You have no pending teleports!");
+						sender.sendMessage(MinecraftColors.red + "You have no pending teleports!");
 					}
 					return true;
 				}else if(args[0].equalsIgnoreCase("d") || args[0].equalsIgnoreCase("decline")){
@@ -66,11 +66,11 @@ public class TPRCommand implements CommandExecutor{
 						Player originalSender = pendingTeleports.get(target);
 						if(originalSender == null || originalSender.equals(null)){
 						}else{
-							originalSender.sendMessage(MinecraftColors.lightRed + "Your teleport request has been denied.");		
+							originalSender.sendMessage(MinecraftColors.red + "Your teleport request has been denied.");		
 						}
 						pendingTeleports.remove(target);
 					}else{
-						sender.sendMessage(MinecraftColors.lightRed + "You have no pending teleports!");
+						sender.sendMessage(MinecraftColors.red + "You have no pending teleports!");
 					}
 					return true;
 				}else if(args[0].equalsIgnoreCase("setrequest")){
@@ -83,7 +83,7 @@ public class TPRCommand implements CommandExecutor{
 				}else{
 					Player target = Bukkit.getPlayer(args[0]);
 					if(target == null || target.equals(null)){
-						sender.sendMessage(MinecraftColors.lightRed + "Player " + args[0] + " not found!");
+						sender.sendMessage(MinecraftColors.red + "Player " + args[0] + " not found!");
 					}else{
 						if(this.requests){
 							if(pendingTeleports.containsKey(target)){
@@ -91,8 +91,8 @@ public class TPRCommand implements CommandExecutor{
 							}
 							pendingTeleports.put(target, Bukkit.getPlayer(sender.getName()));
 							sender.sendMessage("Teleport request send to " + target.getName());
-							target.sendMessage(MinecraftColors.lightRed + sender.getName() + " would like to teleport to you.");
-							target.sendMessage(MinecraftColors.lightRed + "Type /tpr a or /tpr d, to accept or decline, respectfully.");
+							target.sendMessage(MinecraftColors.red + sender.getName() + " would like to teleport to you.");
+							target.sendMessage(MinecraftColors.red + "Type /tpr a or /tpr d, to accept or decline, respectfully.");
 						}else{
 							sender.sendMessage("Teleporting...");
 							Bukkit.getPlayer(sender.getName()).teleport(target);
@@ -102,10 +102,10 @@ public class TPRCommand implements CommandExecutor{
 				}
 			}else if(args.length == 2){
 				if(Bukkit.getPlayer(args[0]) == null || Bukkit.getPlayer(args[0]).equals(null)){
-					sender.sendMessage(MinecraftColors.lightRed + "Player" + args[0] + " not found!");
+					sender.sendMessage(MinecraftColors.red + "Player" + args[0] + " not found!");
 				}else{
 					if((Bukkit.getPlayer(args[1]) == null || Bukkit.getPlayer(args[1]).equals(null))){
-						sender.sendMessage(MinecraftColors.lightRed + "Player " + args[1] + " not found!");
+						sender.sendMessage(MinecraftColors.red + "Player " + args[1] + " not found!");
 					}else{
 						Player target = Bukkit.getPlayer(args[1]);
 						Player teleportee = Bukkit.getPlayer(args[0]);
@@ -116,8 +116,8 @@ public class TPRCommand implements CommandExecutor{
 							pendingTeleports.put(target, teleportee);
 							sender.sendMessage("Teleport request send to " + target.getName() + " for " + args[0]);
 							teleportee.sendMessage("Teleport request send to " + target.getName() + " for you by " + sender.getName());
-							target.sendMessage(MinecraftColors.lightRed + sender.getName() + " would like to teleport to you.");
-							target.sendMessage(MinecraftColors.lightRed + "Type /tpr a or /tpr d, to accept or decline, respectfully.");
+							target.sendMessage(MinecraftColors.red + sender.getName() + " would like to teleport to you.");
+							target.sendMessage(MinecraftColors.red + "Type /tpr a or /tpr d, to accept or decline, respectfully.");
 						}else{
 							sender.sendMessage("Teleporting " + args[0] + "...");
 							teleportee.sendMessage("Teleporting to " + args[1] + " for " + sender.getName() + "...");
