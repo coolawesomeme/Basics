@@ -11,6 +11,7 @@ import coolawesomeme.basics_plugin.commands.BanHammerCommand;
 import coolawesomeme.basics_plugin.commands.BanRouletteCommand;
 import coolawesomeme.basics_plugin.commands.BanTheCoonCommand;
 import coolawesomeme.basics_plugin.commands.BrbCommand;
+import coolawesomeme.basics_plugin.commands.LockdownCommand;
 import coolawesomeme.basics_plugin.commands.ServerHelpCommand;
 import coolawesomeme.basics_plugin.commands.TPRCommand;
 import coolawesomeme.basics_plugin.commands.TPRouletteCommand;
@@ -57,6 +58,7 @@ public final class Basics extends JavaPlugin {
     	getCommand("serverhelp").setExecutor(new ServerHelpCommand(this));
     	getCommand("tproulette").setExecutor(new TPRouletteCommand(this));
     	getCommand("tpr").setExecutor(new TPRCommand(this));
+    	getCommand("lockdown").setExecutor(new LockdownCommand(this));
     }
     
 	private void config(){
