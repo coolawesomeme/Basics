@@ -45,7 +45,7 @@ public class LockdownCommand implements CommandExecutor{
 				return false;
 			}
 		}else{
-			sender.sendMessage("You must be an admin to use that command!");
+			sender.sendMessage("You must be OP to use that command!");
 			return true;
 		}
 	}
