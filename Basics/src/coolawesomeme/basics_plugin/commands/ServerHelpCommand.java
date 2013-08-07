@@ -22,7 +22,7 @@ public class ServerHelpCommand implements CommandExecutor{
 			if(args.length == 1){
 				return serverHelpCommand(sender, cmd, label, args);
 			}else if(args.length > 1){
-				sender.sendMessage("This command has only 1 optional argument!");
+				sender.sendMessage("Invalid command syntax!");
 				return false;
 			}else{
 				sender.sendMessage("You must be a player to do that!");

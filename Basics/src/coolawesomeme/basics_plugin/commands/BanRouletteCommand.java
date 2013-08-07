@@ -22,7 +22,7 @@ public class BanRouletteCommand implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(sender.isOp()){
 			if(args.length > 0){
-				sender.sendMessage("This command has no arguments!");
+				sender.sendMessage("Invalid command syntax!");
 				return false;
 			}else if(banRouletteVictim == null || banRouletteVictim.equals(null)){
 				Player[] onlinePlayers = Bukkit.getServer().getOnlinePlayers();

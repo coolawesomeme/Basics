@@ -35,7 +35,7 @@ public class TPRCommand implements CommandExecutor{
 				}
 				return true;
 			}else if(args.length > 2){
-				sender.sendMessage("This command only has 2 optional arguments!");
+				sender.sendMessage("Invalid command syntax!");
 				return false;
 			}else if(args.length < 2){
 				sender.sendMessage("You must be a player to do that!");
@@ -127,10 +127,10 @@ public class TPRCommand implements CommandExecutor{
 				}
 				return true;
 			}else if(args.length < 1){
-				sender.sendMessage("This command needs at least 1 argument!");
+				sender.sendMessage("Invalid command syntax!");
 				return false;
 			}else if(args.length > 2){
-				sender.sendMessage("This command only has a maximum of 2 arguments!");
+				sender.sendMessage("Invalid command syntax!");
 				return false;
 			}
 		}

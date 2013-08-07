@@ -16,7 +16,7 @@ public class AFactorCommand implements CommandExecutor{
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(args.length > 3){
-			sender.sendMessage("This command only has 3 optional arguments!");
+			sender.sendMessage("Invalid command syntax!");
 			return false;
 		}else if(args.length > 0){
 			if(args.length == 3){
