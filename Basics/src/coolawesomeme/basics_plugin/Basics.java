@@ -18,6 +18,7 @@ import coolawesomeme.basics_plugin.commands.TPRouletteCommand;
 public final class Basics extends JavaPlugin {
 
 	private String ownersRaw;
+	private ThreatLevel threatLevel = ThreatLevel.NULL;
 	public String[] owners;
 	public static String serverName = Bukkit.getServerName();
 	public static String message;
@@ -88,4 +89,12 @@ public final class Basics extends JavaPlugin {
 	public static boolean isCoolawesomemeAwesome(){
     	return true;
     }
+
+	public ThreatLevel getServerThreatLevel() {
+		return threatLevel;
+	}
+
+	public void setServerThreatLevel(ThreatLevel threatLevel) {
+		this.threatLevel = threatLevel;
+	}
 }
