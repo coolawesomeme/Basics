@@ -18,13 +18,13 @@ import coolawesomeme.basics_plugin.commands.TPRouletteCommand;
 public final class Basics extends JavaPlugin {
 
 	private String ownersRaw;
-	private ThreatLevel threatLevel = ThreatLevel.NULL;
+	private static ThreatLevel threatLevel = ThreatLevel.NULL;
 	public String[] owners;
 	public static String serverName = Bukkit.getServerName();
 	public static String message;
 	public static int versionMajor = 0;
-	public static int versionMinor = 4;
-	public static int versionRevision = 3;
+	public static int versionMinor = 5;
+	public static int versionRevision = 0;
 	public static String version = versionMajor + "." + versionMinor + "." + versionRevision;
 	public static boolean isBetaVersion = true;
 	public static boolean download;
@@ -90,11 +90,11 @@ public final class Basics extends JavaPlugin {
     	return true;
     }
 
-	public ThreatLevel getServerThreatLevel() {
+	public static ThreatLevel getServerThreatLevel() {
 		return threatLevel;
 	}
 
-	public void setServerThreatLevel(ThreatLevel threatLevel) {
-		this.threatLevel = threatLevel;
+	public static void setServerThreatLevel(ThreatLevel threatLevel) {
+		Basics.threatLevel = threatLevel;
 	}
 }

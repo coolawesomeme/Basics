@@ -1,13 +1,13 @@
 name: Basics
 main: coolawesomeme.basics_plugin.Basics
-version: 0.4.3
+version: 0.5.0
 
 commands:
   serverhelp:
     description: This command gets you started on the server, as well as gives you basic items.
     usage: "Usage: /<command> [playerName]"
   brb:
-    description: Can only be used by server console, or the owner. For regular users, use /afk
+    description: Can only be used by server console, or the owner. For regular users, use /afk .
     usage: "Usage: /<command> [true/false]"
   banroulette:
     description: Randomly bans a player for 30 mins.
@@ -19,11 +19,14 @@ commands:
     description: Surprise!
     usage: "Usage: /<command>"
   afactor:
-    description: Check/ Update a player's annoying factor
+    description: Check/ Update a player's annoying factor.
     usage: "Usage: /<command> [playerName] [set <amount>]"
   tproulette:
-    description: Puts a player or all players at random coordinates
+    description: Puts a player or all players at random coordinates.
     usage: "Usage: /<command> [playerName/all] [world]"
   tpr:
-    description: Requests to teleport to a user, or allows to accept/ decline a teleport request
+    description: Requests to teleport to a user, or allows to accept/ decline a teleport request.
     usage: "Usage: /<command> [playerName/accept/decline/setRequest <true/false>]"
+  lockdown:
+    description: Puts the server into lockdown mode. Null removes the lockdown, mild kicks incoming players & severe kicks incoming and currently connected players.
+    usage: "Usage: /<command> [null/mild/severe]"
