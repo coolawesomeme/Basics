@@ -21,7 +21,7 @@ public class AFactorCommand implements CommandExecutor{
 		}else if(args.length > 0){
 			if(args.length == 3){
 				if(args[1].equalsIgnoreCase("set")){
-					if(sender.isOp()){
+					if(sender.isOp() || sender.hasPermission("basics.afactor.set")){
 						try{
 							PlayerDataStorage.setPlayerAFactor(Bukkit.getPlayer(args[0]), Integer.parseInt(args[2]));
 						}catch(Exception e){
@@ -29,7 +29,7 @@ public class AFactorCommand implements CommandExecutor{
 						}
 						sender.sendMessage("Annoying factor set!");
 					}else{
-						sender.sendMessage("You must be OP to do that!");	
+						sender.sendMessage("You must be OP/ Admin to do that!");	
 					}
 					return true;
 				}
@@ -41,7 +41,7 @@ public class AFactorCommand implements CommandExecutor{
 				}
 				return true;
 			}else{
-				sender.sendMessage("Invalid number of arguments!");
+				sender.sendMessage("Invalid command syntax!");
 				return false;
 			}
 		}else{

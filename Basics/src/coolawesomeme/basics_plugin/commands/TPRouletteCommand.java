@@ -28,7 +28,7 @@ public class TPRouletteCommand implements CommandExecutor{
 			return false;
 		}else if(args.length > 0){
 			if(args[0].equalsIgnoreCase("all")){
-				if(sender.isOp()){
+				if(sender.isOp() || sender.hasPermission("basics.tproulette.all")){
 					World world;
 					if(args.length > 1){
 						world = Bukkit.getWorld(args[1]);
@@ -43,7 +43,7 @@ public class TPRouletteCommand implements CommandExecutor{
 					}
 					return true;
 				}else{
-					sender.sendMessage("You must be OP to do that!");
+					sender.sendMessage("You must be OP/ Admin to do that!");
 					return true;
 				}
 			}else{

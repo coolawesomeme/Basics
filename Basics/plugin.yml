@@ -9,31 +9,98 @@ commands:
   serverhelp:
     description: This command gets you started on the server, as well as gives you basic items.
     usage: "Usage: /<command> [playerName]"
-    aliases: server-help
+    aliases: [server-help, shelp]
+    permission: basics.serverhelp
   brb:
     description: Can only be used by server console, or the owner. For regular users, use /afk .
     usage: "Usage: /<command> [true/false]"
+    permission: basics.brb
   banroulette:
     description: Randomly bans a player for 30 mins.
     usage: "Usage: /<command>"
+    permission: basics.banroulette
   banthecoon:
     description: Bans the coon (player with highest annoying factor) lolol
     usage: "Usage: /<command>"
+    permission: basics.banthecoon
   banhammer:
     description: Surprise!
     usage: "Usage: /<command>"
+    permission: basics.banhammer
   afactor:
     description: Check/ Update a player's annoying factor.
     usage: "Usage: /<command> [playerName] [set <amount>]"
     aliases: annoyingfactor
+    permission: basics.afactor
   tproulette:
     description: Puts a player or all players at random coordinates.
     usage: "Usage: /<command> [playerName/all] [world]"
     aliases: teleportroulette
+    permission: basics.tproulette
   tpr:
     description: Requests to teleport to a user, or allows to accept/ decline a teleport request.
     usage: "Usage: /<command> [playerName/accept/decline/setRequest <true/false>]"
     aliases: [teleportrequest, tprequest]
+    permission: basics.tpr
   lockdown:
     description: Puts the server into lockdown mode. Null removes the lockdown, mild kicks incoming players & severe kicks incoming and currently connected players.
     usage: "Usage: /<command> [null/mild/severe]"
+    permission: basics.lockdown
+
+permissions:
+   basics.*:
+     description: Gives access to all Basics commands
+     children:
+       basics.admin: true
+       basics.afactor.set: true
+       basics.banroulette: true
+       basics.banhammer: true
+       basics.tproulette.all: true
+       basics.lockdown: true
+   basics.admin:
+     description: Gives access to all admin-only commands
+     default: op
+     children:
+       basics.banroulette: true
+       basics.banthecoon: true
+       basics.banhammer: true
+       basics.afactor.set: true
+       basics.tproulette.all: true
+       basics.banthecoon: true
+       basics.tpr.setrequest: true
+   basics.serverhelp:
+     description: Allows access of severhelp command
+     default: true
+   basics.afactor:
+     description: Allows access of afactor command
+     default: true
+   basics.afactor.set:
+     description: Allows access to set afactor command
+     default: op
+   basics.brb:
+     description: Allows access of brb command
+     default: false
+   basics.banroulette:
+     description: Allows access of banroulette command
+     default: op
+   basics.banhammer:
+     description: Allows access of banhammer command
+     default: op
+   basics.banthecoon:
+     description: Allows access of banthecoon command
+     default: op
+   basics.tproulette:
+     description: Allows access of tproulette command
+     default: true
+   basics.tproulette.all:
+     description: Allows access to tproulette all players
+     default: op
+   basics.tpr:
+     description: Allows access of tpr command
+     default: true
+   basics.tpr.setrequest:
+     description: Allows access to set whether requests are needed
+     default: op
+   basics.lockdown:
+     description: Allows access of lockdown command
+     default: op

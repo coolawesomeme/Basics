@@ -29,6 +29,8 @@ public class BrbCommand implements CommandExecutor{
 				if(sender.getName().equals(owners[i]) || sender.getName() == owners[i]){
 					flag=true;
 				}
+			}if(!flag && sender.hasPermission("basics.brb")){
+				flag = true;
 			}
 			if(flag){
 				return brbCommand(sender, cmd, label, args);
