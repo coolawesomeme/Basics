@@ -1,39 +1,54 @@
 package coolawesomeme.basics_plugin;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import coolawesomeme.basics_plugin.commands.BrbCommand;
 import coolawesomeme.basics_plugin.commands.ServerHelpCommand;
+import coolawesomeme.basics_plugin.commands.TagCommand;
 
 public class EventListener implements Listener{
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGHEST)
     public void onPlayerJoin(PlayerJoinEvent event) {
-		if(Basics.getServerThreatLevel() == ThreatLevel.MILD || Basics.getServerThreatLevel() == ThreatLevel.SEVERE){
+		if(Basics.getServerThreatLevel() != ThreatLevel.NULL){
 			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "kick " + event.getPlayer().getName() + " Server is in lockdown mode!");
-		}else{
-			PlayerDataStorage.makePlayerDataFile(event.getPlayer().getName());
-    		if(BrbCommand.isOwnerBRBing){
-    			if(!event.getPlayer().hasPlayedBefore()){
-    				final PlayerJoinEvent newEvent = event;
-    				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(new Basics(), new Runnable() {
-    					@Override 
-    					public void run() {
-    						ServerHelpCommand.actualServerHelp(newEvent.getPlayer());
-    					}
-    				}, 20L);
-    			}else{
-    				event.getPlayer().sendMessage("Welcome to the " + Basics.serverName + ", " + event.getPlayer().getDisplayName() + "!");
-    				event.getPlayer().sendMessage("");
-    				event.getPlayer().sendMessage(MinecraftColors.red + "Server is currently in BRB mode because the server owner is brbing!");
-    			}
-    		}else{
-    			event.getPlayer().sendMessage("Welcome to the " + Basics.serverName + ", " + event.getPlayer().getDisplayName() + "!");
-        	}
 		}
     }
 	
+	@EventHandler(priority = EventPriority.LOWEST)
+    public void onPlayerJoinLower(PlayerJoinEvent event) {
+		PlayerDataStorage.makePlayerDataFile(event.getPlayer().getName());
+		if(BrbCommand.isOwnerBRBing){
+			if(!event.getPlayer().hasPlayedBefore()){
+				final PlayerJoinEvent newEvent = event;
+				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(new Basics(), new Runnable() {
+					@Override 
+					public void run() {
+						ServerHelpCommand.actualServerHelp(newEvent.getPlayer());
+					}
+				}, 20L);
+			}else{
+				event.getPlayer().sendMessage("Welcome to the " + Basics.serverName + ", " + event.getPlayer().getDisplayName() + "!");
+				event.getPlayer().sendMessage("");
+				event.getPlayer().sendMessage(MinecraftColors.red + "Server is currently in BRB mode because the server owner is brbing!");
+			}
+		}else{
+			event.getPlayer().sendMessage("Welcome to the " + Basics.serverName + ", " + event.getPlayer().getDisplayName() + "!");
+    	}
+	}
+	
+	@EventHandler
+	public void onPlayerInteractWithEntity(PlayerInteractEntityEvent event){
+		if(TagCommand.isTagOn){
+			if(TagCommand.getTaggedPlayers().contains(event.getPlayer()) && TagCommand.getNonTaggedPlayers().contains(event.getRightClicked())){
+				TagCommand.tagPlayer((Player)event.getRightClicked());
+			}
+		}
+	}
 }

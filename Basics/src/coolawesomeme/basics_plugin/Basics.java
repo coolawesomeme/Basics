@@ -15,6 +15,7 @@ import coolawesomeme.basics_plugin.commands.LockdownCommand;
 import coolawesomeme.basics_plugin.commands.ServerHelpCommand;
 import coolawesomeme.basics_plugin.commands.TPRCommand;
 import coolawesomeme.basics_plugin.commands.TPRouletteCommand;
+import coolawesomeme.basics_plugin.commands.TagCommand;
 
 public final class Basics extends JavaPlugin {
 
@@ -24,12 +25,13 @@ public final class Basics extends JavaPlugin {
 	public static String serverName = Bukkit.getServerName();
 	public static String message;
 	public static int versionMajor = 0;
-	public static int versionMinor = 5;
+	public static int versionMinor = 6;
 	public static int versionRevision = 0;
 	public static String version = versionMajor + "." + versionMinor + "." + versionRevision;
 	public static boolean isBetaVersion = true;
 	public static boolean download;
 	public static boolean teleportRequests;
+	public static int tagMinutes;
 	
 	@Override
     public void onEnable(){
@@ -59,6 +61,7 @@ public final class Basics extends JavaPlugin {
     	getCommand("tproulette").setExecutor(new TPRouletteCommand(this));
     	getCommand("tpr").setExecutor(new TPRCommand(this));
     	getCommand("lockdown").setExecutor(new LockdownCommand(this));
+    	getCommand("tag").setExecutor(new TagCommand(this));
     }
     
 	private void config(){
@@ -78,6 +81,7 @@ public final class Basics extends JavaPlugin {
     	message = this.getConfig().getString("message");
     	download = this.getConfig().getBoolean("download-latest-version", true);
     	teleportRequests = this.getConfig().getBoolean("teleport-requests", true);
+    	tagMinutes = this.getConfig().getInt("tag-playing-time-minutes", 30);
     }
 	
 	private void createPlayerFolder(){

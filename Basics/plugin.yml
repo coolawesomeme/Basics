@@ -46,6 +46,10 @@ commands:
     description: Puts the server into lockdown mode. Null removes the lockdown, mild kicks incoming players & severe kicks incoming and currently connected players.
     usage: "Usage: /<command> [null/mild/severe]"
     permission: basics.lockdown
+  tag:
+    description: Starts tag, where one player is the tagger, and has to tag every player on the server
+    usage: "Usage: /<command> [end]"
+    permission: basics.tag
 
 permissions:
    basics.*:
@@ -68,6 +72,7 @@ permissions:
        basics.tproulette.all: true
        basics.banthecoon: true
        basics.tpr.setrequest: true
+       basics.tag.end: true
    basics.serverhelp:
      description: Allows access of severhelp command
      default: true
@@ -103,4 +108,10 @@ permissions:
      default: op
    basics.lockdown:
      description: Allows access of lockdown command
+     default: op
+   basics.tag:
+     description: Allows access of tag command
+     default: true
+   basics.tag.end:
+     description: Allows access to end tag
      default: op
