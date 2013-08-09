@@ -1,11 +1,15 @@
 name: Basics
 main: coolawesomeme.basics_plugin.Basics
 version: 0.5.0
+description: A bukkit plugin that offers/ will offer many essential and fun commands.
+author: coolawesomeme
+website: http://coolawesomeme.github.io/Basics
 
 commands:
   serverhelp:
     description: This command gets you started on the server, as well as gives you basic items.
     usage: "Usage: /<command> [playerName]"
+    aliases: server-help
   brb:
     description: Can only be used by server console, or the owner. For regular users, use /afk .
     usage: "Usage: /<command> [true/false]"
@@ -21,12 +25,15 @@ commands:
   afactor:
     description: Check/ Update a player's annoying factor.
     usage: "Usage: /<command> [playerName] [set <amount>]"
+    aliases: annoyingfactor
   tproulette:
     description: Puts a player or all players at random coordinates.
     usage: "Usage: /<command> [playerName/all] [world]"
+    aliases: teleportroulette
   tpr:
     description: Requests to teleport to a user, or allows to accept/ decline a teleport request.
     usage: "Usage: /<command> [playerName/accept/decline/setRequest <true/false>]"
+    aliases: [teleportrequest, tprequest]
   lockdown:
     description: Puts the server into lockdown mode. Null removes the lockdown, mild kicks incoming players & severe kicks incoming and currently connected players.
     usage: "Usage: /<command> [null/mild/severe]"
