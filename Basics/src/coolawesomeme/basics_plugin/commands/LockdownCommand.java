@@ -53,7 +53,9 @@ public class LockdownCommand implements CommandExecutor{
 	private void kickConnectedPlayers() {
 		Player[] onlinePlayers = Bukkit.getOnlinePlayers();
 		for(int i = 0; i < onlinePlayers.length; i++){
-			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "kick " + onlinePlayers[i].getName() + " Server is in lockdown mode!");
+			if(!onlinePlayers[i].isOp()){
+				Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "kick " + onlinePlayers[i].getName() + " Server is in lockdown mode!");
+			}
 		}
 	}
 }
