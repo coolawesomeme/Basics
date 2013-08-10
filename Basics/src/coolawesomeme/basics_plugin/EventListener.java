@@ -34,12 +34,13 @@ public class EventListener implements Listener{
 					}
 				}, 20L);
 			}else{
-				event.getPlayer().sendMessage("Welcome to the " + Basics.serverName + ", " + event.getPlayer().getDisplayName() + "!");
+				event.getPlayer().sendMessage("Welcome to the " + Bukkit.getServerName() + ", " + event.getPlayer().getDisplayName() + "!");
 				event.getPlayer().sendMessage("");
 				event.getPlayer().sendMessage(MinecraftColors.red + "Server is currently in BRB mode because the server owner is brbing!");
+				event.getPlayer().sendMessage(Basics.message);
 			}
 		}else{
-			event.getPlayer().sendMessage("Welcome to the " + Basics.serverName + ", " + event.getPlayer().getDisplayName() + "!");
+			event.getPlayer().sendMessage("Welcome to the " + Bukkit.getServerName() + ", " + event.getPlayer().getDisplayName() + "!");
     	}
 	}
 	
