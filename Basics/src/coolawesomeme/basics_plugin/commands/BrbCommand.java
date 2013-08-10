@@ -11,13 +11,11 @@ import coolawesomeme.basics_plugin.MinecraftColors;
 
 public class BrbCommand implements CommandExecutor{
 	
-	private Basics basics;
 	private String[] owners;
 	public static boolean isOwnerBRBing = false;
 	
 	public BrbCommand(Basics instance){
-		basics = instance;
-		owners = basics.owners;
+		owners = Basics.owners;
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
