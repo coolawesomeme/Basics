@@ -32,7 +32,7 @@ public class AutoDownloader {
                 			temp[0] = version;
                 			temp[0].equals(version);
                 		}else{
-                			basics.getLogger().info("Latest plugin version found: Basics " + temp[0] + ".");                
+                			//basics.getLogger().info("Latest plugin version found: Basics " + temp[0] + ".");                
                 			if(!isOutdated(Integer.parseInt(temp[3]), Integer.parseInt(temp[4]), Integer.parseInt(temp[5]))){
                 				basics.getLogger().info("Plugin up to date!");
                 			}else{

@@ -52,7 +52,7 @@ public final class Basics extends JavaPlugin {
 		this.commandHandlers();
 		AutoDownloader.checkForUpdate(this);
         getLogger().info("Plugin enabled!");
-        getLogger().info("Use /help basics for commands!");
+        //getLogger().info("Use /help basics for commands!");
     }
  
     @Override
