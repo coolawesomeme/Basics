@@ -1,6 +1,7 @@
 package coolawesomeme.basics_plugin;
 
 import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -107,6 +108,7 @@ public final class Basics extends JavaPlugin {
 		this.getConfig().set("teleport-requests", teleportRequests);
 		this.getConfig().set("tag-playing-time-minutes", tagMinutes);
 		this.getConfig().set("is-beta-version", isBeta);
+		this.saveConfig();
 	}
 	
 	//Creates (if not already created) the folder where player stats are stored
