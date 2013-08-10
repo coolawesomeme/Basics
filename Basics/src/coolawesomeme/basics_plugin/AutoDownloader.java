@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class AutoUpdater {
+public class AutoDownloader {
 
 	private static String version = Basics.version;
 	private static int pluginMajor = Basics.versionMajor;
@@ -18,7 +18,11 @@ public class AutoUpdater {
 	
 	public static void checkForUpdate(Basics basics){
             try {
-                URL url = new URL("https://raw.github.com/coolawesomeme/Basics/master/UPDATE.txt");
+            	String url_string = "https://raw.github.com/coolawesomeme/Basics/master/UPDATE.txt";
+            	if(Basics.isBeta){
+            		url_string = "https://raw.github.com/coolawesomeme/Basics/master/UPDATE2.txt";
+            	}
+                URL url = new URL(url_string);
                 BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
                 String pluginAcquiredVersion;
                 	while ((pluginAcquiredVersion = in.readLine()) != null) {
@@ -37,7 +41,7 @@ public class AutoUpdater {
                 				basics.getLogger().info("An update of " + "Basics (Version " + temp[0] + ") " + "is available!");
                 				if(downloadLatestModFile(basics, temp[6], temp[0])){
                 				}else{
-                					basics.getLogger().info("http://coolawesomeme.github.io/Basics");
+                					basics.getLogger().info(Basics.isBeta ? "Contact coolawesomeme" : "http://coolawesomeme.github.io/Basics");
                 				}
                 				if(!temp[1].isEmpty()){
                 					basics.getLogger().info(temp[1]);
@@ -93,7 +97,7 @@ public class AutoUpdater {
     	        basics.getLogger().info("Put in 'plugins' folder, delete the old version and reload/ restart your server.");
     	        return true;
     	    } catch (Exception e) {
-    	    	basics.getLogger().info("http://coolawesomeme.github.io/Basics");
+    	    	basics.getLogger().info(Basics.isBeta ? "Contact coolawesomeme" : "http://coolawesomeme.github.io/Basics");
     	        e.printStackTrace();
     	    }
     	}else{

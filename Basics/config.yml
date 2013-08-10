@@ -1,4 +1,5 @@
 # Basics config file. You should edit these (server-owners can have multiple usernames, separated by commas)
+is-beta-version: false
 server-owners: Console
 message: This a survival server!
 download-latest-version: true

@@ -1,7 +1,6 @@
 package coolawesomeme.basics_plugin;
 
 import java.io.File;
-
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,38 +18,49 @@ import coolawesomeme.basics_plugin.commands.TagCommand;
 
 public final class Basics extends JavaPlugin {
 
-	private String ownersRaw;
+	/** The unformatted string that server-owners is loaded into */
+	private static String ownersRaw;
+	
+	/** The current threat level */
 	private static ThreatLevel threatLevel = ThreatLevel.NULL;
-	public String[] owners;
-	public static String serverName = Bukkit.getServerName();
+	
+	/** Array of server owner usernames */
+	public static String[] owners;
+	
+	/** The message that is displayed to players when they  */
 	public static String message;
+	
 	public static int versionMajor = 0;
 	public static int versionMinor = 6;
 	public static int versionRevision = 0;
 	public static String version = versionMajor + "." + versionMinor + "." + versionRevision;
-	public static boolean isBetaVersion = true;
 	public static boolean download;
 	public static boolean teleportRequests;
 	public static int tagMinutes;
+	public static boolean isBeta;
 	
 	@Override
+	/** Method that is executed when the plugin gets enabled */
     public void onEnable(){
 		PluginManager pm = Bukkit.getServer().getPluginManager();
         pm.registerEvents(new EventListener(), this);
 		this.saveDefaultConfig();
 		this.config();
+		this.recopyConfig();
 		this.createPlayerFolder();
 		this.commandHandlers();
-		AutoUpdater.checkForUpdate(this);
+		AutoDownloader.checkForUpdate(this);
         getLogger().info("Plugin enabled!");
         getLogger().info("Use /help basics for commands!");
     }
  
     @Override
+    /** Method that is executed when the plugin gets disabled */
     public void onDisable() {
         getLogger().info("Plugin disabled!");
     }
 	
+    /** Sets classes that handle commands */
     private void commandHandlers(){
     	getCommand("afactor").setExecutor(new AFactorCommand(this));
     	getCommand("banhammer").setExecutor(new BanHammerCommand(this));
@@ -64,6 +74,7 @@ public final class Basics extends JavaPlugin {
     	getCommand("tag").setExecutor(new TagCommand(this));
     }
     
+    /** Loads values from the config to memory */
 	private void config(){
     	ownersRaw = this.getConfig().getString("server-owners");
     	if(ownersRaw.length()!= 0){
@@ -82,8 +93,23 @@ public final class Basics extends JavaPlugin {
     	download = this.getConfig().getBoolean("download-latest-version", true);
     	teleportRequests = this.getConfig().getBoolean("teleport-requests", true);
     	tagMinutes = this.getConfig().getInt("tag-playing-time-minutes", 30);
+    	isBeta = this.getConfig().getBoolean("is-beta-version", false);
     }
 	
+	/** Deletes the old config (with its values already loaded to memory), re-saves it and resets the previous values. This guarantees new config items are added */
+	private void recopyConfig(){
+		File config = new File(this.getDataFolder().getAbsolutePath() + "/config.yml");
+		config.delete();
+		this.saveDefaultConfig();
+		this.getConfig().set("server-owners", ownersRaw);
+		this.getConfig().set("message", message);
+		this.getConfig().set("download-latest-version", download);
+		this.getConfig().set("teleport-requests", teleportRequests);
+		this.getConfig().set("tag-playing-time-minutes", tagMinutes);
+		this.getConfig().set("is-beta-version", isBeta);
+	}
+	
+	//Creates (if not already created) the folder where player stats are stored
 	private void createPlayerFolder(){
 		File f = new File(this.getDataFolder().getAbsolutePath() + "/players");
 		f.mkdirs();
@@ -96,10 +122,13 @@ public final class Basics extends JavaPlugin {
     	return true;
     }
 
+	/** The current threat level of the server
+	 * @return ThreatLevel*/
 	public static ThreatLevel getServerThreatLevel() {
 		return threatLevel;
 	}
 
+	/** Sets the server threat level */
 	public static void setServerThreatLevel(ThreatLevel threatLevel) {
 		Basics.threatLevel = threatLevel;
 	}
