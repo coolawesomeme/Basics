@@ -44,8 +44,8 @@ commands:
     permission: basics.tpr
   lockdown:
     description: Puts the server into lockdown mode. Null removes the lockdown, mild kicks incoming players & severe kicks incoming and currently connected players.
-    usage: "Usage: /<command> [null/mild/severe]"
-    permission: basics.lockdown
+    usage: "Usage: /<command> [null/mild/severe/status]"
+    permission: basics.lockdown.status
   tag:
     description: Starts tag, where one player is the tagger, and has to tag every player on the server
     usage: "Usage: /<command> [end]"
@@ -100,18 +100,29 @@ permissions:
    basics.tproulette.all:
      description: Allows access to tproulette all players
      default: op
+     children:
+       basics.tproulette: true
    basics.tpr:
      description: Allows access of tpr command
      default: true
    basics.tpr.setrequest:
      description: Allows access to set whether requests are needed
      default: op
+     children:
+       basics.tpr: true
    basics.lockdown:
      description: Allows access of lockdown command
      default: op
+     children:
+       basics.lockdown.status: true
+   basics.lockdown.status:
+     description: Allows access to current threat level
+     default: true
    basics.tag:
      description: Allows access of tag command
      default: true
    basics.tag.end:
      description: Allows access to end tag
      default: op
+     children:
+       basics.tag: true

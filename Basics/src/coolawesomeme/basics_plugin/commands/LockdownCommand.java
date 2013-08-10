@@ -16,7 +16,7 @@ public class LockdownCommand implements CommandExecutor{
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(sender.isOp() || !(sender instanceof Player)){
+		if(sender.isOp() || !(sender instanceof Player) || sender.hasPermission("basics.lockdown")){
 			if(args.length == 0){
 				if(Basics.getServerThreatLevel() != ThreatLevel.SEVERE){
 					Basics.setServerThreatLevel(ThreatLevel.SEVERE);
@@ -45,8 +45,25 @@ public class LockdownCommand implements CommandExecutor{
 				return false;
 			}
 		}else{
-			sender.sendMessage("You must be OP to use that command!");
-			return true;
+			if(args.length == 1){
+				if(args[0].equals("status")){
+					String currentStatus = "";
+					switch(Basics.getServerThreatLevel()){
+						case SEVERE: currentStatus = MinecraftColors.red + "Code Red/ Severe";
+						case MILD: currentStatus = MinecraftColors.gold + "Code Orange/ Mild";
+						case NULL: currentStatus = MinecraftColors.green + "Code Green/ Null";
+					}
+					sender.sendMessage("Current Server Threat Level: " + currentStatus);
+					return true;
+				}
+			}else if(args.length == 0){
+				sender.sendMessage("You must be OP/ Admin to do that!");
+				return true;
+			}else{
+				sender.sendMessage("Invalid command syntax!");
+				return false;
+			}
+			return false;
 		}
 	}
 
