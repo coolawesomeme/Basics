@@ -1,6 +1,7 @@
 package coolawesomeme.basics_plugin;
 
 import java.io.File;
+import java.io.FileWriter;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -33,7 +34,7 @@ public final class Basics extends JavaPlugin {
 	
 	public static int versionMajor = 0;
 	public static int versionMinor = 6;
-	public static int versionRevision = 0;
+	public static int versionRevision = 1;
 	public static String version = versionMajor + "." + versionMinor + "." + versionRevision;
 	public static boolean download;
 	public static boolean teleportRequests;
@@ -48,6 +49,7 @@ public final class Basics extends JavaPlugin {
 		this.saveDefaultConfig();
 		this.config();
 		this.recopyConfig();
+		this.configReadme();
 		this.createPlayerFolder();
 		this.commandHandlers();
 		AutoDownloader.checkForUpdate(this);
@@ -118,6 +120,28 @@ public final class Basics extends JavaPlugin {
 		PlayerDataStorage.setDataFolder(this.getDataFolder().getAbsolutePath() + "/players");
 	}
  
+	private void configReadme(){
+		File f = new File(this.getDataFolder().getAbsolutePath() + "/Config-README.txt");
+		try{
+			String newLine = System.getProperty("line.separator");
+			f.createNewFile();
+			FileWriter lol = new FileWriter(f);
+			lol.write("Config File Readme" + newLine);
+			lol.write("---------------------------" + newLine);
+			lol.write("is-beta-version: " + "This controls whether or not you get the latest beta (possibly quite buggy) version of Basics.");
+			lol.write("server-owners: " + "This, along with the permission 'basics.brb', control whether or not a user can do /brb . (Note: This can be a list, seperated by commas)");
+			lol.write("message: " + "A brief server description that is shown to new players who join while the brb command is active.");
+			lol.write("download-latest-version: " + "This controls whether or not you will get the latest version in your /plugins/Basics/updates/ folder");
+			lol.write("teleport-requests: " + "This controls whether requests will be sent to players who do /tpr . This is the equivelant of /tpr setRequest");
+			lol.write("tag-playing-time-minutes: " + "This controls the amount of time that will pass before tag is over, and the winner(s) are declared.");
+			lol.write("");
+			lol.flush();
+			lol.close();
+		}catch(Exception e){
+			getLogger().severe("ConfigReadme Error: " + e.getMessage());
+		}
+	}
+	
 	/** Truth. 
 	 * @return true*/
 	public static boolean isCoolawesomemeAwesome(){

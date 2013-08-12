@@ -1,1 +1,1 @@
-0.6.0-New /tag command!-And fixed errors!-0-6-0-https://dl.dropboxusercontent.com/s/nfqili4ffr3d0kk/Basics%200.6.0.jar
+0.6.1-New config readme!-And fixed errors!-0-6-1-https://dl.dropboxusercontent.com/s/clje6q74cl4ezi7/Basics%200.6.1.jar
