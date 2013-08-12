@@ -7,7 +7,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import coolawesomeme.basics_plugin.Basics;
-import coolawesomeme.basics_plugin.MinecraftColors;
 import coolawesomeme.basics_plugin.ThreatLevel;
 
 public class LockdownCommand implements CommandExecutor{
@@ -20,24 +19,30 @@ public class LockdownCommand implements CommandExecutor{
 			if(args.length == 0){
 				if(Basics.getServerThreatLevel() != ThreatLevel.SEVERE){
 					Basics.setServerThreatLevel(ThreatLevel.SEVERE);
-					Bukkit.getServer().broadcastMessage("[Basics] Threat Level: " + MinecraftColors.red + "Code Red/ Severe");
+					Bukkit.getServer().broadcastMessage("[Basics] Threat Level: " + ThreatLevel.SEVERE.formattedName());
 					kickConnectedPlayers();
 				}else{
 					Basics.setServerThreatLevel(ThreatLevel.NULL);
-					Bukkit.getServer().broadcastMessage("[Basics] Threat Level: " + MinecraftColors.green + "Code Green/ Null");
+					Bukkit.getServer().broadcastMessage("[Basics] Threat Level: " + ThreatLevel.NULL.formattedName());
 				}
 				return true;
 			}else if(args.length == 1){
-				if(args[0].equalsIgnoreCase("null") || args[0].equalsIgnoreCase("green")){
+				if(args[0].equalsIgnoreCase(ThreatLevel.NULL.toString()) || args[0].equalsIgnoreCase("green")){
 					Basics.setServerThreatLevel(ThreatLevel.NULL);
-					Bukkit.getServer().broadcastMessage("[Basics] Threat Level: " + MinecraftColors.green + "Code Green/ Null");
-				}else if(args[0].equalsIgnoreCase("mild") || args[0].equalsIgnoreCase("orange")){
+					Bukkit.getServer().broadcastMessage("[Basics] Threat Level: " + ThreatLevel.NULL.formattedName());
+				}else if(args[0].equalsIgnoreCase(ThreatLevel.MILD.toString()) || args[0].equalsIgnoreCase("orange")){
 					Basics.setServerThreatLevel(ThreatLevel.MILD);
-					Bukkit.getServer().broadcastMessage("[Basics] Threat Level: " + MinecraftColors.gold + "Code Orange/ Mild");
-				}else{
+					Bukkit.getServer().broadcastMessage("[Basics] Threat Level: " + ThreatLevel.MILD.formattedName());
+				}else if(args[0].equalsIgnoreCase(ThreatLevel.SEVERE.toString()) || args[0].equalsIgnoreCase("red")){
 					Basics.setServerThreatLevel(ThreatLevel.SEVERE);
-					Bukkit.getServer().broadcastMessage("[Basics] Threat Level: " + MinecraftColors.red + "Code Red/ Severe");
+					Bukkit.getServer().broadcastMessage("[Basics] Threat Level: " + ThreatLevel.SEVERE.formattedName());
 					kickConnectedPlayers();
+				}else{
+					if(args[0].equalsIgnoreCase("status")){
+						sender.sendMessage("Current Server Threat Level: " + Basics.getServerThreatLevel().formattedName());
+						return true;
+					}
+					return false;
 				}
 				return true;
 			}else{
@@ -46,14 +51,8 @@ public class LockdownCommand implements CommandExecutor{
 			}
 		}else{
 			if(args.length == 1){
-				if(args[0].equals("status")){
-					String currentStatus = "";
-					switch(Basics.getServerThreatLevel()){
-						case SEVERE: currentStatus = MinecraftColors.red + "Code Red/ Severe";
-						case MILD: currentStatus = MinecraftColors.gold + "Code Orange/ Mild";
-						case NULL: currentStatus = MinecraftColors.green + "Code Green/ Null";
-					}
-					sender.sendMessage("Current Server Threat Level: " + currentStatus);
+				if(args[0].equalsIgnoreCase("status")){
+					sender.sendMessage("Current Server Threat Level: " + Basics.getServerThreatLevel().formattedName());
 					return true;
 				}
 			}else if(args.length == 0){
