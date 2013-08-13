@@ -90,7 +90,7 @@ public class TPRCommand implements CommandExecutor{
 								pendingTeleports.remove(target);
 							}
 							pendingTeleports.put(target, Bukkit.getPlayer(sender.getName()));
-							sender.sendMessage("Teleport request send to " + target.getName());
+							sender.sendMessage("Teleport request sent to " + target.getName());
 							target.sendMessage(MinecraftColors.red + sender.getName() + " would like to teleport to you.");
 							target.sendMessage(MinecraftColors.red + "Type /tpr a or /tpr d, to accept or decline, respectfully.");
 						}else{
