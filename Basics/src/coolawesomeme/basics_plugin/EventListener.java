@@ -59,6 +59,8 @@ public class EventListener implements Listener{
 		if(Basics.disallowGamemode && !event.getPlayer().hasPermission("basics.gamemode.change")){
 			if(event.getMessage().equalsIgnoreCase("/gamemode") || event.getMessage().equalsIgnoreCase("/gm") || event.getMessage().equalsIgnoreCase("gamemode") || event.getMessage().equalsIgnoreCase("gm")){
 				event.setCancelled(true);
+				event.getPlayer().sendMessage(MinecraftColors.red + "Sorry, this server has disabled the changing of gamemodes by players.");
+				event.getPlayer().sendMessage(MinecraftColors.red + "Only the Console may change gamemodes.");
 			}
 		}
 	}
