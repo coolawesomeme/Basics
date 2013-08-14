@@ -54,6 +54,7 @@ commands:
 permissions:
    basics.*:
      description: Gives access to all Basics commands
+     default: false
      children:
        basics.admin: true
        basics.afactor.set: true
@@ -61,6 +62,13 @@ permissions:
        basics.banhammer: true
        basics.tproulette.all: true
        basics.lockdown: true
+   basics.admin.full:
+     description: Access to admin + a few other exclusive permissions
+     default: false
+     children:
+       basics.*: true
+       basics.gamemode.change: true
+       basics.brb: true
    basics.admin:
      description: Gives access to all admin-only commands
      default: op
@@ -126,3 +134,6 @@ permissions:
      default: op
      children:
        basics.tag: true
+   basics.gamemode.change:
+     description: Allows changing of gamemode, even if disallowing of gamemode changing is on
+     default: false

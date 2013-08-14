@@ -56,7 +56,7 @@ public class EventListener implements Listener{
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerCommandPreprocessEvent(PlayerCommandPreprocessEvent event){
-		if(Basics.disallowGamemode){
+		if(Basics.disallowGamemode && !event.getPlayer().hasPermission("basics.gamemode.change")){
 			if(event.getMessage().equalsIgnoreCase("/gamemode") || event.getMessage().equalsIgnoreCase("/gm") || event.getMessage().equalsIgnoreCase("gamemode") || event.getMessage().equalsIgnoreCase("gm")){
 				event.setCancelled(true);
 			}
