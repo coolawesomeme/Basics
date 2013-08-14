@@ -53,12 +53,12 @@ public class TagCommand implements CommandExecutor{
 		}else{
 			Player[] onlinePlayers = Bukkit.getOnlinePlayers();
 			Random random = new Random();
-			int playerIndex = random.nextInt(args.length);
+			int playerIndex = random.nextInt(onlinePlayers.length);
 			originalTagger = onlinePlayers[playerIndex];
 			nonTaggedPlayers = getOnlinePlayers();
 			nonTaggedPlayers.remove(originalTagger);
 			isTagOn = true;
-			Bukkit.getServer().broadcastMessage(MinecraftColors.red + "A game of tag has started!");
+			Bukkit.getServer().broadcastMessage(MinecraftColors.red + "A game of tag has started! You have " + MinecraftColors.white + tagMinutes + MinecraftColors.red + " minutes!");
 			Bukkit.getServer().broadcastMessage(originalTagger.getName() + " is the tagger!");
 			originalTagger.sendMessage("Right click other players to tag them!");
 			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
@@ -68,9 +68,10 @@ public class TagCommand implements CommandExecutor{
 					if(nonTaggedPlayers.size() > 1){
 						Bukkit.getServer().broadcastMessage("The winners are:");
 						Bukkit.getServer().broadcastMessage(nonTaggedPlayers.toString().replace("[", "").replace("]", ""));
+					}else if(nonTaggedPlayers.size() == 1){
+						Bukkit.getServer().broadcastMessage("The winner is: " + nonTaggedPlayers.toString().replace("[", "").replace("]", "").replace(", ", ""));
 					}else{
-						Bukkit.getServer().broadcastMessage("The winner is:");
-						Bukkit.getServer().broadcastMessage(nonTaggedPlayers.toString().replace("[", "").replace("]", "").replace(", ", ""));
+						Bukkit.getServer().broadcastMessage(originalTagger.getName() + " has won!");
 					}
 					isTagOn = false;
 				}
