@@ -52,7 +52,9 @@ public class TPRCommand implements CommandExecutor{
 							target.sendMessage(MinecraftColors.red + "Request failed!");
 						}else{
 							originalSender.sendMessage(MinecraftColors.green + "Teleport request accepted!");
+							target.sendMessage("Accepting request...");
 							originalSender.sendMessage(MinecraftColors.green + "Teleporting...");
+							target.sendMessage("Teleporting...");
 							originalSender.teleport(target);
 						}
 						pendingTeleports.remove(target);
@@ -66,8 +68,9 @@ public class TPRCommand implements CommandExecutor{
 						Player originalSender = pendingTeleports.get(target);
 						if(originalSender == null || originalSender.equals(null)){
 						}else{
-							originalSender.sendMessage(MinecraftColors.red + "Your teleport request has been denied.");		
+							originalSender.sendMessage(MinecraftColors.red + "Your teleport request has been denied.");
 						}
+						target.sendMessage("Denying request...");
 						pendingTeleports.remove(target);
 					}else{
 						sender.sendMessage(MinecraftColors.red + "You have no pending teleports!");
@@ -76,6 +79,7 @@ public class TPRCommand implements CommandExecutor{
 				}else if(args[0].equalsIgnoreCase("setrequest")){
 					if(sender.isOp() || sender.hasPermission("basics.tpr.setrequest")){
 						basics.getConfig().set("teleport-requests", Boolean.parseBoolean(args[1]));
+						sender.sendMessage("Value set!");
 					}else{
 						sender.sendMessage("You must be OP/ Admin to do that!");
 					}
