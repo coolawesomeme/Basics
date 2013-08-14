@@ -1,1 +1,1 @@
-0.6.1-New config readme!-And fixed errors!-0-6-1-https://dl.dropboxusercontent.com/s/clje6q74cl4ezi7/Basics%200.6.1.jar
+0.6.2-New gamemode disallowing!-And fixed errors!-0-6-2-https://dl.dropboxusercontent.com/s/gpvphpog5vbxow8/Basics%200.6.2.jar

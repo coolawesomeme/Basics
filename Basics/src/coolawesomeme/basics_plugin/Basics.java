@@ -34,7 +34,7 @@ public final class Basics extends JavaPlugin {
 	
 	public static int versionMajor = 0;
 	public static int versionMinor = 6;
-	public static int versionRevision = 1;
+	public static int versionRevision = 2;
 	public static String version = versionMajor + "." + versionMinor + "." + versionRevision;
 	public static boolean download;
 	public static boolean teleportRequests;
