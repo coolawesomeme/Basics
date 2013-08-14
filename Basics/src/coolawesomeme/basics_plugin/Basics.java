@@ -40,6 +40,7 @@ public final class Basics extends JavaPlugin {
 	public static boolean teleportRequests;
 	public static int tagMinutes;
 	public static boolean isBeta;
+	public static boolean disallowGamemode;
 	
 	@Override
 	/** Method that is executed when the plugin gets enabled */
@@ -97,6 +98,7 @@ public final class Basics extends JavaPlugin {
     	teleportRequests = this.getConfig().getBoolean("teleport-requests", true);
     	tagMinutes = this.getConfig().getInt("tag-playing-time-minutes", 30);
     	isBeta = this.getConfig().getBoolean("is-beta-version", false);
+    	disallowGamemode = this.getConfig().getBoolean("disallow-gamemode-change", false);
     }
 	
 	/** Deletes the old config (with its values already loaded to memory), re-saves it and resets the previous values. This guarantees new config items are added */
@@ -110,6 +112,7 @@ public final class Basics extends JavaPlugin {
 		this.getConfig().set("teleport-requests", teleportRequests);
 		this.getConfig().set("tag-playing-time-minutes", tagMinutes);
 		this.getConfig().set("is-beta-version", isBeta);
+		this.getConfig().set("disallow-gamemode-change", disallowGamemode);
 		this.saveConfig();
 	}
 	
@@ -134,6 +137,7 @@ public final class Basics extends JavaPlugin {
 			lol.write("download-latest-version: " + "This controls whether or not you will get the latest version in your /plugins/Basics/updates/ folder");
 			lol.write("teleport-requests: " + "This controls whether requests will be sent to players who do /tpr . This is the equivelant of /tpr setRequest");
 			lol.write("tag-playing-time-minutes: " + "This controls the amount of time that will pass before tag is over, and the winner(s) are declared.");
+			lol.write("disallow-gamemode-change: " + "Disallows OPs, other than Console, to changing gamemode.");
 			lol.write("");
 			lol.flush();
 			lol.close();

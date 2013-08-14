@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -49,6 +50,15 @@ public class EventListener implements Listener{
 		if(TagCommand.isTagOn){
 			if(TagCommand.getTaggedPlayers().contains(event.getPlayer()) && TagCommand.getNonTaggedPlayers().contains(event.getRightClicked())){
 				TagCommand.tagPlayer((Player)event.getRightClicked());
+			}
+		}
+	}
+	
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onPlayerCommandPreprocessEvent(PlayerCommandPreprocessEvent event){
+		if(Basics.disallowGamemode){
+			if(event.getMessage().equalsIgnoreCase("/gamemode") || event.getMessage().equalsIgnoreCase("/gm") || event.getMessage().equalsIgnoreCase("gamemode") || event.getMessage().equalsIgnoreCase("gm")){
+				event.setCancelled(true);
 			}
 		}
 	}
