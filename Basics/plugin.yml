@@ -14,7 +14,6 @@ commands:
   brb:
     description: Can only be used by server console, or the owner. For regular users, use /afk .
     usage: "Usage: /<command> [true/false]"
-    permission: basics.brb
   banroulette:
     description: Randomly bans a player for 30 mins.
     usage: "Usage: /<command>"
