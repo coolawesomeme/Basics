@@ -2,7 +2,6 @@ package coolawesomeme.basics_plugin;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
@@ -42,15 +41,10 @@ public final class Basics extends JavaPlugin {
 	public static int tagMinutes;
 	public static boolean isBeta;
 	public static boolean disallowGamemode;
-	public static boolean update;
-	public File pluginsFolder;
-	
-	private static Basics instance;
 	
 	@Override
 	/** Method that is executed when the plugin gets enabled */
     public void onEnable(){
-		instance = this;
 		PluginManager pm = Bukkit.getServer().getPluginManager();
         pm.registerEvents(new EventListener(), this);
 		this.saveDefaultConfig();
@@ -59,9 +53,9 @@ public final class Basics extends JavaPlugin {
 		this.configReadme();
 		this.createPlayerFolder();
 		this.commandHandlers();
-		this.cleanupAutoUpdater();
 		AutoDownloader.checkForUpdate(this);
         getLogger().info("Plugin enabled!");
+        //getLogger().info("Use /help basics for commands!");
     }
  
     @Override
@@ -104,16 +98,7 @@ public final class Basics extends JavaPlugin {
     	teleportRequests = this.getConfig().getBoolean("teleport-requests", true);
     	tagMinutes = this.getConfig().getInt("tag-playing-time-minutes", 30);
     	isBeta = this.getConfig().getBoolean("is-beta-version", false);
-    	if(isBeta){
-    		File f = new File(this.getDataFolder().getAbsolutePath() + "/beta.info");
-    		try {
-				f.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-    	}
     	disallowGamemode = this.getConfig().getBoolean("disallow-gamemode-change", false);
-    	update = this.getConfig().getBoolean("auto-update", true);
     }
 	
 	/** Deletes the old config (with its values already loaded to memory), re-saves it and resets the previous values. This guarantees new config items are added */
@@ -124,7 +109,6 @@ public final class Basics extends JavaPlugin {
 		this.getConfig().set("server-owners", ownersRaw);
 		this.getConfig().set("message", message);
 		this.getConfig().set("download-latest-version", download);
-		this.getConfig().set("auto-update", update);
 		this.getConfig().set("teleport-requests", teleportRequests);
 		this.getConfig().set("tag-playing-time-minutes", tagMinutes);
 		this.getConfig().set("is-beta-version", isBeta);
@@ -152,7 +136,6 @@ public final class Basics extends JavaPlugin {
 			lol.write("server-owners: " + "This, along with the permission 'basics.brb', control whether or not a user can do /brb . (Note: This can be a list, seperated by commas)" + newLine + newLine);
 			lol.write("message: " + "A brief server description that is shown to new players who join while the brb command is active." + newLine + newLine);
 			lol.write("download-latest-version: " + "This controls whether or not you will get the latest version in your /plugins/Basics/updates/ folder" + newLine + newLine);
-			lol.write("auto-update: " + "This controls whether or not the plugin will auto download and seamlessly install the plugin, without you doing anything" + newLine + newLine);
 			lol.write("teleport-requests: " + "This controls whether requests will be sent to players who do /tpr . This is the equivelant of /tpr setRequest" + newLine + newLine);
 			lol.write("tag-playing-time-minutes: " + "This controls the amount of time that will pass before tag is over, and the winner(s) are declared." + newLine + newLine);
 			lol.write("disallow-gamemode-change: " + "Disallows OPs, other than Console, to changing gamemode.");
@@ -164,6 +147,9 @@ public final class Basics extends JavaPlugin {
 		}
 	}
 	
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
 	private void cleanupAutoUpdater(){
 		File dir = new File(Basics.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll("%20", " "));
 		pluginsFolder = new File(dir.getParentFile().getPath());
@@ -181,6 +167,12 @@ public final class Basics extends JavaPlugin {
 		}
 	}
 	
+=======
+>>>>>>> parent of 0d69746... Added auto updating
+=======
+>>>>>>> parent of 0d69746... Added auto updating
+=======
+>>>>>>> parent of 0d69746... Added auto updating
 	/** Truth. 
 	 * @return true*/
 	public static boolean isCoolawesomemeAwesome(){
@@ -196,9 +188,5 @@ public final class Basics extends JavaPlugin {
 	/** Sets the server threat level */
 	public static void setServerThreatLevel(ThreatLevel threatLevel) {
 		Basics.threatLevel = threatLevel;
-	}
-
-	public static Basics getInstance() {
-		return instance;
 	}
 }
