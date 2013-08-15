@@ -150,6 +150,7 @@ public final class Basics extends JavaPlugin {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private void cleanupAutoUpdater(){
 		File dir = new File(Basics.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll("%20", " "));
 		pluginsFolder = new File(dir.getParentFile().getPath());
@@ -167,6 +168,8 @@ public final class Basics extends JavaPlugin {
 		}
 	}
 	
+=======
+>>>>>>> parent of 0d69746... Added auto updating
 =======
 >>>>>>> parent of 0d69746... Added auto updating
 =======
