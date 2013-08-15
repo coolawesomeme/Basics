@@ -79,6 +79,7 @@ public class TPRCommand implements CommandExecutor{
 				}else if(args[0].equalsIgnoreCase("setrequest")){
 					if(sender.isOp() || sender.hasPermission("basics.tpr.setrequest")){
 						basics.getConfig().set("teleport-requests", Boolean.parseBoolean(args[1]));
+						basics.saveConfig();
 						sender.sendMessage("Value set!");
 					}else{
 						sender.sendMessage("You must be OP/ Admin to do that!");
