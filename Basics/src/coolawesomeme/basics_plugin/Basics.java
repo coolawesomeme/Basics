@@ -146,36 +146,6 @@ public final class Basics extends JavaPlugin {
 			getLogger().severe("ConfigReadme Error: " + e.getMessage());
 		}
 	}
-	
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-	private void cleanupAutoUpdater(){
-		File dir = new File(Basics.class.getProtectionDomain().getCodeSource().getLocation().getPath().replaceAll("%20", " "));
-		pluginsFolder = new File(dir.getParentFile().getPath());
-		File autoUpdater = new File(pluginsFolder.getAbsolutePath() + "\\BasicsAutoUpdater.jar");
-		if(Bukkit.getPluginManager().isPluginEnabled("BasicsAutoUpdater")){
-			Bukkit.getPluginManager().disablePlugin(Bukkit.getPluginManager().getPlugin("BasicsAutoUpdater"));
-		}
-		if(autoUpdater.exists()){
-			try{
-				autoUpdater.delete();
-			}catch(Exception e){
-				e.printStackTrace();
-				autoUpdater.deleteOnExit();
-			}
-		}
-	}
-	
-=======
->>>>>>> parent of 0d69746... Added auto updating
-=======
->>>>>>> parent of 0d69746... Added auto updating
-=======
->>>>>>> parent of 0d69746... Added auto updating
-=======
->>>>>>> parent of 0d69746... Added auto updating
 	/** Truth. 
 	 * @return true*/
 	public static boolean isCoolawesomemeAwesome(){
