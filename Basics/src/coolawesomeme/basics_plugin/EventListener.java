@@ -32,16 +32,16 @@ public class EventListener implements Listener{
 					@Override 
 					public void run() {
 						ServerHelpCommand.actualServerHelp(newEvent.getPlayer());
+						newEvent.getPlayer().sendMessage(MinecraftColors.purple + "Server is currently in BRB mode because the server owner is brbing!");
 					}
 				}, 20L);
 			}else{
-				event.getPlayer().sendMessage("Welcome to the " + Bukkit.getServerName() + ", " + event.getPlayer().getDisplayName() + "!");
+				event.getPlayer().sendMessage("Welcome to the " + Bukkit.getServerName() + ", " + event.getPlayer().getName() + "!");
 				event.getPlayer().sendMessage("");
-				event.getPlayer().sendMessage(MinecraftColors.red + "Server is currently in BRB mode because the server owner is brbing!");
-				event.getPlayer().sendMessage(Basics.message);
+				event.getPlayer().sendMessage(MinecraftColors.purple + "Server is currently in BRB mode because the server owner is brbing!");
 			}
 		}else{
-			event.getPlayer().sendMessage("Welcome to the " + Bukkit.getServerName() + ", " + event.getPlayer().getDisplayName() + "!");
+			event.getPlayer().sendMessage("Welcome to the " + Bukkit.getServerName() + ", " + event.getPlayer().getName() + "!");
     	}
 	}
 	
@@ -56,7 +56,7 @@ public class EventListener implements Listener{
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerCommandPreprocessEvent(PlayerCommandPreprocessEvent event){
-		if(Basics.disallowGamemode && !event.getPlayer().hasPermission("basics.gamemode.change")){
+		if(Basics.disallowGamemode && !event.getPlayer().hasPermission("basics.gamemode_ban.change")){
 			if(event.getMessage().toLowerCase().startsWith("/gamemode") || event.getMessage().toLowerCase().startsWith("/gm") || event.getMessage().toLowerCase().startsWith("gamemode") || event.getMessage().toLowerCase().startsWith("gm")){
 				event.setCancelled(true);
 				event.getPlayer().sendMessage(MinecraftColors.red + "Sorry, this server has disabled the changing of gamemodes by players.");

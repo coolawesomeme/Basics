@@ -11,11 +11,11 @@ import coolawesomeme.basics_plugin.MinecraftColors;
 
 public class BrbCommand implements CommandExecutor{
 	
-	private String[] owners;
+	private String owner;
 	public static boolean isOwnerBRBing = false;
 	
 	public BrbCommand(Basics instance){
-		owners = Basics.owners;
+		owner = Basics.owner;
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -23,17 +23,13 @@ public class BrbCommand implements CommandExecutor{
 			return brbCommand(sender, cmd, label, args);
 		} else {
 			boolean flag = false;
-			for(int i=0;i<owners.length;i++){
-				if(sender.getName().equals(owners[i]) || sender.getName() == owners[i]){
-					flag=true;
-				}
-			}if(!flag && sender.hasPermission("basics.brb")){
+			if(sender.getName().equalsIgnoreCase(owner)){
 				flag = true;
 			}
 			if(flag){
 				return brbCommand(sender, cmd, label, args);
 			}else{
-				sender.sendMessage("You must be the owner to do that!");
+				sender.sendMessage("You must be the owner to use this command!");
 				return true;
 			}
 		}

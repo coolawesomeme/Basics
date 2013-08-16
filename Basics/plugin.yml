@@ -66,8 +66,7 @@ permissions:
      default: false
      children:
        basics.*: true
-       basics.gamemode.change: true
-       basics.brb: true
+       basics.gamemode_ban.change: true
    basics.admin:
      description: Gives access to all admin-only commands
      default: op
@@ -89,9 +88,6 @@ permissions:
    basics.afactor.set:
      description: Allows access to set afactor command
      default: op
-   basics.brb:
-     description: Allows access of brb command
-     default: false
    basics.banroulette:
      description: Allows access of banroulette command
      default: op
@@ -133,6 +129,6 @@ permissions:
      default: op
      children:
        basics.tag: true
-   basics.gamemode.change:
+   basics.gamemode_ban.change:
      description: Allows changing of gamemode, even if disallowing of gamemode changing is on
      default: false

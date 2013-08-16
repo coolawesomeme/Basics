@@ -21,13 +21,10 @@ import coolawesomeme.basics_plugin.commands.TagCommand;
 public final class Basics extends JavaPlugin {
 
 	/** The unformatted string that server-owners is loaded into */
-	private static String ownersRaw;
+	public static String owner;
 	
 	/** The current threat level */
 	private static ThreatLevel threatLevel = ThreatLevel.NULL;
-	
-	/** Array of server owner usernames */
-	public static String[] owners;
 	
 	/** The message that is displayed to players when they  */
 	public static String message;
@@ -80,19 +77,7 @@ public final class Basics extends JavaPlugin {
     
     /** Loads values from the config to memory */
 	private void config(){
-    	ownersRaw = this.getConfig().getString("server-owners");
-    	if(ownersRaw.length()!= 0){
-    		if(ownersRaw.contains(" ")){
-    			ownersRaw.replace(" ", "");
-    		}if(ownersRaw.contains(",")){
-    			owners = ownersRaw.split(",");
-    		}else{
-    			owners = new String[1];
-    			owners[0] = ownersRaw + "";
-    		}
-    	}else{
-    		owners[0] = "";
-    	}
+    	owner = this.getConfig().getString("server-owner");
     	message = this.getConfig().getString("message");
     	download = this.getConfig().getBoolean("download-latest-version", true);
     	teleportRequests = this.getConfig().getBoolean("teleport-requests", true);
@@ -106,7 +91,7 @@ public final class Basics extends JavaPlugin {
 		File config = new File(this.getDataFolder().getAbsolutePath() + "/config.yml");
 		config.delete();
 		this.saveDefaultConfig();
-		this.getConfig().set("server-owners", ownersRaw);
+		this.getConfig().set("server-owner", owner);
 		this.getConfig().set("message", message);
 		this.getConfig().set("download-latest-version", download);
 		this.getConfig().set("teleport-requests", teleportRequests);
@@ -133,10 +118,10 @@ public final class Basics extends JavaPlugin {
 			lol.write("---------------------------" + newLine);
 			lol.write("IMPORTANT: IT IS NOT RECOMMENDED TO EDIT THE CONFIG FILE WITH NOTEPAD, USE NOTEPAD++. (TextEdit should be fine.)" + newLine + newLine);
 			lol.write("is-beta-version: " + "This controls whether or not you get the latest beta (possibly quite buggy) version of Basics." + newLine + newLine);
-			lol.write("server-owners: " + "This, along with the permission 'basics.brb', control whether or not a user can do /brb . (Note: This can be a list, seperated by commas)" + newLine + newLine);
+			lol.write("server-owner: " + "This control whether or not a user can do /brb." + newLine + newLine);
 			lol.write("message: " + "A brief server description that is shown to new players who join while the brb command is active." + newLine + newLine);
-			lol.write("download-latest-version: " + "This controls whether or not you will get the latest version in your /plugins/Basics/updates/ folder" + newLine + newLine);
-			lol.write("teleport-requests: " + "This controls whether requests will be sent to players who do /tpr . This is the equivelant of /tpr setRequest" + newLine + newLine);
+			lol.write("download-latest-version: " + "This controls whether or not you will get the latest version in your /plugins/Basics/updates/ folder." + newLine + newLine);
+			lol.write("teleport-requests: " + "This controls whether requests will be sent to players who do /tpr . This is the equivelant of /tpr setRequest." + newLine + newLine);
 			lol.write("tag-playing-time-minutes: " + "This controls the amount of time that will pass before tag is over, and the winner(s) are declared." + newLine + newLine);
 			lol.write("disallow-gamemode-change: " + "Disallows OPs, other than Console, to changing gamemode.");
 			lol.write("");
