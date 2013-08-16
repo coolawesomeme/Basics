@@ -51,7 +51,8 @@ public class ServerHelpCommand implements CommandExecutor{
 	}
 
 	public static void actualServerHelp(Player player){
-		player.sendMessage(MinecraftColors.red + "Welcome to the server, " + player.getName() + "!");
+		player.sendMessage("Welcome to the server, " + MinecraftColors.red + player.getName() + "!");
+		player.sendMessage(Basics.message);
 		int i = PlayerDataStorage.getPlayerServerHelpCount(player);
 		if(i < 3){
 			player.sendMessage(MinecraftColors.red + "It's dangerous to go alone, take these!");
@@ -59,10 +60,9 @@ public class ServerHelpCommand implements CommandExecutor{
 			player.getInventory().addItem(new ItemStack(Material.STONE_AXE, 1));
 			player.getInventory().addItem(new ItemStack(Material.STONE_SPADE, 1));
 			player.getInventory().addItem(new ItemStack(Material.PORK, 8));
-			i+=1;
+			i++;
 			PlayerDataStorage.setPlayerServerHelpCount(player, i);
 		}
-		player.sendMessage(Basics.message);
 	}
 
 	
