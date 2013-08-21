@@ -53,12 +53,13 @@ public final class Basics extends JavaPlugin {
 		this.configReadme();
 		this.createPlayerFolder();
 		this.commandHandlers();
+		this.renameJar();
 		AutoDownloader.checkForUpdate(this);
         getLogger().info("Plugin enabled!");
         //getLogger().info("Use /help basics for commands!");
     }
- 
-    @Override
+
+	@Override
     /** Method that is executed when the plugin gets disabled */
     public void onDisable() {
         getLogger().info("Plugin disabled!");
@@ -104,6 +105,11 @@ public final class Basics extends JavaPlugin {
 		this.getConfig().set("is-beta-version", isBeta);
 		this.getConfig().set("disallow-gamemode-change", disallowGamemode);
 		this.saveConfig();
+	}
+	
+	private void renameJar() {
+		File f = new File("plugins/Basics " + version + ".jar");
+		f.renameTo(new File("plugins/Basics.jar"));
 	}
 	
 	//Creates (if not already created) the folder where player stats are stored
