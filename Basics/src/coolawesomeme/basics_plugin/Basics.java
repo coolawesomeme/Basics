@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -38,6 +39,8 @@ public final class Basics extends JavaPlugin {
 	public static int tagMinutes;
 	public static boolean isBeta;
 	public static boolean disallowGamemode;
+	public static boolean update;
+	public static String updateFolder = YamlConfiguration.loadConfiguration(new File("bukkit.yml")).getString("settings.update-folder");
 	
 	@Override
 	/** Method that is executed when the plugin gets enabled */
@@ -80,6 +83,7 @@ public final class Basics extends JavaPlugin {
     	owner = this.getConfig().getString("server-owner");
     	message = this.getConfig().getString("message");
     	download = this.getConfig().getBoolean("download-latest-version", true);
+    	update = this.getConfig().getBoolean("auto-update", true);
     	teleportRequests = this.getConfig().getBoolean("teleport-requests", true);
     	tagMinutes = this.getConfig().getInt("tag-playing-time-minutes", 30);
     	isBeta = this.getConfig().getBoolean("is-beta-version", false);
@@ -94,6 +98,7 @@ public final class Basics extends JavaPlugin {
 		this.getConfig().set("server-owner", owner);
 		this.getConfig().set("message", message);
 		this.getConfig().set("download-latest-version", download);
+		this.getConfig().set("auto-update", update);
 		this.getConfig().set("teleport-requests", teleportRequests);
 		this.getConfig().set("tag-playing-time-minutes", tagMinutes);
 		this.getConfig().set("is-beta-version", isBeta);
@@ -121,6 +126,7 @@ public final class Basics extends JavaPlugin {
 			lol.write("server-owner: " + "This control whether or not a user can do /brb." + newLine + newLine);
 			lol.write("message: " + "A brief server description that is shown to new players who join while the brb command is active." + newLine + newLine);
 			lol.write("download-latest-version: " + "This controls whether or not you will get the latest version in your /plugins/Basics/updates/ folder." + newLine + newLine);
+			lol.write("auto-update: " + "This controls whether or not the plugin will update itself. (Note: Requires download-latest-version to be set to true as well.)" + newLine + newLine);
 			lol.write("teleport-requests: " + "This controls whether requests will be sent to players who do /tpr . This is the equivelant of /tpr setRequest." + newLine + newLine);
 			lol.write("tag-playing-time-minutes: " + "This controls the amount of time that will pass before tag is over, and the winner(s) are declared." + newLine + newLine);
 			lol.write("disallow-gamemode-change: " + "Disallows OPs, other than Console, to changing gamemode.");

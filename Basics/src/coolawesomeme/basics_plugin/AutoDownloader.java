@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.bukkit.Bukkit;
+
 public class AutoDownloader {
 
 	private static String version = Basics.version;
@@ -15,6 +17,7 @@ public class AutoDownloader {
 	private static int pluginMinor = Basics.versionMinor;
 	private static int pluginRevision = Basics.versionRevision;
 	private static boolean download = Basics.download;
+	private static boolean update = Basics.update;
 	
 	public static void checkForUpdate(Basics basics){
             try {
@@ -37,18 +40,16 @@ public class AutoDownloader {
                 				basics.getLogger().info("Plugin up to date!");
                 			}else{
                 				basics.getLogger().info("******************************************************");
-                				basics.getLogger().info("******************************************************");
                 				basics.getLogger().info("An update of " + "Basics (Version " + temp[0] + ") " + "is available!");
-                				if(downloadLatestModFile(basics, temp[6], temp[0])){
-                				}else{
-                					basics.getLogger().info(Basics.isBeta ? "Contact coolawesomeme" : "http://coolawesomeme.github.io/Basics");
-                				}
                 				if(!temp[1].isEmpty()){
                 					basics.getLogger().info(temp[1]);
                 				} if(!temp[2].isEmpty()){
                 					basics.getLogger().info(temp[2]);
                 				}
-                				basics.getLogger().info("******************************************************");
+                				if(downloadLatestModFile(basics, temp[6], temp[0])){
+                				}else{
+                					basics.getLogger().info(Basics.isBeta ? "Contact coolawesomeme" : "http://coolawesomeme.github.io/Basics");
+                				}
                 				basics.getLogger().info("******************************************************");
                 			}
                 		}
@@ -61,45 +62,64 @@ public class AutoDownloader {
 		}
 	
 	private static boolean isOutdated(int release, int build, int revision){
-		if(pluginMajor < release){
+		if(pluginMajor < release || pluginMinor < build || pluginRevision < revision){
 			return true;
 		}else{
-			if(pluginMinor < build){
-				return true;
-			}else{
-				if(pluginRevision < revision){
-					return true;
-				}else{
-					return false;
-				}
-			}
+			return false;
 		}
 	}
 	
 	private static boolean downloadLatestModFile(Basics basics, String updateURL, String pluginVersion){
     	if(download){
-    	    String saveTo = basics.getDataFolder() + "/updates";
-    	    File saveFolder = new File(saveTo);
-    	    saveFolder.mkdirs();
-    	    try {
-    	        URL url = new URL(updateURL);
-    	        URLConnection conn = url.openConnection();
-    	        InputStream in = conn.getInputStream();
-    	        FileOutputStream out = new FileOutputStream(saveTo + "\\Basics " + pluginVersion + ".jar");
-    	        byte[] b = new byte[1024];
-    	        int count;
-    	        while ((count = in.read(b)) >= 0) {
-    	            out.write(b, 0, count);
-    	        }
-    	        out.flush(); out.close(); in.close();                   
-    	        basics.getLogger().info("Latest plugin version is downloaded!");
-    	        basics.getLogger().info("Located here: " + saveTo + "\\Basics "+ pluginVersion + ".jar");
-    	        basics.getLogger().info("Put in 'plugins' folder, delete the old version and reload/ restart your server.");
-    	        return true;
-    	    } catch (Exception e) {
-    	    	basics.getLogger().info(Basics.isBeta ? "Contact coolawesomeme" : "http://coolawesomeme.github.io/Basics");
-    	        e.printStackTrace();
-    	    }
+    		if(update){
+    			String saveTo = "plugins\\" + Basics.updateFolder;
+    	    	File saveFolder = new File(saveTo);
+    	    	saveFolder.mkdirs();
+    	    	try {
+    	        	URL url = new URL(updateURL);
+    	        	URLConnection conn = url.openConnection();
+    	        	InputStream in = conn.getInputStream();
+    	        	FileOutputStream out = new FileOutputStream(saveTo + "\\Basics.jar");
+    	        	byte[] b = new byte[1024];
+    	        	int count;
+    	        	while ((count = in.read(b)) >= 0) {
+    	            	out.write(b, 0, count);
+    	        	}
+    	        	out.flush(); out.close(); in.close();
+    	        	basics.getLogger().info("Update downloaded.");
+    	        	basics.getLogger().info("Reloading...");
+    	        	Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
+    					@Override 
+    					public void run() {
+    	    	        	Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "reload");
+    	    	        }
+    				}, 40L);
+    	        	return true;
+    	    	} catch (Exception e) {
+    	    		e.printStackTrace();
+    	    	}
+    		}else{
+    			String saveTo = basics.getDataFolder() + "/updates";
+    	    	File saveFolder = new File(saveTo);
+    	    	saveFolder.mkdirs();
+    	    	try {
+    	        	URL url = new URL(updateURL);
+    	        	URLConnection conn = url.openConnection();
+    	        	InputStream in = conn.getInputStream();
+    	        	FileOutputStream out = new FileOutputStream(saveTo + "\\Basics.jar");
+    	        	byte[] b = new byte[1024];
+    	        	int count;
+    	        	while ((count = in.read(b)) >= 0) {
+    	            	out.write(b, 0, count);
+    	        	}
+    	        	out.flush(); out.close(); in.close();                   
+    	        	basics.getLogger().info("Latest plugin version is downloaded!");
+    	        	basics.getLogger().info("Located here: " + saveTo + "\\Basics.jar");
+    	        	basics.getLogger().info("Put in 'plugins' folder, delete/ replace the old version and reload/ restart your server.");
+    	        	return true;
+    	    	} catch (Exception e) {e.printStackTrace();
+    	    	}
+    		}
     	}else{
     		return false;
     	}
