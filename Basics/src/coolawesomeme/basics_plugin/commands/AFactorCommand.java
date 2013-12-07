@@ -27,7 +27,7 @@ public class AFactorCommand implements CommandExecutor{
 						}catch(Exception e){
 							PlayerDataStorage.setPlayerAFactor(Bukkit.getOfflinePlayer(args[0]), Integer.parseInt(args[2]));
 						}
-						sender.sendMessage("Annoying factor set!");
+						sender.sendMessage(args[0] + "'s annoying factor has been set!");
 					}else{
 						sender.sendMessage("You must be OP/ Admin to do that!");	
 					}
@@ -35,9 +35,9 @@ public class AFactorCommand implements CommandExecutor{
 				}
 			}else if(args.length == 1){
 				try{
-					sender.sendMessage("Annoying Factor: " + PlayerDataStorage.getPlayerAFactor(Bukkit.getPlayer(args[0])));
+					sender.sendMessage(args[0] + "'s annoying Factor: " + PlayerDataStorage.getPlayerAFactor(Bukkit.getPlayer(args[0])));
 				}catch(Exception e){
-					sender.sendMessage("Annoying Factor: " + PlayerDataStorage.getPlayerAFactor(Bukkit.getOfflinePlayer(args[0])));
+					sender.sendMessage(args[0] + "'s annoying Factor: " + PlayerDataStorage.getPlayerAFactor(Bukkit.getOfflinePlayer(args[0])));
 				}
 				return true;
 			}else{
@@ -46,7 +46,7 @@ public class AFactorCommand implements CommandExecutor{
 			}
 		}else{
 			if(sender instanceof Player){
-				sender.sendMessage("Annoying Factor: " + PlayerDataStorage.getPlayerAFactor((Player)sender));
+				sender.sendMessage("Your annoying Factor: " + PlayerDataStorage.getPlayerAFactor((Player)sender));
 			}else{
 				sender.sendMessage("You must be a player to do that!");
 			}

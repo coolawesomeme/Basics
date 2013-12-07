@@ -36,7 +36,7 @@ public class TPRouletteCommand implements CommandExecutor{
 						world = Bukkit.getServer().getWorlds().get(0);
 					}
 					Player[] onlinePlayers = Bukkit.getOnlinePlayers();
-					Location randomLocation = getRandomLocation(world);
+					Location randomLocation = getRandomLocation(world, onlinePlayers[0]);
 					for(int i = 0; i < onlinePlayers.length;i++){
 						final Player victim = onlinePlayers[i];
 						tproulette(victim, randomLocation);	
@@ -54,7 +54,7 @@ public class TPRouletteCommand implements CommandExecutor{
 				}else{
 					world = victim.getWorld();
 				}
-				Location randomLocation = getRandomLocation(world);
+				Location randomLocation = getRandomLocation(world, victim);
 				tproulette(victim, randomLocation);
 				return true;
 			}
@@ -64,7 +64,7 @@ public class TPRouletteCommand implements CommandExecutor{
 				return true;
 			}else{
 				final Player victim = (Player)sender;
-				Location randomLocation = getRandomLocation(victim.getWorld());
+				Location randomLocation = getRandomLocation(victim.getWorld(), victim);
 				tproulette(victim, randomLocation);
 				return true;
 			}
@@ -85,18 +85,19 @@ public class TPRouletteCommand implements CommandExecutor{
 		}, 3600L);
 	}
 
-	private int getRandomCoord(){
+	private int getRandomCoord(int coordinateAxis, Player commandVictim){
     	Random random = new Random();
-    	int x = random.nextInt(6000);
+    	int x = random.nextInt(1500);
     	boolean q = random.nextBoolean();
     	if(q){
     		x*=(-1);
     	}
-    	return x;
+    	int y = coordinateAxis == 0 ? commandVictim.getLocation().getBlockX() : coordinateAxis == 2 ? commandVictim.getLocation().getBlockZ() : coordinateAxis == 1 ? commandVictim.getLocation().getBlockY() : 0;
+    	return y + x;
     }
     
-    private Location getRandomLocation(World world){
-    	Location randomLocation = new Location(world, getRandomCoord(), 100, getRandomCoord());
+    private Location getRandomLocation(World world, Player commandVictim){
+    	Location randomLocation = new Location(world, getRandomCoord(0, commandVictim), 100, getRandomCoord(2, commandVictim));
 		if(randomLocation.getWorld().getBlockAt(randomLocation).getType().equals(Material.AIR)){
 		}else{
 			boolean toContinue = true;
@@ -106,7 +107,7 @@ public class TPRouletteCommand implements CommandExecutor{
 				}else if(randomLocation.getBlockY() < 100 && randomLocation.getBlockY() > 0){
 					randomLocation.setY(randomLocation.getY() - 1);
 				}else if(randomLocation.getBlockY() == 1){
-					getRandomLocation(world);
+					getRandomLocation(world, commandVictim);
 				}else{
 					randomLocation.setY(randomLocation.getY() + 1);
 				}

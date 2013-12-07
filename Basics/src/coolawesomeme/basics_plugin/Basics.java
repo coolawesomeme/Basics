@@ -32,7 +32,7 @@ public final class Basics extends JavaPlugin {
 	
 	public static int versionMajor = 0;
 	public static int versionMinor = 7;
-	public static int versionRevision = 0;
+	public static int versionRevision = 1;
 	public static String version = versionMajor + "." + versionMinor + "." + versionRevision;
 	public static boolean download;
 	public static boolean teleportRequests;
@@ -125,6 +125,7 @@ public final class Basics extends JavaPlugin {
 			String newLine = System.getProperty("line.separator");
 			f.createNewFile();
 			FileWriter lol = new FileWriter(f);
+			lol.write("---------------------------" + newLine);
 			lol.write("Config File Readme" + newLine);
 			lol.write("---------------------------" + newLine);
 			lol.write("IMPORTANT: IT IS NOT RECOMMENDED TO EDIT THE CONFIG FILE WITH NOTEPAD, USE NOTEPAD++. (TextEdit should be fine.)" + newLine + newLine);
@@ -143,6 +144,7 @@ public final class Basics extends JavaPlugin {
 			getLogger().severe("ConfigReadme Error: " + e.getMessage());
 		}
 	}
+	
 	/** Truth. 
 	 * @return true*/
 	public static boolean isCoolawesomemeAwesome(){
