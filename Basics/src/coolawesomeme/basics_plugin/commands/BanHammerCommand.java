@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import coolawesomeme.basics_plugin.Basics;
+import coolawesomeme.basics_plugin.TempBanList;
 
 public class BanHammerCommand implements CommandExecutor{
 	
@@ -28,6 +29,7 @@ public class BanHammerCommand implements CommandExecutor{
 					for(int i = 0; i < onlinePlayers.length; i++){
 						Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ban " + onlinePlayers[i].getName() + " THOU HATH BEEN BAN HAMMERED");
 						banHammerVictims[i] = onlinePlayers[i];
+						TempBanList.addPlayer(onlinePlayers[i]);
 					}
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
 						@Override 
@@ -35,6 +37,7 @@ public class BanHammerCommand implements CommandExecutor{
 							for(int i = 0; i < banHammerVictims.length; i++){
 								Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pardon " + banHammerVictims[i].getName());
 								Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "unban " + banHammerVictims[i].getName());
+								TempBanList.removePlayer(banHammerVictims[i]);
 							}
 							basics.getLogger().info("All ban hammer victims have been unbanned.");
 						}

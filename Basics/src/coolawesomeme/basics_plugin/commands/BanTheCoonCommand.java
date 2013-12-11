@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import coolawesomeme.basics_plugin.Basics;
 import coolawesomeme.basics_plugin.PlayerDataStorage;
+import coolawesomeme.basics_plugin.TempBanList;
 
 public class BanTheCoonCommand implements CommandExecutor{
 	
@@ -41,12 +42,14 @@ public class BanTheCoonCommand implements CommandExecutor{
 					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ban " + highestPlayer.getName() + " You have been banned for five minutes, coon.");
 					Bukkit.getServer().broadcastMessage("Player " + highestPlayer.getName() + " (The coon) has been banned.");
 					final Player highestPlayer1 = highestPlayer;
+					TempBanList.addPlayer(highestPlayer1);
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
 					@Override 
 					public void run() {
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pardon " + highestPlayer1.getName());
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "unban " + highestPlayer1.getName());
 							Bukkit.getServer().broadcastMessage("The coon (" + highestPlayer1.getName() + ") has been unbanned.");
+							TempBanList.removePlayer(highestPlayer1);
 						}
 					}, 6000L);
 					return true;

@@ -62,6 +62,10 @@ public final class Basics extends JavaPlugin {
 	@Override
     /** Method that is executed when the plugin gets disabled */
     public void onDisable() {
+		if(!TempBanList.isEmpty){
+			getLogger().info("Pre-disable unbanning of temporary bans...");
+			TempBanList.unbanAll();
+		}
         getLogger().info("Plugin disabled!");
     }
 	
