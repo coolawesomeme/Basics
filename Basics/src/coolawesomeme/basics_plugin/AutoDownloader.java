@@ -72,14 +72,13 @@ public class AutoDownloader {
 	private static boolean downloadLatestModFile(Basics basics, String updateURL, String pluginVersion){
     	if(download){
     		if(update){
-    			String saveTo = "plugins\\" + Basics.updateFolder;
-    	    	File saveFolder = new File(saveTo);
+    	    	File saveFolder = new File("plugins\\" + Basics.updateFolder);
     	    	saveFolder.mkdirs();
     	    	try {
     	        	URL url = new URL(updateURL);
     	        	URLConnection conn = url.openConnection();
     	        	InputStream in = conn.getInputStream();
-    	        	FileOutputStream out = new FileOutputStream(saveTo + "\\Basics.jar");
+    	        	FileOutputStream out = new FileOutputStream(saveFolder.getAbsolutePath() + "\\Basics.jar");
     	        	byte[] b = new byte[1024];
     	        	int count;
     	        	while ((count = in.read(b)) >= 0) {
@@ -99,7 +98,7 @@ public class AutoDownloader {
     	    		e.printStackTrace();
     	    	}
     		}else{
-    			String saveTo = basics.getDataFolder() + "/updates";
+    			String saveTo = basics.getDataFolder() + "\\updates";
     	    	File saveFolder = new File(saveTo);
     	    	saveFolder.mkdirs();
     	    	try {
@@ -117,8 +116,7 @@ public class AutoDownloader {
     	        	basics.getLogger().info("Located here: " + saveTo + "\\Basics.jar");
     	        	basics.getLogger().info("Put in 'plugins' folder, delete/ replace the old version and reload/ restart your server.");
     	        	return true;
-    	    	} catch (Exception e) {e.printStackTrace();
-    	    	}
+    	    	} catch (Exception e) {e.printStackTrace();}
     		}
     	}else{
     		return false;
