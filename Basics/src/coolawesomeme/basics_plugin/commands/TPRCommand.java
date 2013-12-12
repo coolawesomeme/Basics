@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import coolawesomeme.basics_plugin.Basics;
@@ -77,7 +78,7 @@ public class TPRCommand implements CommandExecutor{
 					}
 					return true;
 				}else if(args[0].equalsIgnoreCase("setrequest")){
-					if(sender.isOp() || sender.hasPermission("basics.tpr.setrequest")){
+					if(sender.isOp() || sender.hasPermission("basics.tpr.setrequest") || sender instanceof ConsoleCommandSender){
 						basics.getConfig().set("teleport-requests", Boolean.parseBoolean(args[1]));
 						basics.saveConfig();
 						sender.sendMessage("Value set!");
