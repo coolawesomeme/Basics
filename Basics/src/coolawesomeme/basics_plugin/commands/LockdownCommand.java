@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import coolawesomeme.basics_plugin.Basics;
+import coolawesomeme.basics_plugin.CommandErrorMessages;
 import coolawesomeme.basics_plugin.ThreatLevel;
 
 public class LockdownCommand implements CommandExecutor{
@@ -42,12 +43,11 @@ public class LockdownCommand implements CommandExecutor{
 						sender.sendMessage("Current Server Threat Level: " + Basics.getServerThreatLevel().formattedName());
 						return true;
 					}
-					return false;
+					return CommandErrorMessages.sendSyntaxError(sender);
 				}
 				return true;
 			}else{
-				sender.sendMessage("Invalid command syntax!");
-				return false;
+				return CommandErrorMessages.sendSyntaxError(sender);
 			}
 		}else{
 			if(args.length == 1){
@@ -56,11 +56,9 @@ public class LockdownCommand implements CommandExecutor{
 					return true;
 				}
 			}else if(args.length == 0){
-				sender.sendMessage("You must be OP/ Admin to do that!");
-				return true;
+				return CommandErrorMessages.sendPermissionError(sender);
 			}else{
-				sender.sendMessage("Invalid command syntax!");
-				return false;
+				return CommandErrorMessages.sendSyntaxError(sender);
 			}
 			return false;
 		}

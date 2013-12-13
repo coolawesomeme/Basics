@@ -13,6 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import coolawesomeme.basics_plugin.Basics;
+import coolawesomeme.basics_plugin.CommandErrorMessages;
 
 public class TPRouletteCommand implements CommandExecutor{
 	
@@ -24,27 +25,30 @@ public class TPRouletteCommand implements CommandExecutor{
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(args.length > 2){
-			sender.sendMessage("Invalid command syntax!");
-			return false;
+			return CommandErrorMessages.sendSyntaxError(sender);
 		}else if(args.length > 0){
 			if(args[0].equalsIgnoreCase("all")){
 				if(sender.isOp() || sender.hasPermission("basics.tproulette.all")){
-					World world;
-					if(args.length > 1){
-						world = Bukkit.getWorld(args[1]);
-					}else{
-						world = Bukkit.getServer().getWorlds().get(0);
-					}
 					Player[] onlinePlayers = Bukkit.getOnlinePlayers();
-					Location randomLocation = getRandomLocation(world, onlinePlayers[0]);
-					for(int i = 0; i < onlinePlayers.length;i++){
-						final Player victim = onlinePlayers[i];
-						tproulette(victim, randomLocation);	
+					if(onlinePlayers.length > 0){
+						World world;
+						if(args.length > 1){
+							world = Bukkit.getWorld(args[1]);
+						}else{
+							world = Bukkit.getServer().getWorlds().get(0);
+						}
+						Location randomLocation = getRandomLocation(world, onlinePlayers[0]);
+						for(int i = 0; i < onlinePlayers.length;i++){
+							final Player victim = onlinePlayers[i];
+							tproulette(victim, randomLocation);	
+						}
+						return true;
+					}else{
+						sender.sendMessage("There must be player(s) online to use this command!");
+						return true;
 					}
-					return true;
 				}else{
-					sender.sendMessage("You must be OP/ Admin to do that!");
-					return true;
+					return CommandErrorMessages.sendPermissionError(sender);
 				}
 			}else{
 				final Player victim = Bukkit.getPlayer(args[0]);
@@ -60,8 +64,7 @@ public class TPRouletteCommand implements CommandExecutor{
 			}
 		}else{
 			if (!(sender instanceof Player)) {
-				sender.sendMessage("You must be a player to do that!");
-				return true;
+				return CommandErrorMessages.sendConsoleError(sender);
 			}else{
 				final Player victim = (Player)sender;
 				Location randomLocation = getRandomLocation(victim.getWorld(), victim);
@@ -116,6 +119,7 @@ public class TPRouletteCommand implements CommandExecutor{
 				}
 			}
 		}
+		world.loadChunk(randomLocation.getChunk());
 		return randomLocation;
     }
 }

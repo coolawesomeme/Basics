@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import coolawesomeme.basics_plugin.Basics;
+import coolawesomeme.basics_plugin.CommandErrorMessages;
 import coolawesomeme.basics_plugin.TempBanList;
 
 public class BanRouletteCommand implements CommandExecutor{
@@ -23,8 +24,7 @@ public class BanRouletteCommand implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(sender.isOp()){
 			if(args.length > 0){
-				sender.sendMessage("Invalid command syntax!");
-				return false;
+				return CommandErrorMessages.sendSyntaxError(sender);
 			}else if(banRouletteVictim == null || banRouletteVictim.equals(null)){
 				Player[] onlinePlayers = Bukkit.getServer().getOnlinePlayers();
 				if(onlinePlayers.length > 0){
@@ -54,8 +54,7 @@ public class BanRouletteCommand implements CommandExecutor{
 				return true;
 			}
 		}else{
-			sender.sendMessage("You must be OP to use this command!");
-			return true;
+			return CommandErrorMessages.sendPermissionError(sender);
 		}
 	}
 

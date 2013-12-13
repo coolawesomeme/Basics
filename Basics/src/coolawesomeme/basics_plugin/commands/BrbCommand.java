@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import coolawesomeme.basics_plugin.Basics;
+import coolawesomeme.basics_plugin.CommandErrorMessages;
 import coolawesomeme.basics_plugin.MinecraftColors;
 
 public class BrbCommand implements CommandExecutor{
@@ -46,14 +47,15 @@ public class BrbCommand implements CommandExecutor{
 			}
 			return true;
 		}else if(args.length > 1){
-			sender.sendMessage("Invalid command syntax!");
-			return false;
-		}else{
+			return CommandErrorMessages.sendSyntaxError(sender);
+		}else if(args[0].equalsIgnoreCase("true") || args[0].equalsIgnoreCase("false")){
 			boolean oldBRB = isOwnerBRBing;
 			isOwnerBRBing = Boolean.parseBoolean(args[0]);
 			if(oldBRB != isOwnerBRBing)
 				Bukkit.broadcastMessage(isOwnerBRBing ? (MinecraftColors.lightPurple + "[Basics] The server owner is away!") : (MinecraftColors.lightPurple + "[Basics] The server ownder is no longer away!"));
 			return true;
+		}else{
+			return CommandErrorMessages.sendSyntaxError(sender);
 		}
 	}
 

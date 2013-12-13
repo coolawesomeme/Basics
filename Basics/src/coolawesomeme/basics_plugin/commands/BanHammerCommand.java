@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import coolawesomeme.basics_plugin.Basics;
+import coolawesomeme.basics_plugin.CommandErrorMessages;
 import coolawesomeme.basics_plugin.TempBanList;
 
 public class BanHammerCommand implements CommandExecutor{
@@ -19,10 +20,9 @@ public class BanHammerCommand implements CommandExecutor{
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if(sender.isOp()){
+		if(sender.isOp() || !(sender instanceof Player)){
 			if(args.length > 0){
-				sender.sendMessage("Invalid command syntax!");
-				return false;
+				return CommandErrorMessages.sendSyntaxError(sender);
 			}else{
 				Player[] onlinePlayers = Bukkit.getServer().getOnlinePlayers();
 				if(onlinePlayers.length > 0){
@@ -49,8 +49,7 @@ public class BanHammerCommand implements CommandExecutor{
 				}
 			}
 		}else{
-			sender.sendMessage("You must be OP to use this command!");
-			return true;
+			return CommandErrorMessages.sendPermissionError(sender);
 		}
 	}
 

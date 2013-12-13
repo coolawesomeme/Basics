@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import coolawesomeme.basics_plugin.Basics;
+import coolawesomeme.basics_plugin.CommandErrorMessages;
 import coolawesomeme.basics_plugin.MinecraftColors;
 import coolawesomeme.basics_plugin.PlayerDataStorage;
 
@@ -22,11 +23,9 @@ public class ServerHelpCommand implements CommandExecutor{
 			if(args.length == 1){
 				return serverHelpCommand(sender, cmd, label, args);
 			}else if(args.length > 1){
-				sender.sendMessage("Invalid command syntax!");
-				return false;
+				return CommandErrorMessages.sendSyntaxError(sender);
 			}else{
-				sender.sendMessage("You must be a player to do that!");
-				return true;
+				return CommandErrorMessages.sendSyntaxError(sender);
 			}
 		} else {
 			return serverHelpCommand(sender, cmd, label, args);
@@ -39,8 +38,7 @@ public class ServerHelpCommand implements CommandExecutor{
 			player = (Player)sender;
 		}else{
 			if(args.length > 1){
-				sender.sendMessage("This command has only 1 optional argument!");
-				return false;
+				return CommandErrorMessages.sendSyntaxError(sender);
 			}
 			else{
 				player = Bukkit.getServer().getPlayer(args[0]);

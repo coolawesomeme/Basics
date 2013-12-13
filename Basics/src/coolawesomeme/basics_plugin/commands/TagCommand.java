@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import coolawesomeme.basics_plugin.Basics;
+import coolawesomeme.basics_plugin.CommandErrorMessages;
 import coolawesomeme.basics_plugin.MinecraftColors;
 
 public class TagCommand implements CommandExecutor{
@@ -28,8 +29,7 @@ public class TagCommand implements CommandExecutor{
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(args.length > 1){
-			sender.sendMessage("Incorrect command syntax!");
-			return false;
+			return CommandErrorMessages.sendSyntaxError(sender);
 		}else if(args.length == 1){
 			if(args[0].equals("end")){
 				if(sender.isOp() || sender.hasPermission("basics.tag.end")){
@@ -112,7 +112,11 @@ public class TagCommand implements CommandExecutor{
 		if(isTagOn){
 			List<Player> playerList = new LinkedList<Player>();
 			for(String x : nonTaggedPlayers){
-				playerList.add(Bukkit.getPlayer(x));
+				try{
+					playerList.add(Bukkit.getPlayer(x));
+				}catch(Exception e){
+					playerList.add((Player)Bukkit.getOfflinePlayer(x));
+				}
 			}
 			return playerList;
 		}else{
@@ -124,7 +128,11 @@ public class TagCommand implements CommandExecutor{
 		if(isTagOn){
 			List<Player> playerList = new LinkedList<Player>();
 			for(String x : taggedPlayers){
-				playerList.add(Bukkit.getPlayer(x));
+				try{
+					playerList.add(Bukkit.getPlayer(x));
+				}catch(Exception e){
+					playerList.add((Player)Bukkit.getOfflinePlayer(x));
+				}
 			}
 			return playerList;
 		}else{

@@ -6,10 +6,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 
 import coolawesomeme.basics_plugin.Basics;
+import coolawesomeme.basics_plugin.CommandErrorMessages;
 import coolawesomeme.basics_plugin.MinecraftColors;
 
 public class TPRCommand implements CommandExecutor{
@@ -26,7 +26,7 @@ public class TPRCommand implements CommandExecutor{
 		if(!(sender instanceof Player)){
 			if(args.length == 2){
 				if(Bukkit.getPlayer(args[0]) == null || Bukkit.getPlayer(args[0]).equals(null)){
-					sender.sendMessage(MinecraftColors.red + "Player" + args[0] + " not found!");
+					sender.sendMessage(MinecraftColors.red + "Player " + args[0] + " not found!");
 				}else{
 					if((Bukkit.getPlayer(args[1]) == null || Bukkit.getPlayer(args[1]).equals(null))){
 						sender.sendMessage(MinecraftColors.red + "Player " + args[1] + " not found!");
@@ -36,11 +36,9 @@ public class TPRCommand implements CommandExecutor{
 				}
 				return true;
 			}else if(args.length > 2){
-				sender.sendMessage("Invalid command syntax!");
-				return false;
+				return CommandErrorMessages.sendSyntaxError(sender);
 			}else if(args.length < 2){
-				sender.sendMessage("You must be a player to do that!");
-				return false;
+				return CommandErrorMessages.sendConsoleError(sender);
 			}
 		}else{
 			if(args.length == 1){
@@ -78,12 +76,12 @@ public class TPRCommand implements CommandExecutor{
 					}
 					return true;
 				}else if(args[0].equalsIgnoreCase("setrequest")){
-					if(sender.isOp() || sender.hasPermission("basics.tpr.setrequest") || sender instanceof ConsoleCommandSender){
+					if(sender.isOp() || sender.hasPermission("basics.tpr.setrequest") || !(sender instanceof Player)){
 						basics.getConfig().set("teleport-requests", Boolean.parseBoolean(args[1]));
 						basics.saveConfig();
 						sender.sendMessage("Value set!");
 					}else{
-						sender.sendMessage("You must be OP/ Admin to do that!");
+						CommandErrorMessages.sendPermissionError(sender);
 					}
 					return true;
 				}else{
@@ -108,7 +106,7 @@ public class TPRCommand implements CommandExecutor{
 				}
 			}else if(args.length == 2){
 				if(Bukkit.getPlayer(args[0]) == null || Bukkit.getPlayer(args[0]).equals(null)){
-					sender.sendMessage(MinecraftColors.red + "Player" + args[0] + " not found!");
+					sender.sendMessage(MinecraftColors.red + "Player " + args[0] + " not found!");
 				}else{
 					if((Bukkit.getPlayer(args[1]) == null || Bukkit.getPlayer(args[1]).equals(null))){
 						sender.sendMessage(MinecraftColors.red + "Player " + args[1] + " not found!");
@@ -133,11 +131,9 @@ public class TPRCommand implements CommandExecutor{
 				}
 				return true;
 			}else if(args.length < 1){
-				sender.sendMessage("Invalid command syntax!");
-				return false;
+				return CommandErrorMessages.sendSyntaxError(sender);
 			}else if(args.length > 2){
-				sender.sendMessage("Invalid command syntax!");
-				return false;
+				return CommandErrorMessages.sendSyntaxError(sender);
 			}
 		}
 		return false;
