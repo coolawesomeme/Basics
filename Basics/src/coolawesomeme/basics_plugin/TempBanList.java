@@ -1,5 +1,6 @@
 package coolawesomeme.basics_plugin;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -7,9 +8,7 @@ import org.bukkit.entity.Player;
 
 public class TempBanList {
 
-	private static List<Player> bannedPlayers;
-	
-	public static boolean isEmpty = bannedPlayers.isEmpty();
+	private static LinkedList<Player> bannedPlayers = new LinkedList<Player>();
 	
 	public static void addPlayer(Player victim){
 		bannedPlayers.add(victim);
