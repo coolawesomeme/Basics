@@ -36,12 +36,12 @@ public class EventListener implements Listener{
 					}
 				}, 20L);
 			}else{
-				event.getPlayer().sendMessage("Welcome to the " + Bukkit.getServerName() + ", " + event.getPlayer().getName() + "!");
+				event.getPlayer().sendMessage("Welcome to " + Bukkit.getServerName() + ", " + event.getPlayer().getName() + "!");
 				event.getPlayer().sendMessage("");
 				event.getPlayer().sendMessage(MinecraftColors.purple + "Server is currently in BRB mode because the server owner is brbing!");
 			}
 		}else{
-			event.getPlayer().sendMessage("Welcome to the " + Bukkit.getServerName() + ", " + event.getPlayer().getName() + "!");
+			event.getPlayer().sendMessage("Welcome to " + Bukkit.getServerName() + ", " + event.getPlayer().getName() + "!");
     	}
 	}
 	
@@ -60,7 +60,7 @@ public class EventListener implements Listener{
 			if(event.getMessage().toLowerCase().startsWith("/gamemode") || event.getMessage().toLowerCase().startsWith("/gm") || event.getMessage().toLowerCase().startsWith("gamemode") || event.getMessage().toLowerCase().startsWith("gm")){
 				event.setCancelled(true);
 				event.getPlayer().sendMessage(MinecraftColors.red + "Sorry, this server has disabled the changing of gamemodes by players.");
-				event.getPlayer().sendMessage(MinecraftColors.red + "Only the Console may change gamemodes.");
+				event.getPlayer().sendMessage(MinecraftColors.red + "Only the Console may change players' gamemodes.");
 			}
 		}
 	}
