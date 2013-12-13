@@ -1,6 +1,6 @@
 name: Basics
 main: coolawesomeme.basics_plugin.Basics
-version: 0.7.1
+version: 0.7.2
 description: A bukkit plugin that offers/ will offer many essential and fun commands.
 author: coolawesomeme
 website: http://coolawesomeme.github.io/Basics
@@ -18,19 +18,10 @@ commands:
     description: Randomly bans a player for 30 mins.
     usage: "Usage: /<command>"
     permission: basics.banroulette
-  banthecoon:
-    description: Bans the coon (player with highest annoying factor) lolol
-    usage: "Usage: /<command>"
-    permission: basics.banthecoon
   banhammer:
     description: Surprise!
     usage: "Usage: /<command>"
     permission: basics.banhammer
-  afactor:
-    description: Check/ Update a player's annoying factor.
-    usage: "Usage: /<command> [playerName] [set <amount>]"
-    aliases: annoyingfactor
-    permission: basics.afactor
   tproulette:
     description: Puts a player or all players at random coordinates.
     usage: "Usage: /<command> [playerName/all] [world]"
@@ -51,12 +42,11 @@ commands:
     permission: basics.tag
 
 permissions:
-   basics.*:
+   basics.all:
      description: Gives access to all Basics commands
      default: false
      children:
        basics.admin: true
-       basics.afactor.set: true
        basics.banroulette: true
        basics.banhammer: true
        basics.tproulette.all: true
@@ -65,37 +55,25 @@ permissions:
      description: Access to admin + a few other exclusive permissions
      default: false
      children:
-       basics.*: true
+       basics.all: true
        basics.gamemode_ban.change: true
    basics.admin:
      description: Gives access to all admin-only commands
      default: op
      children:
        basics.banroulette: true
-       basics.banthecoon: true
        basics.banhammer: true
-       basics.afactor.set: true
        basics.tproulette.all: true
-       basics.banthecoon: true
        basics.tpr.setrequest: true
        basics.tag.end: true
    basics.serverhelp:
      description: Allows access of severhelp command
      default: true
-   basics.afactor:
-     description: Allows access of afactor command
-     default: true
-   basics.afactor.set:
-     description: Allows access to set afactor command
-     default: op
    basics.banroulette:
      description: Allows access of banroulette command
      default: op
    basics.banhammer:
      description: Allows access of banhammer command
-     default: op
-   basics.banthecoon:
-     description: Allows access of banthecoon command
      default: op
    basics.tproulette:
      description: Allows access of tproulette command

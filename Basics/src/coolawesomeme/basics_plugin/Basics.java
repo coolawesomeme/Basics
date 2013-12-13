@@ -8,10 +8,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import coolawesomeme.basics_plugin.commands.AFactorCommand;
 import coolawesomeme.basics_plugin.commands.BanHammerCommand;
 import coolawesomeme.basics_plugin.commands.BanRouletteCommand;
-import coolawesomeme.basics_plugin.commands.BanTheCoonCommand;
 import coolawesomeme.basics_plugin.commands.BrbCommand;
 import coolawesomeme.basics_plugin.commands.LockdownCommand;
 import coolawesomeme.basics_plugin.commands.ServerHelpCommand;
@@ -32,7 +30,7 @@ public final class Basics extends JavaPlugin {
 	
 	public static int versionMajor = 0;
 	public static int versionMinor = 7;
-	public static int versionRevision = 1;
+	public static int versionRevision = 2;
 	public static String version = versionMajor + "." + versionMinor + "." + versionRevision;
 	public static boolean download;
 	public static boolean teleportRequests;
@@ -62,7 +60,7 @@ public final class Basics extends JavaPlugin {
 	@Override
     /** Method that is executed when the plugin gets disabled */
     public void onDisable() {
-		if(!TempBanList.isEmpty){
+		if(!TempBanList.getList().isEmpty()){
 			getLogger().info("Pre-disable unbanning of temporary bans...");
 			TempBanList.unbanAll();
 		}
@@ -71,10 +69,8 @@ public final class Basics extends JavaPlugin {
 	
     /** Sets classes that handle commands */
     private void commandHandlers(){
-    	getCommand("afactor").setExecutor(new AFactorCommand(this));
     	getCommand("banhammer").setExecutor(new BanHammerCommand(this));
     	getCommand("banroulette").setExecutor(new BanRouletteCommand(this));
-    	getCommand("banthecoon").setExecutor(new BanTheCoonCommand(this));
     	getCommand("brb").setExecutor(new BrbCommand(this));
     	getCommand("serverhelp").setExecutor(new ServerHelpCommand(this));
     	getCommand("tproulette").setExecutor(new TPRouletteCommand(this));
