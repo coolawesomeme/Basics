@@ -23,8 +23,7 @@ public class PlayerDataStorage {
 			try {
 				f.createNewFile();
 				FileWriter lol = new FileWriter(f);
-				lol.write("0\n");
-				lol.write("0");
+				lol.write("");
 				lol.flush();
 				lol.close();
 			} catch (IOException e) {
@@ -33,8 +32,8 @@ public class PlayerDataStorage {
 		}
 	}
 	
-	public static int getPlayerAFactor(Player player){
-		String content = "0\\n0";
+	/*public static int getPlayerAFactor(Player player){
+		String content = "";
 		try {
 			content = new Scanner(new File(dataFolderPath + "/" + player.getName() + ".dat")).useDelimiter("\\Z").next();
 		} catch (FileNotFoundException e) {
@@ -45,7 +44,34 @@ public class PlayerDataStorage {
 	}
 	
 	public static int getPlayerAFactor(OfflinePlayer player){
-		String content = "0\\n0";
+		String content = "";
+		try {
+			content = new Scanner(new File(dataFolderPath + "/" + player.getName() + ".dat")).useDelimiter("\\Z").next();
+		} catch (FileNotFoundException e) {
+			makePlayerDataFile(player.getName());
+			try {
+				content = new Scanner(new File(dataFolderPath + "/" + player.getName() + ".dat")).useDelimiter("\\Z").next();
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+		}
+		String[] lulz = content.split("\\n");
+		return Integer.parseInt(lulz[0]);
+	}*/
+	
+	public static int getPlayerServerHelpCount(Player player){
+		String content = "";
+		try {
+			content = new Scanner(new File(dataFolderPath + "/" + player.getName() + ".dat")).useDelimiter("\\Z").next();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		String[] lulz = content.split("\\n");
+		return Integer.parseInt(lulz[0]);
+	}
+	
+	public static int getPlayerServerHelpCount(OfflinePlayer player){
+		String content = "";
 		try {
 			content = new Scanner(new File(dataFolderPath + "/" + player.getName() + ".dat")).useDelimiter("\\Z").next();
 		} catch (FileNotFoundException e) {
@@ -60,34 +86,7 @@ public class PlayerDataStorage {
 		return Integer.parseInt(lulz[0]);
 	}
 	
-	public static int getPlayerServerHelpCount(Player player){
-		String content = "0\\n0";
-		try {
-			content = new Scanner(new File(dataFolderPath + "/" + player.getName() + ".dat")).useDelimiter("\\Z").next();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		String[] lulz = content.split("\\n");
-		return Integer.parseInt(lulz[1]);
-	}
-	
-	public static int getPlayerServerHelpCount(OfflinePlayer player){
-		String content = "0\\n0";
-		try {
-			content = new Scanner(new File(dataFolderPath + "/" + player.getName() + ".dat")).useDelimiter("\\Z").next();
-		} catch (FileNotFoundException e) {
-			makePlayerDataFile(player.getName());
-			try {
-				content = new Scanner(new File(dataFolderPath + "/" + player.getName() + ".dat")).useDelimiter("\\Z").next();
-			} catch (FileNotFoundException e1) {
-				e1.printStackTrace();
-			}
-		}
-		String[] lulz = content.split("\\n");
-		return Integer.parseInt(lulz[1]);
-	}
-	
-	public static void setPlayerAFactor(Player player, int afactor){
+	/*public static void setPlayerAFactor(Player player, int afactor){
 		File f = new File(dataFolderPath + "/" + player.getName() + ".dat");
 		try {
 			int playerHelpCount = getPlayerServerHelpCount(player);
@@ -123,14 +122,12 @@ public class PlayerDataStorage {
 				e1.printStackTrace();
 			}
 		}
-	}
+	}*/
 	
 	public static void setPlayerServerHelpCount(Player player, int playerHelpCount){
 		File f = new File(dataFolderPath + "/" + player.getName() + ".dat");
 		try {
-			int afactor = getPlayerAFactor(player);
 			FileWriter lol = new FileWriter(f);
-			lol.write(afactor + "\n");
 			lol.write(playerHelpCount + "");
 			lol.flush();
 			lol.close();
@@ -142,18 +139,14 @@ public class PlayerDataStorage {
 	public static void setPlayerServerHelpCount(OfflinePlayer player, int playerHelpCount){
 		File f = new File(dataFolderPath + "/" + player.getName() + ".dat");
 		try {
-			int afactor = getPlayerAFactor(player);
 			FileWriter lol = new FileWriter(f);
-			lol.write(afactor + "\n");
 			lol.write(playerHelpCount + "");
 			lol.flush();
 			lol.close();
 		} catch (IOException e) {
 			makePlayerDataFile(player.getName());
 			try {
-				int afactor = getPlayerAFactor(player);
 				FileWriter lol = new FileWriter(f);
-				lol.write(afactor + "\n");
 				lol.write(playerHelpCount + "");
 				lol.flush();
 				lol.close();
