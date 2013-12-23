@@ -1,15 +1,13 @@
 package coolawesomeme.basics_plugin;
 
-import java.util.Calendar;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import coolawesomeme.basics_plugin.commands.BrbCommand;
@@ -49,13 +47,19 @@ public class EventListener implements Listener{
 	}
 	
 	@EventHandler
-	public void onPlayerInteractWithEntity(PlayerInteractEntityEvent event){
-		if(TagCommand.isTagOn){
-			if(TagCommand.getTaggedPlayers().contains(event.getPlayer()) && TagCommand.getNonTaggedPlayers().contains(event.getRightClicked())){
-				TagCommand.tagPlayer((Player)event.getRightClicked());
-			}
-		}
-	}
+    public void playerDamagePlayer(EntityDamageByEntityEvent event) {
+        if(event.getDamager() instanceof Player && event.getEntity() instanceof Player){
+            Player damager = (Player) event.getDamager();
+            Player victim = (Player) event.getEntity();
+            if(TagCommand.isTagOn){
+    			if(TagCommand.getTaggedPlayers().contains(damager) && TagCommand.getNonTaggedPlayers().contains(victim)){
+    				TagCommand.tagPlayer(victim);
+    			}else if(TagCommand.getTaggedPlayers().contains(damager)){
+    				damager.sendMessage(ChatColor.RED + "This player is already tagged!");
+    			}
+    		}
+        }
+    }
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onPlayerCommandPreprocessEvent(PlayerCommandPreprocessEvent event){
