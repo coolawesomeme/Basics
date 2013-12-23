@@ -22,7 +22,7 @@ public class AutoDownloader {
 	public static void checkForUpdate(Basics basics){
             try {
             	String url_string = "https://raw.github.com/coolawesomeme/Basics/master/UPDATE.txt";
-            	if(Basics.isBeta){
+            	if(Basics.useBeta){
             		url_string = "https://raw.github.com/coolawesomeme/Basics/master/UPDATE2.txt";
             	}
                 URL url = new URL(url_string);
@@ -48,7 +48,7 @@ public class AutoDownloader {
                 				}
                 				if(downloadLatestModFile(basics, temp[6], temp[0])){
                 				}else{
-                					basics.getLogger().info(Basics.isBeta ? "Contact coolawesomeme" : "http://coolawesomeme.github.io/Basics");
+                					basics.getLogger().info(Basics.useBeta ? "Contact coolawesomeme" : "http://coolawesomeme.github.io/Basics");
                 				}
                 				basics.getLogger().info("******************************************************");
                 			}

@@ -30,12 +30,12 @@ public final class Basics extends JavaPlugin {
 	
 	public static int versionMajor = 0;
 	public static int versionMinor = 7;
-	public static int versionRevision = 2;
+	public static int versionRevision = 3;
 	public static String version = versionMajor + "." + versionMinor + "." + versionRevision;
 	public static boolean download;
 	public static boolean teleportRequests;
 	public static int tagMinutes;
-	public static boolean isBeta;
+	public static boolean useBeta;
 	public static boolean disallowGamemode;
 	public static boolean update;
 	public static String updateFolder = YamlConfiguration.loadConfiguration(new File("bukkit.yml")).getString("settings.update-folder");
@@ -51,7 +51,6 @@ public final class Basics extends JavaPlugin {
 		this.configReadme();
 		this.createPlayerFolder();
 		this.commandHandlers();
-		this.renameJar();
 		AutoDownloader.checkForUpdate(this);
         getLogger().info("Plugin enabled!");
         //getLogger().info("Use /help basics for commands!");
@@ -87,7 +86,7 @@ public final class Basics extends JavaPlugin {
     	update = this.getConfig().getBoolean("auto-update", true);
     	teleportRequests = this.getConfig().getBoolean("teleport-requests", true);
     	tagMinutes = this.getConfig().getInt("tag-playing-time-minutes", 30);
-    	isBeta = this.getConfig().getBoolean("is-beta-version", false);
+    	useBeta = this.getConfig().getBoolean("use-beta-version", false);
     	disallowGamemode = this.getConfig().getBoolean("disallow-gamemode-change", false);
     }
 	
@@ -102,14 +101,9 @@ public final class Basics extends JavaPlugin {
 		this.getConfig().set("auto-update", update);
 		this.getConfig().set("teleport-requests", teleportRequests);
 		this.getConfig().set("tag-playing-time-minutes", tagMinutes);
-		this.getConfig().set("is-beta-version", isBeta);
+		this.getConfig().set("use-beta-version", useBeta);
 		this.getConfig().set("disallow-gamemode-change", disallowGamemode);
 		this.saveConfig();
-	}
-	
-	private void renameJar() {
-		File f = new File("plugins/Basics " + version + ".jar");
-		f.renameTo(new File("plugins/Basics.jar"));
 	}
 	
 	//Creates (if not already created) the folder where player stats are stored
@@ -129,7 +123,7 @@ public final class Basics extends JavaPlugin {
 			lol.write("Config File Readme" + newLine);
 			lol.write("---------------------------" + newLine);
 			lol.write("IMPORTANT: IT IS NOT RECOMMENDED TO EDIT THE CONFIG FILE WITH NOTEPAD, USE NOTEPAD++. (TextEdit should be fine.)" + newLine + newLine);
-			lol.write("is-beta-version: " + "This controls whether or not you get the latest beta (possibly quite buggy) version of Basics." + newLine + newLine);
+			lol.write("use-beta-version: " + "This controls whether or not you get the latest beta (possibly quite buggy) version of Basics." + newLine + newLine);
 			lol.write("server-owner: " + "This control whether or not a user can do /brb." + newLine + newLine);
 			lol.write("message: " + "A brief server description that is shown to new players who join while the brb command is active." + newLine + newLine);
 			lol.write("download-latest-version: " + "This controls whether or not you will get the latest version in your /plugins/Basics/updates/ folder." + newLine + newLine);

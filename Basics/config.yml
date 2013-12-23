@@ -1,5 +1,5 @@
 # Basics config file. READ Config-README.txt.
-is-beta-version: false
+use-beta-version: false
 server-owner: Console
 message: This is a survival server!
 download-latest-version: true
