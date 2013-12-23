@@ -1,6 +1,9 @@
 package coolawesomeme.basics_plugin;
 
+import java.util.Calendar;
+
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -32,13 +35,13 @@ public class EventListener implements Listener{
 					@Override 
 					public void run() {
 						ServerHelpCommand.actualServerHelp(newEvent.getPlayer());
-						newEvent.getPlayer().sendMessage(MinecraftColors.purple + "Server is currently in BRB mode because the server owner is brbing!");
+						newEvent.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "Server is currently in BRB mode because the server owner is brbing!");
 					}
 				}, 20L);
 			}else{
 				event.getPlayer().sendMessage("Welcome to " + Bukkit.getServerName() + ", " + event.getPlayer().getName() + "!");
 				event.getPlayer().sendMessage("");
-				event.getPlayer().sendMessage(MinecraftColors.purple + "Server is currently in BRB mode because the server owner is brbing!");
+				event.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "Server is currently in BRB mode because the server owner is brbing!");
 			}
 		}else{
 			event.getPlayer().sendMessage("Welcome to " + Bukkit.getServerName() + ", " + event.getPlayer().getName() + "!");
@@ -59,8 +62,8 @@ public class EventListener implements Listener{
 		if(Basics.disallowGamemode && !event.getPlayer().hasPermission("basics.gamemode_ban.change")){
 			if(event.getMessage().toLowerCase().startsWith("/gamemode") || event.getMessage().toLowerCase().startsWith("/gm") || event.getMessage().toLowerCase().startsWith("gamemode") || event.getMessage().toLowerCase().startsWith("gm")){
 				event.setCancelled(true);
-				event.getPlayer().sendMessage(MinecraftColors.red + "Sorry, this server has disabled the changing of gamemodes by players.");
-				event.getPlayer().sendMessage(MinecraftColors.red + "Only the Console may change players' gamemodes.");
+				event.getPlayer().sendMessage(ChatColor.RED + "Sorry, this server has disabled the changing of gamemodes by players.");
+				event.getPlayer().sendMessage(ChatColor.RED + "Only the Console may change players' gamemodes.");
 			}
 		}
 	}

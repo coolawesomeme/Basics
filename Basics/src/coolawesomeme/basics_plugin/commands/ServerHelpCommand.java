@@ -1,6 +1,7 @@
 package coolawesomeme.basics_plugin.commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,7 +11,6 @@ import org.bukkit.inventory.ItemStack;
 
 import coolawesomeme.basics_plugin.Basics;
 import coolawesomeme.basics_plugin.CommandErrorMessages;
-import coolawesomeme.basics_plugin.MinecraftColors;
 import coolawesomeme.basics_plugin.PlayerDataStorage;
 
 public class ServerHelpCommand implements CommandExecutor{
@@ -49,11 +49,11 @@ public class ServerHelpCommand implements CommandExecutor{
 	}
 
 	public static void actualServerHelp(Player player){
-		player.sendMessage("Welcome to the server, " + MinecraftColors.red + player.getName() + "!");
+		player.sendMessage("Welcome to the server, " + ChatColor.RED + player.getName() + ChatColor.RESET + "!");
 		player.sendMessage(Basics.message);
 		int i = PlayerDataStorage.getPlayerServerHelpCount(player);
 		if(i < 3){
-			player.sendMessage(MinecraftColors.red + "It's dangerous to go alone, take these!");
+			player.sendMessage(ChatColor.LIGHT_PURPLE + "It's dangerous to go alone, take these!");
 			player.getInventory().addItem(new ItemStack(Material.STONE_SWORD, 1));
 			player.getInventory().addItem(new ItemStack(Material.STONE_AXE, 1));
 			player.getInventory().addItem(new ItemStack(Material.STONE_SPADE, 1));

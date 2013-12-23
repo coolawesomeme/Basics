@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -12,7 +13,6 @@ import org.bukkit.entity.Player;
 
 import coolawesomeme.basics_plugin.Basics;
 import coolawesomeme.basics_plugin.CommandErrorMessages;
-import coolawesomeme.basics_plugin.MinecraftColors;
 
 public class TagCommand implements CommandExecutor{
 	
@@ -59,7 +59,7 @@ public class TagCommand implements CommandExecutor{
 				nonTaggedPlayers = getOnlinePlayers();
 				nonTaggedPlayers.remove(originalTagger);
 				isTagOn = true;
-				Bukkit.getServer().broadcastMessage(MinecraftColors.red + "A game of tag has started! You have " + MinecraftColors.white + tagMinutes + MinecraftColors.red + " minutes!");
+				Bukkit.getServer().broadcastMessage(ChatColor.RED + "A game of tag has started! You have " + tagMinutes + " minutes!");
 				Bukkit.getServer().broadcastMessage(originalTagger.getName() + " is the tagger!");
 				originalTagger.sendMessage("Right click other players to tag them!");
 				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
@@ -97,11 +97,11 @@ public class TagCommand implements CommandExecutor{
 		if(isTagOn){
 			taggedPlayers.add(player.getName());
 			nonTaggedPlayers.remove(player.getName());
-			Bukkit.getServer().broadcastMessage(MinecraftColors.italics + "A player has been tagged!");
+			Bukkit.getServer().broadcastMessage(ChatColor.ITALIC + "A player has been tagged!");
 			if(nonTaggedPlayers.size() != 0){
 				Bukkit.getServer().broadcastMessage(nonTaggedPlayers.size() + " non tagged players left!");
 			}else{
-				Bukkit.getServer().broadcastMessage(MinecraftColors.red + "Game over!");
+				Bukkit.getServer().broadcastMessage(ChatColor.RED + "Game over!");
 				Bukkit.getServer().broadcastMessage(originalTagger.getName() + " has won!");
 				isTagOn = false;
 			}

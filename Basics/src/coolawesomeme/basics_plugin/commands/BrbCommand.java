@@ -1,6 +1,7 @@
 package coolawesomeme.basics_plugin.commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -8,7 +9,6 @@ import org.bukkit.entity.Player;
 
 import coolawesomeme.basics_plugin.Basics;
 import coolawesomeme.basics_plugin.CommandErrorMessages;
-import coolawesomeme.basics_plugin.MinecraftColors;
 
 public class BrbCommand implements CommandExecutor{
 	
@@ -40,10 +40,10 @@ public class BrbCommand implements CommandExecutor{
 		if(args.length == 0){
 			if(isOwnerBRBing){
 				isOwnerBRBing = false;
-				Bukkit.broadcastMessage(MinecraftColors.lightPurple + "[Basics] The server owner is no longer away!");
+				Bukkit.broadcastMessage(ChatColor.LIGHT_PURPLE + "[Basics] The server owner is no longer away!");
 			}else{
 				isOwnerBRBing = true;
-				Bukkit.broadcastMessage(MinecraftColors.lightPurple + "[Basics] The server owner is away!");
+				Bukkit.broadcastMessage(ChatColor.LIGHT_PURPLE + "[Basics] The server owner is away!");
 			}
 			return true;
 		}else if(args.length > 1){
@@ -52,7 +52,7 @@ public class BrbCommand implements CommandExecutor{
 			boolean oldBRB = isOwnerBRBing;
 			isOwnerBRBing = Boolean.parseBoolean(args[0]);
 			if(oldBRB != isOwnerBRBing)
-				Bukkit.broadcastMessage(isOwnerBRBing ? (MinecraftColors.lightPurple + "[Basics] The server owner is away!") : (MinecraftColors.lightPurple + "[Basics] The server ownder is no longer away!"));
+				Bukkit.broadcastMessage(isOwnerBRBing ? (ChatColor.LIGHT_PURPLE + "[Basics] The server owner is away!") : (ChatColor.LIGHT_PURPLE + "[Basics] The server ownder is no longer away!"));
 			return true;
 		}else{
 			return CommandErrorMessages.sendSyntaxError(sender);

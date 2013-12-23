@@ -1,10 +1,12 @@
 package coolawesomeme.basics_plugin;
 
+import org.bukkit.ChatColor;
+
 public enum ThreatLevel {
 
-	NULL("Null", "Code " + MinecraftColors.green + "Green/ Null"),
-	MILD("Mild", "Code " + MinecraftColors.gold + "Orange/ Mild"),
-	SEVERE("Severe", "Code " + MinecraftColors.red + "Red/ Severe");
+	NULL("Null", "Code " + ChatColor.GREEN + "Green/ Null"),
+	MILD("Mild", "Code " + ChatColor.GOLD + "Orange/ Mild"),
+	SEVERE("Severe", "Code " + ChatColor.RED + "Red/ Severe");
 	
 	private final String name;
 	private final String formattedName;
