@@ -13,7 +13,7 @@ import coolawesomeme.basics_plugin.TempBanList;
 public class BanHammerCommand implements CommandExecutor{
 	
 	private Basics basics;
-	public static Player[] banHammerVictims;
+	public static Player[] banHammerVictims = new Player[Bukkit.getOnlinePlayers().length];
 	
 	public BanHammerCommand(Basics instance){
 		basics = instance;
@@ -27,8 +27,8 @@ public class BanHammerCommand implements CommandExecutor{
 				Player[] onlinePlayers = Bukkit.getServer().getOnlinePlayers();
 				if(onlinePlayers.length > 0){
 					for(int i = 0; i < onlinePlayers.length; i++){
-						Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ban " + onlinePlayers[i].getName() + " THOU HATH BEEN BAN HAMMERED");
 						banHammerVictims[i] = onlinePlayers[i];
+						Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ban " + onlinePlayers[i].getName() + " THOU HATH BEEN BAN HAMMERED");
 						TempBanList.addPlayer(onlinePlayers[i].getName());
 					}
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
