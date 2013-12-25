@@ -52,6 +52,7 @@ public final class Basics extends JavaPlugin {
 		this.createPlayerFolder();
 		this.commandHandlers();
 		AutoDownloader.checkForUpdate(this);
+		TempBanList.initializeList();
         getLogger().info("Plugin enabled!");
         //getLogger().info("Use /help basics for commands!");
     }
