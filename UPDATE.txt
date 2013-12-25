@@ -1,1 +1,1 @@
-0.5.0-New /lockdown command!-And fixed errors!-0-5-0-https://dl.dropboxusercontent.com/s/btekgts1ahpegby/Basics%200.5.0.jar
+0.7.3-New features!-And many bug fixes!-0-7-3-https://dl.dropboxusercontent.com/s/ozy8eg1q9kx67hk/Basics%200.7.3.jar?dl=1
