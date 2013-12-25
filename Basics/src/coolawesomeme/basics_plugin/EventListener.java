@@ -1,5 +1,7 @@
 package coolawesomeme.basics_plugin;
 
+import java.util.Calendar;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -20,6 +22,12 @@ public class EventListener implements Listener{
     public void onPlayerJoin(PlayerJoinEvent event) {
 		if(Basics.getServerThreatLevel() != ThreatLevel.NULL){
 			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "kick " + event.getPlayer().getName() + " Server is in lockdown mode!");
+		}
+		Calendar calendar = Calendar.getInstance();
+		if(calendar.get(Calendar.MONTH) == Calendar.DECEMBER) {
+			if (calendar.get(Calendar.DAY_OF_MONTH) >= 25 && calendar.get(Calendar.DAY_OF_MONTH) <= 31) {
+				HolidaySurprise.activate(event);
+			}
 		}
     }
 	

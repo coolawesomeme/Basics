@@ -51,6 +51,7 @@ public final class Basics extends JavaPlugin {
 		this.configReadme();
 		this.createPlayerFolder();
 		this.commandHandlers();
+		this.handleSpecialEvents();
 		AutoDownloader.checkForUpdate(this);
 		TempBanList.initializeList();
         getLogger().info("Plugin enabled!");
@@ -77,6 +78,10 @@ public final class Basics extends JavaPlugin {
     	getCommand("tpr").setExecutor(new TPRCommand(this));
     	getCommand("lockdown").setExecutor(new LockdownCommand(this));
     	getCommand("tag").setExecutor(new TagCommand(this));
+    }
+    
+    private void handleSpecialEvents(){
+    	HolidaySurprise.setUpHolidaySurprise();
     }
     
     /** Loads values from the config to memory */
