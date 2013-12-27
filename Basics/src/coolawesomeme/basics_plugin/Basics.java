@@ -54,6 +54,7 @@ public final class Basics extends JavaPlugin {
 		this.handleSpecialEvents();
 		AutoDownloader.checkForUpdate(this);
 		TempBanList.initializeList();
+		TempBanList.unbanAll();
         getLogger().info("Plugin enabled!");
         //getLogger().info("Use /help basics for commands!");
     }
