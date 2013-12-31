@@ -53,32 +53,36 @@ public class TagCommand implements CommandExecutor{
 		}else{
 			Player[] onlinePlayers = Bukkit.getOnlinePlayers();
 			if(onlinePlayers.length > 1){
-				Random random = new Random();
-				int playerIndex = random.nextInt(onlinePlayers.length);
-				originalTagger = onlinePlayers[playerIndex];
-				nonTaggedPlayers = getOnlinePlayers();
-				nonTaggedPlayers.remove(originalTagger);
-				isTagOn = true;
-				Bukkit.getServer().broadcastMessage(ChatColor.RED + "A game of tag has started! You have " + tagMinutes + " minutes!");
-				Bukkit.getServer().broadcastMessage(originalTagger.getName() + " is the tagger!");
-				originalTagger.sendMessage("Right click other players to tag them!");
-				Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
-					@Override 
-					public void run() {
-						Bukkit.getServer().broadcastMessage("The game has ended!");
-						if(nonTaggedPlayers.size() > 1){
-							Bukkit.getServer().broadcastMessage("The winners are:");
-							Bukkit.getServer().broadcastMessage(nonTaggedPlayers.toString().replace("[", "").replace("]", ""));
-						}else if(nonTaggedPlayers.size() == 1){
-							Bukkit.getServer().broadcastMessage("The winner is: " + nonTaggedPlayers.toString().replace("[", "").replace("]", "").replace(", ", ""));
-						}else{
-							Bukkit.getServer().broadcastMessage(originalTagger.getName() + " has won!");
+				if(!isTagOn){
+					Random random = new Random();
+					int playerIndex = random.nextInt(onlinePlayers.length);
+					originalTagger = onlinePlayers[playerIndex];
+					nonTaggedPlayers = getOnlinePlayers();
+					nonTaggedPlayers.remove(originalTagger);
+					isTagOn = true;
+					Bukkit.getServer().broadcastMessage(ChatColor.RED + "A game of tag has started! You have " + tagMinutes + " minutes!");
+					Bukkit.getServer().broadcastMessage(originalTagger.getName() + " is the tagger!");
+					originalTagger.sendMessage("Right click other players to tag them!");
+					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
+						@Override 
+						public void run() {
+							Bukkit.getServer().broadcastMessage("The game has ended!");
+							if(nonTaggedPlayers.size() > 1){
+								Bukkit.getServer().broadcastMessage("The winners are:");
+								Bukkit.getServer().broadcastMessage(nonTaggedPlayers.toString().replace("[", "").replace("]", ""));
+							}else if(nonTaggedPlayers.size() == 1){
+								Bukkit.getServer().broadcastMessage("The winner is: " + nonTaggedPlayers.toString().replace("[", "").replace("]", "").replace(", ", ""));
+							}else{
+								Bukkit.getServer().broadcastMessage(originalTagger.getName() + " has won!");
+							}
+							isTagOn = false;
 						}
-						isTagOn = false;
-					}
-				}, (long)(tagMinutes*20*60));
+					}, (long)(tagMinutes*20*60));
+				}else{
+					sender.sendMessage(ChatColor.RED + "There is already a game of tag in progress! Please finish that game first.");
+				}
 			}else{
-				sender.sendMessage("There must be at least two players to use this command!");
+				sender.sendMessage(ChatColor.RED + "There must be at least two players to use this command!");
 			}
 			return true;
 		}
