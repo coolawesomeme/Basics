@@ -62,7 +62,7 @@ public class PlayerDataStorage {
 	public static int getPlayerServerHelpCount(Player player){
 		String content = "";
 		try {
-			content = new Scanner(new File(dataFolderPath + "/" + player.getName() + ".dat")).useDelimiter("\\Z").next();
+			content = new Scanner(new File(dataFolderPath + "/" + player.getName() + ".dat")).next();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -73,11 +73,11 @@ public class PlayerDataStorage {
 	public static int getPlayerServerHelpCount(OfflinePlayer player){
 		String content = "";
 		try {
-			content = new Scanner(new File(dataFolderPath + "/" + player.getName() + ".dat")).useDelimiter("\\Z").next();
+			content = new Scanner(new File(dataFolderPath + "/" + player.getName() + ".dat")).next();
 		} catch (FileNotFoundException e) {
 			makePlayerDataFile(player.getName());
 			try {
-				content = new Scanner(new File(dataFolderPath + "/" + player.getName() + ".dat")).useDelimiter("\\Z").next();
+				content = new Scanner(new File(dataFolderPath + "/" + player.getName() + ".dat")).next();
 			} catch (FileNotFoundException e1) {
 				e1.printStackTrace();
 			}
