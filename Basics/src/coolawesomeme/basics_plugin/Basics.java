@@ -39,10 +39,12 @@ public final class Basics extends JavaPlugin {
 	public static boolean disallowGamemode;
 	public static boolean update;
 	public static String updateFolder = YamlConfiguration.loadConfiguration(new File("bukkit.yml")).getString("settings.update-folder");
+	public static String mcVersion;
 	
 	@Override
 	/** Method that is executed when the plugin gets enabled */
     public void onEnable(){
+		this.getMCVersion();
 		PluginManager pm = Bukkit.getServer().getPluginManager();
         pm.registerEvents(new EventListener(), this);
 		this.saveDefaultConfig();
@@ -68,6 +70,13 @@ public final class Basics extends JavaPlugin {
 		}
         getLogger().info("Plugin disabled!");
     }
+	
+	private void getMCVersion(){
+		String tempVersion = getServer().getVersion();
+		String[] tempVersion1 = tempVersion.split("\\(MC: ");
+		tempVersion1 = tempVersion1[1].split("\\)");
+		mcVersion = tempVersion1[0];
+	}
 	
     /** Sets classes that handle commands */
     private void commandHandlers(){
