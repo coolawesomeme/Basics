@@ -78,7 +78,8 @@ public class TPRCommand implements CommandExecutor{
 						return true;
 					}else if(args[0].equalsIgnoreCase("setrequest")){
 						if(sender.isOp() || sender.hasPermission("basics.tpr.setrequest") || !(sender instanceof Player)){
-							basics.getConfig().set("teleport-requests", Boolean.parseBoolean(args[1]));
+							boolean b = Basics.teleportRequests;
+							basics.getConfig().set("teleport-requests", !b);
 							basics.saveConfig();
 							sender.sendMessage("Value set!");
 						}else{
@@ -107,7 +108,7 @@ public class TPRCommand implements CommandExecutor{
 					return true;
 				}
 			}else if(args.length >= 2){
-				if(args.length == 2 && Bukkit.getPlayer(args[1]) != null){
+				if(args.length == 2 && Bukkit.getPlayer(args[1]) != null && Bukkit.getPlayer(args[0]) != null){
 					if(Bukkit.getPlayer(args[0]) == null || Bukkit.getPlayer(args[0]).equals(null)){
 						sender.sendMessage(ChatColor.RED + "Player " + args[0] + " not found!");
 					}else{
@@ -133,6 +134,14 @@ public class TPRCommand implements CommandExecutor{
 						}
 					}
 					return true;
+				}else if(args.length == 2 && args[0].equalsIgnoreCase("setrequest")){
+					if(sender.isOp() || sender.hasPermission("basics.tpr.setrequest") || !(sender instanceof Player)){
+						basics.getConfig().set("teleport-requests", Boolean.parseBoolean(args[1]));
+						basics.saveConfig();
+						sender.sendMessage("Value set!");
+					}else{
+						CommandErrorMessages.sendPermissionError(sender);
+					}
 				}else if(args.length >= 2 && (args[0].equalsIgnoreCase("d") || args[0].equalsIgnoreCase("decline"))){
 					if(pendingTeleports.containsKey(sender.getName())){
 						if(args[0].equalsIgnoreCase("d") || args[0].equalsIgnoreCase("decline")){
@@ -155,9 +164,9 @@ public class TPRCommand implements CommandExecutor{
 							}else{
 								sender.sendMessage(ChatColor.RED + "You have no pending teleports!");
 							}
-							return true;
 						}
 					}
+					return true;
 				}
 			}else if(args.length < 1){
 				return CommandErrorMessages.sendSyntaxError(sender);
