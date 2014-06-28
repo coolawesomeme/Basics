@@ -33,7 +33,7 @@ public class EventListener implements Listener{
 	
 	@EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerJoinLower(PlayerJoinEvent event) {
-		PlayerDataStorage.makePlayerDataFile(event.getPlayer().getName());
+		PlayerDataStorage.makePlayerDataFile(event.getPlayer().getUniqueId());
 		if(BrbCommand.isOwnerBRBing){
 			if(!event.getPlayer().hasPlayedBefore()){
 				final PlayerJoinEvent newEvent = event;

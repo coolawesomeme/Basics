@@ -31,7 +31,7 @@ public class BanRouletteCommand implements CommandExecutor{
 					Random random = new Random();
 					int r = random.nextInt(onlinePlayers.length);
 					banRouletteVictim = onlinePlayers[r];
-					TempBanList.addPlayer(banRouletteVictim.getName());
+					TempBanList.addPlayer(banRouletteVictim);
 					Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ban " + banRouletteVictim.getName() + " You are the ban roulette victim! You have been banned for 30 minutes.");
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
 						@Override 
@@ -39,7 +39,7 @@ public class BanRouletteCommand implements CommandExecutor{
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pardon " + banRouletteVictim.getName());
 							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "unban " + banRouletteVictim.getName());
 							Bukkit.getServer().broadcastMessage("The ban roulette victim (" + banRouletteVictim.getName() + ") has been unbanned.");
-							TempBanList.removePlayer(banRouletteVictim.getName());
+							TempBanList.removePlayer(banRouletteVictim);
 							banRouletteVictim = null;
 						}
 					}, 30000L);

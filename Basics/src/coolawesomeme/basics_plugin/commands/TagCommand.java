@@ -3,6 +3,7 @@ package coolawesomeme.basics_plugin.commands;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Random;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,8 +18,8 @@ import coolawesomeme.basics_plugin.CommandErrorMessages;
 public class TagCommand implements CommandExecutor{
 	
 	private static Player originalTagger;
-	private static List<String> taggedPlayers = new LinkedList<String>();
-	private static List<String> nonTaggedPlayers = new LinkedList<String>();
+	private static List<UUID> taggedPlayers = new LinkedList<UUID>();
+	private static List<UUID> nonTaggedPlayers = new LinkedList<UUID>();
 	public static boolean isTagOn = false;
 	private Basics basics;
 	private int tagMinutes = Basics.tagMinutes;
@@ -88,19 +89,19 @@ public class TagCommand implements CommandExecutor{
 		}
 	}
 
-	private List<String> getOnlinePlayers() {
-		List<String> onlinePlayers = new LinkedList<String>();
+	private List<UUID> getOnlinePlayers() {
+		List<UUID> onlinePlayers = new LinkedList<UUID>();
 		Player[] onlinePlayers1 = Bukkit.getOnlinePlayers();
 		for(int i = 0; i < onlinePlayers1.length; i++){
-			onlinePlayers.add(onlinePlayers1[i].getName());
+			onlinePlayers.add(onlinePlayers1[i].getUniqueId());
 		}
 		return onlinePlayers;
 	}
 	
 	public static void tagPlayer(Player player){
 		if(isTagOn){
-			taggedPlayers.add(player.getName());
-			nonTaggedPlayers.remove(player.getName());
+			taggedPlayers.add(player.getUniqueId());
+			nonTaggedPlayers.remove(player.getUniqueId());
 			Bukkit.getServer().broadcastMessage(ChatColor.ITALIC + "A player has been tagged!");
 			if(nonTaggedPlayers.size() != 0){
 				Bukkit.getServer().broadcastMessage(nonTaggedPlayers.size() + " non tagged players left!");
@@ -115,7 +116,7 @@ public class TagCommand implements CommandExecutor{
 	public static List<Player> getNonTaggedPlayers(){
 		if(isTagOn){
 			List<Player> playerList = new LinkedList<Player>();
-			for(String x : nonTaggedPlayers){
+			for(UUID x : nonTaggedPlayers){
 				try{
 					playerList.add(Bukkit.getPlayer(x));
 				}catch(Exception e){
@@ -131,7 +132,7 @@ public class TagCommand implements CommandExecutor{
 	public static List<Player> getTaggedPlayers(){
 		if(isTagOn){
 			List<Player> playerList = new LinkedList<Player>();
-			for(String x : taggedPlayers){
+			for(UUID x : taggedPlayers){
 				try{
 					playerList.add(Bukkit.getPlayer(x));
 				}catch(Exception e){

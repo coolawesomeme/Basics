@@ -28,7 +28,7 @@ public class BanHammerCommand implements CommandExecutor{
 				if(onlinePlayers.length > 0){
 					for(int i = 0; i < onlinePlayers.length; i++){
 						Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ban " + onlinePlayers[i].getName() + " THOU HATH BEEN BAN HAMMERED");
-						TempBanList.addPlayer(onlinePlayers[i].getName());
+						TempBanList.addPlayer(onlinePlayers[i]);
 					}
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
 						@Override 
@@ -36,7 +36,7 @@ public class BanHammerCommand implements CommandExecutor{
 							for(int i = 0; i < banHammerVictims.length; i++){
 								Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pardon " + banHammerVictims[i].getName());
 								Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "unban " + banHammerVictims[i].getName());
-								TempBanList.removePlayer(banHammerVictims[i].getName());
+								TempBanList.removePlayer(banHammerVictims[i]);
 							}
 							basics.getLogger().info("All ban hammer victims have been unbanned.");
 						}

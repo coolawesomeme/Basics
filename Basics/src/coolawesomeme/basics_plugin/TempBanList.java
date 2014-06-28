@@ -6,43 +6,44 @@ import java.io.FileWriter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class TempBanList {
 
-	private static LinkedList<String> bannedPlayers;
+	private static LinkedList<Player> bannedPlayers;
 	
 	public static void initializeList(){
-		bannedPlayers = new LinkedList<String>();
+		bannedPlayers = new LinkedList<Player>();
 		readBansFromFile();
 	}
 	
-	public static void addPlayer(String victimName){
-		bannedPlayers.add(victimName);
+	public static void addPlayer(Player victim){
+		bannedPlayers.add(victim);
 		resaveFile();
 	}
 	
-	public static void removePlayer(String victimName){
-		bannedPlayers.remove(victimName);
+	public static void removePlayer(Player victim){
+		bannedPlayers.remove(victim);
 		resaveFile();
 	}
 	
-	public static List<String> getList(){
+	public static List<Player> getTempBanList(){
 		return bannedPlayers;
 	}
 	
 	public static void unbanAll(){
 		boolean flag = false;
-		for(String victim : bannedPlayers){
-			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pardon " + victim);
-			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "unban " + victim);
+		for(Player victim : bannedPlayers){
+			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pardon " + victim.getName());
+			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "unban " + victim.getName());
 			bannedPlayers.remove(victim);
 			flag = true;
 		}
-		if(flag){
+		if(flag)
 			resaveFile();
-		}
 	}
 	
 	private static void readBansFromFile(){
@@ -51,7 +52,7 @@ public class TempBanList {
 	    	Scanner scanner = new Scanner(new FileInputStream(f));
 	    	try {
 	    		while (scanner.hasNextLine()){
-	    	  		bannedPlayers.add(scanner.nextLine());
+	    	  		bannedPlayers.add(Bukkit.getPlayer(UUID.fromString(scanner.nextLine())));
 	    		}
 	    	}
 	   		finally{
@@ -67,8 +68,8 @@ public class TempBanList {
 		try {
 			f.createNewFile();
 			FileWriter q = new FileWriter(f);
-			for(String victim : bannedPlayers){
-				q.write(victim + "\n");
+			for(Player victim : bannedPlayers){
+				q.write(victim.getUniqueId() + "\n");
 			}
 			q.flush();
 			q.close();
