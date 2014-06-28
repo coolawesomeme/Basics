@@ -16,18 +16,18 @@ public class BrbCommand implements CommandExecutor{
 	public static boolean isOwnerBRBing = false;
 	
 	public BrbCommand(Basics instance){
-		owner = Basics.owner;
+		if(!Basics.owner.isEmpty()){
+			owner = Basics.owner;
+		}else{
+			owner = "";
+		}
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (!(sender instanceof Player)) {
 			return brbCommand(sender, cmd, label, args);
 		} else {
-			boolean flag = false;
 			if(sender.getName().equalsIgnoreCase(owner)){
-				flag = true;
-			}
-			if(flag){
 				return brbCommand(sender, cmd, label, args);
 			}else{
 				sender.sendMessage("You must be the owner to use this command!");
