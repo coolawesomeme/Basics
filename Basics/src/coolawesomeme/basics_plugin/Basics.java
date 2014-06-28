@@ -19,7 +19,7 @@ import coolawesomeme.basics_plugin.commands.TagCommand;
 
 public final class Basics extends JavaPlugin {
 
-	/** The unformatted string that server-owners is loaded into */
+	/** The string that server-owner is loaded into */
 	public static String owner;
 	
 	/** The current threat level */
@@ -30,7 +30,7 @@ public final class Basics extends JavaPlugin {
 	
 	public static int versionMajor = 0;
 	public static int versionMinor = 7;
-	public static int versionRevision = 3;
+	public static int versionRevision = 4;
 	public static String version = versionMajor + "." + versionMinor + "." + versionRevision;
 	public static boolean download;
 	public static boolean teleportRequests;
@@ -64,7 +64,7 @@ public final class Basics extends JavaPlugin {
 	@Override
     /** Method that is executed when the plugin gets disabled */
     public void onDisable() {
-		if(!TempBanList.getList().isEmpty()){
+		if(!TempBanList.getTempBanList().isEmpty()){
 			getLogger().info("Pre-disable unbanning of temporary bans...");
 			TempBanList.unbanAll();
 		}
