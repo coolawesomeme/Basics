@@ -42,10 +42,9 @@ public class TPRCommand implements CommandExecutor{
 			}
 		}else{
 			if(args.length == 1){
-				if(pendingTeleports.containsKey(sender.getName())){
+				if(pendingTeleports.containsKey(Bukkit.getPlayer(sender.getName()))){
 					if(args[0].equalsIgnoreCase("a") || args[0].equalsIgnoreCase("accept")){
 						Player target = Bukkit.getPlayer(sender.getName());
-						if(pendingTeleports.containsKey(target)){
 							Player originalSender = pendingTeleports.get(target);
 							if(originalSender == null || originalSender.equals(null)){
 								target.sendMessage(target.getName() + ChatColor.RED + " is not currently online!");
@@ -58,13 +57,9 @@ public class TPRCommand implements CommandExecutor{
 								originalSender.teleport(target);
 							}
 							pendingTeleports.remove(target);
-						}else{
-							sender.sendMessage(ChatColor.RED + "You have no pending teleports!");
-						}
 						return true;
 					}else if(args[0].equalsIgnoreCase("d") || args[0].equalsIgnoreCase("decline")){
 						Player target = Bukkit.getPlayer(sender.getName());
-						if(pendingTeleports.containsKey(target)){
 							Player originalSender = pendingTeleports.get(target);
 							if(originalSender == null || originalSender.equals(null)){
 							}else{
@@ -72,10 +67,8 @@ public class TPRCommand implements CommandExecutor{
 							}
 							target.sendMessage("Denying request...");
 							pendingTeleports.remove(target);
-						}else{
-							sender.sendMessage(ChatColor.RED + "You have no pending teleports!");
-						}
 						return true;
+						}
 					}else if(args[0].equalsIgnoreCase("setrequest")){
 						if(sender.isOp() || sender.hasPermission("basics.tpr.setrequest") || !(sender instanceof Player)){
 							boolean b = Basics.teleportRequests;
@@ -86,20 +79,19 @@ public class TPRCommand implements CommandExecutor{
 							CommandErrorMessages.sendPermissionError(sender);
 						}
 						return true;
-					}
-				}else{
+					}else{
 					Player target = Bukkit.getPlayer(args[0]);
 					if(target == null || target.equals(null)){
 						sender.sendMessage(ChatColor.RED + "Player " + args[0] + " not found!");
 					}else{
-						if(this.requests){
+						if(requests){
 							if(pendingTeleports.containsKey(target)){
 								pendingTeleports.remove(target);
 							}
 							pendingTeleports.put(target, Bukkit.getPlayer(sender.getName()));
 							sender.sendMessage("Teleport request sent to " + target.getName());
-							target.sendMessage(ChatColor.RED + sender.getName() + " would like to teleport to you.");
-							target.sendMessage(ChatColor.RED + "Type /tpr a or /tpr d, to accept or decline, respectfully.");
+							target.sendMessage(ChatColor.LIGHT_PURPLE + sender.getName() + " would like to teleport to you.");
+							target.sendMessage(ChatColor.LIGHT_PURPLE + "Type /tpr a or /tpr d, to accept or decline, respectfully.");
 						}else{
 							sender.sendMessage("Teleporting...");
 							Bukkit.getPlayer(sender.getName()).teleport(target);
@@ -122,10 +114,10 @@ public class TPRCommand implements CommandExecutor{
 									pendingTeleports.remove(target);
 								}
 								pendingTeleports.put(target, teleportee);
-								sender.sendMessage("Teleport request send to " + target.getName() + " for " + args[0]);
-								teleportee.sendMessage("Teleport request send to " + target.getName() + " for you by " + sender.getName());
-								target.sendMessage(ChatColor.RED + sender.getName() + " would like to teleport to you.");
-								target.sendMessage(ChatColor.RED + "Type /tpr a or /tpr d, to accept or decline, respectfully.");
+								sender.sendMessage("Teleport request sent to " + target.getName() + " for " + args[0]);
+								teleportee.sendMessage("Teleport request sent to " + target.getName() + " for you by " + sender.getName());
+								target.sendMessage(ChatColor.LIGHT_PURPLE + sender.getName() + " would like to teleport to you.");
+								target.sendMessage(ChatColor.LIGHT_PURPLE + "Type /tpr a or /tpr d, to accept or decline, respectfully.");
 							}else{
 								sender.sendMessage("Teleporting " + args[0] + "...");
 								teleportee.sendMessage("Teleporting to " + args[1] + " for " + sender.getName() + "...");
