@@ -36,13 +36,15 @@ public class BanRouletteCommand implements CommandExecutor{
 					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
 						@Override 
 						public void run() {
-							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pardon " + banRouletteVictim.getName());
-							Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "unban " + banRouletteVictim.getName());
-							Bukkit.getServer().broadcastMessage("The ban roulette victim (" + banRouletteVictim.getName() + ") has been unbanned.");
+							if(banRouletteVictim.isBanned()){
+								Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "pardon " + banRouletteVictim.getName());
+								Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "unban " + banRouletteVictim.getName());
+								Bukkit.getServer().broadcastMessage("The ban roulette victim (" + banRouletteVictim.getName() + ") has been unbanned.");
+							}
 							TempBanList.removePlayer(banRouletteVictim);
 							banRouletteVictim = null;
 						}
-					}, 30000L);
+					}, 18000L);
 					return true;
 				}else{
     				basics.getLogger().info("There must be player(s) online to use this command!");
