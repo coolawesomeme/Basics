@@ -31,7 +31,7 @@ public class LockdownCommand implements CommandExecutor{
 				if(args[0].equalsIgnoreCase(ThreatLevel.NULL.toString()) || args[0].equalsIgnoreCase("green")){
 					Basics.setServerThreatLevel(ThreatLevel.NULL);
 					Bukkit.getServer().broadcastMessage("[Basics] Threat Level: " + ThreatLevel.NULL.formattedName());
-				}else if(args[0].equalsIgnoreCase(ThreatLevel.MILD.toString()) || args[0].equalsIgnoreCase("orange")){
+				}else if(args[0].equalsIgnoreCase(ThreatLevel.MILD.toString()) || args[0].equalsIgnoreCase("yellow")){
 					Basics.setServerThreatLevel(ThreatLevel.MILD);
 					Bukkit.getServer().broadcastMessage("[Basics] Threat Level: " + ThreatLevel.MILD.formattedName());
 				}else if(args[0].equalsIgnoreCase(ThreatLevel.SEVERE.toString()) || args[0].equalsIgnoreCase("red")){

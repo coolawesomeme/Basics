@@ -5,7 +5,7 @@ import org.bukkit.ChatColor;
 public enum ThreatLevel {
 
 	NULL("Null", "Code " + ChatColor.GREEN + "Green/ Null"),
-	MILD("Mild", "Code " + ChatColor.GOLD + "Orange/ Mild"),
+	MILD("Mild", "Code " + ChatColor.YELLOW + "Yellow/ Mild"),
 	SEVERE("Severe", "Code " + ChatColor.RED + "Red/ Severe");
 	
 	private final String name;
