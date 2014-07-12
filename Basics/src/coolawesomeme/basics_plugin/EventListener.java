@@ -14,6 +14,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import coolawesomeme.basics_plugin.commands.BrbCommand;
+import coolawesomeme.basics_plugin.commands.HideSeekCommand;
 import coolawesomeme.basics_plugin.commands.ServerHelpCommand;
 import coolawesomeme.basics_plugin.commands.TagCommand;
 
@@ -57,14 +58,20 @@ public class EventListener implements Listener{
 	}
 	
 	@EventHandler
-    public void onTag(PlayerInteractEntityEvent event) {
+    public void onInteract(PlayerInteractEntityEvent event) {
         if(TagCommand.isTagOn && event.getRightClicked() instanceof Player){
             Player tagger = (Player) event.getPlayer();
             Player victim = (Player) event.getRightClicked();
-    		if(TagCommand.getTaggedPlayers().contains(tagger) && TagCommand.getNonTaggedPlayers().contains(victim)){
+    		if(TagCommand.getCurrentTagger().equals(tagger)){
     			TagCommand.tagPlayer(victim);
-    		}else if(TagCommand.getTaggedPlayers().contains(victim)){
-    			tagger.sendMessage(ChatColor.RED + "This player is already tagged!");
+    		}
+        }else if(HideSeekCommand.isHSOn && event.getRightClicked() instanceof Player){
+        	Player seeker = (Player) event.getPlayer();
+            Player victim = (Player) event.getRightClicked();
+    		if(HideSeekCommand.getFoundPlayers().contains(seeker) && HideSeekCommand.getUnfoundPlayers().contains(victim)){
+    			HideSeekCommand.tagFoundPlayer(victim);
+    		}else if(HideSeekCommand.getFoundPlayers().contains(victim)){
+    			seeker.sendMessage(ChatColor.RED + "This player has already been found!");
     		}
         }
     }
