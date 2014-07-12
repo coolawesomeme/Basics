@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import coolawesomeme.basics_plugin.commands.BanHammerCommand;
 import coolawesomeme.basics_plugin.commands.BanRouletteCommand;
 import coolawesomeme.basics_plugin.commands.BrbCommand;
+import coolawesomeme.basics_plugin.commands.HideSeekCommand;
 import coolawesomeme.basics_plugin.commands.LockdownCommand;
 import coolawesomeme.basics_plugin.commands.ServerHelpCommand;
 import coolawesomeme.basics_plugin.commands.TPRCommand;
@@ -35,6 +36,7 @@ public final class Basics extends JavaPlugin {
 	public static boolean download;
 	public static boolean teleportRequests;
 	public static int tagMinutes;
+	public static int hideseekMinutes;
 	public static boolean useBeta;
 	public static boolean disallowGamemode;
 	public static boolean update;
@@ -88,6 +90,7 @@ public final class Basics extends JavaPlugin {
     	getCommand("tpr").setExecutor(new TPRCommand(this));
     	getCommand("lockdown").setExecutor(new LockdownCommand(this));
     	getCommand("tag").setExecutor(new TagCommand(this));
+    	getCommand("hideseek").setExecutor(new HideSeekCommand(this));
     }
     
     private void handleSpecialEvents(){
@@ -101,7 +104,8 @@ public final class Basics extends JavaPlugin {
     	download = this.getConfig().getBoolean("download-latest-version", true);
     	update = this.getConfig().getBoolean("auto-update", true);
     	teleportRequests = this.getConfig().getBoolean("teleport-requests", true);
-    	tagMinutes = this.getConfig().getInt("tag-playing-time-minutes", 30);
+    	tagMinutes = this.getConfig().getInt("tag-playing-time-minutes", 20);
+    	hideseekMinutes = this.getConfig().getInt("hideseek-playing-time-minutes", 20);
     	useBeta = this.getConfig().getBoolean("use-beta-version", false);
     	disallowGamemode = this.getConfig().getBoolean("disallow-gamemode-change", false);
     }
@@ -117,6 +121,7 @@ public final class Basics extends JavaPlugin {
 		this.getConfig().set("auto-update", update);
 		this.getConfig().set("teleport-requests", teleportRequests);
 		this.getConfig().set("tag-playing-time-minutes", tagMinutes);
+		this.getConfig().set("hideseek-playing-time-minutes", hideseekMinutes);
 		this.getConfig().set("use-beta-version", useBeta);
 		this.getConfig().set("disallow-gamemode-change", disallowGamemode);
 		this.saveConfig();
@@ -146,6 +151,7 @@ public final class Basics extends JavaPlugin {
 			lol.write("auto-update: " + "This controls whether or not the plugin will update itself. (Note: Requires download-latest-version to be set to true as well.)" + newLine + newLine);
 			lol.write("teleport-requests: " + "This controls whether requests will be sent to players who do /tpr . This is the equivelant of /tpr setRequest." + newLine + newLine);
 			lol.write("tag-playing-time-minutes: " + "This controls the amount of time that will pass before tag is over, and the winner(s) are declared." + newLine + newLine);
+			lol.write("hideseek-playing-time-minutes: " + "This controls the amount of time that will pass before hide & seek is over, and the winner(s) are declared." + newLine + newLine);
 			lol.write("disallow-gamemode-change: " + "Disallows OPs, other than Console, to changing gamemode.");
 			lol.write("");
 			lol.flush();

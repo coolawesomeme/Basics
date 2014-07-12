@@ -37,9 +37,13 @@ commands:
     usage: "Usage: /<command> [null/mild/severe/status]"
     permission: basics.lockdown.status
   tag:
-    description: Starts tag, where one player is the tagger, and has to tag every player on the server
+    description: Starts tag, where one player tags another, until there are no untagged players left
     usage: "Usage: /<command> [end]"
     permission: basics.tag
+  hideseek:
+    description: Starts hide & seek, where one player has to find all the people who hide
+    usage: "Usage: /<command> [end]"
+    permission: basics.hideseek
 
 permissions:
    basics.all:
@@ -66,6 +70,7 @@ permissions:
        basics.tproulette.all: true
        basics.tpr.setrequest: true
        basics.tag.end: true
+       basics.hideseek.end: true
    basics.serverhelp:
      description: Allows access of severhelp command
      default: true
@@ -110,3 +115,11 @@ permissions:
    basics.gamemode_ban.change:
      description: Allows changing of gamemode, even if disallowing of gamemode changing is on
      default: false
+   basics.hideseek:
+     description: Allows access of hide & seek command
+     default: true
+   basics.hideseek.end:
+     description: Allows access to end hide & seek
+     default: op
+     children:
+       basics.hideseek: true

@@ -5,5 +5,6 @@ message: This is a survival server!
 download-latest-version: true
 auto-update: true
 teleport-requests: true
-tag-playing-time-minutes: 30
+tag-playing-time-minutes: 20
+hideseek-playing-time-minutes: 20
 disallow-gamemode-change: false
