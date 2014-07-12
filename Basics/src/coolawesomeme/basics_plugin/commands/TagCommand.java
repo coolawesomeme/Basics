@@ -3,7 +3,6 @@ package coolawesomeme.basics_plugin.commands;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Random;
-import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -18,9 +17,10 @@ import coolawesomeme.basics_plugin.CommandErrorMessages;
 public class TagCommand implements CommandExecutor{
 	
 	private static Player originalTagger;
-	private static List<UUID> taggedPlayers = new LinkedList<UUID>();
-	private static List<UUID> nonTaggedPlayers = new LinkedList<UUID>();
+	private static List<String> taggedPlayers = new LinkedList<String>();
+	private static List<String> nonTaggedPlayers = new LinkedList<String>();
 	public static boolean isTagOn = false;
+	private static int id = -1;
 	private Basics basics;
 	private int tagMinutes = Basics.tagMinutes;
 	
@@ -59,24 +59,27 @@ public class TagCommand implements CommandExecutor{
 					int playerIndex = random.nextInt(onlinePlayers.length);
 					originalTagger = onlinePlayers[playerIndex];
 					nonTaggedPlayers = getOnlinePlayers();
-					nonTaggedPlayers.remove(originalTagger);
+					nonTaggedPlayers.remove(originalTagger.getName());
+					taggedPlayers.add(originalTagger.getName());
 					isTagOn = true;
-					Bukkit.getServer().broadcastMessage(ChatColor.RED + "A game of tag has started! You have " + tagMinutes + " minutes!");
-					Bukkit.getServer().broadcastMessage(originalTagger.getName() + " is the tagger!");
-					originalTagger.sendMessage("Right click other players to tag them!");
-					Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
+					Bukkit.getServer().broadcastMessage(ChatColor.RED + "" + ChatColor.ITALIC + "A game of tag has started! You have " + tagMinutes + " minutes!");
+					Bukkit.getServer().broadcastMessage(ChatColor.RED + originalTagger.getName() + " is the tagger!");
+					originalTagger.sendMessage(ChatColor.LIGHT_PURPLE + "Right click other players to tag them!");
+					id = Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
 						@Override 
 						public void run() {
-							Bukkit.getServer().broadcastMessage("The game has ended!");
-							if(nonTaggedPlayers.size() > 1){
-								Bukkit.getServer().broadcastMessage("The winners are:");
-								Bukkit.getServer().broadcastMessage(nonTaggedPlayers.toString().replace("[", "").replace("]", ""));
-							}else if(nonTaggedPlayers.size() == 1){
-								Bukkit.getServer().broadcastMessage("The winner is: " + nonTaggedPlayers.toString().replace("[", "").replace("]", "").replace(", ", ""));
-							}else{
-								Bukkit.getServer().broadcastMessage(originalTagger.getName() + " has won!");
+							if(isTagOn){
+								Bukkit.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE + "The game has ended!");
+								if(nonTaggedPlayers.size() > 1){
+									Bukkit.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE + "The winners are:");
+									Bukkit.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE + nonTaggedPlayers.toString().replace("[", "").replace("]", ""));
+								}else if(nonTaggedPlayers.size() == 1){
+									Bukkit.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE + "The winner is: " + nonTaggedPlayers.toString().replace("[", "").replace("]", "").replace(", ", ""));
+								}else{
+									Bukkit.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE + originalTagger.getName() + " has won!");
+								}
+								isTagOn = false;
 							}
-							isTagOn = false;
 						}
 					}, (long)(tagMinutes*20*60));
 				}else{
@@ -89,34 +92,34 @@ public class TagCommand implements CommandExecutor{
 		}
 	}
 
-	private List<UUID> getOnlinePlayers() {
-		List<UUID> onlinePlayers = new LinkedList<UUID>();
+	private List<String> getOnlinePlayers() {
+		List<String> onlinePlayers = new LinkedList<String>();
 		Player[] onlinePlayers1 = Bukkit.getOnlinePlayers();
 		for(int i = 0; i < onlinePlayers1.length; i++){
-			onlinePlayers.add(onlinePlayers1[i].getUniqueId());
+			onlinePlayers.add(onlinePlayers1[i].getName());
 		}
 		return onlinePlayers;
 	}
 	
 	public static void tagPlayer(Player player){
-		if(isTagOn){
-			taggedPlayers.add(player.getUniqueId());
-			nonTaggedPlayers.remove(player.getUniqueId());
-			Bukkit.getServer().broadcastMessage(ChatColor.ITALIC + "A player has been tagged!");
-			if(nonTaggedPlayers.size() != 0){
-				Bukkit.getServer().broadcastMessage(nonTaggedPlayers.size() + " non tagged players left!");
-			}else{
-				Bukkit.getServer().broadcastMessage(ChatColor.RED + "Game over!");
-				Bukkit.getServer().broadcastMessage(originalTagger.getName() + " has won!");
-				isTagOn = false;
-			}
+		taggedPlayers.add(player.getName());
+		nonTaggedPlayers.remove(player.getName());
+		Bukkit.getServer().broadcastMessage(ChatColor.ITALIC + "" + ChatColor.RED + "A player has been tagged!");
+		if(nonTaggedPlayers.size() != 0){
+			Bukkit.getServer().broadcastMessage(nonTaggedPlayers.size() + " non tagged players left!");
+		}else{
+			Bukkit.getServer().broadcastMessage(ChatColor.RED + "Game over!");
+			Bukkit.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE + originalTagger.getName() + " (the tagger) has won!");
+			isTagOn = false;
+			if(id != -1)
+				Bukkit.getScheduler().cancelTask(id);
 		}
 	}
 	
 	public static List<Player> getNonTaggedPlayers(){
 		if(isTagOn){
 			List<Player> playerList = new LinkedList<Player>();
-			for(UUID x : nonTaggedPlayers){
+			for(String x : nonTaggedPlayers){
 				try{
 					playerList.add(Bukkit.getPlayer(x));
 				}catch(Exception e){
@@ -132,7 +135,7 @@ public class TagCommand implements CommandExecutor{
 	public static List<Player> getTaggedPlayers(){
 		if(isTagOn){
 			List<Player> playerList = new LinkedList<Player>();
-			for(UUID x : taggedPlayers){
+			for(String x : taggedPlayers){
 				try{
 					playerList.add(Bukkit.getPlayer(x));
 				}catch(Exception e){

@@ -10,6 +10,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import coolawesomeme.basics_plugin.commands.BrbCommand;
@@ -22,11 +23,12 @@ public class EventListener implements Listener{
     public void onPlayerJoin(PlayerJoinEvent event) {
 		if(Basics.getServerThreatLevel() != ThreatLevel.NULL){
 			Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "kick " + event.getPlayer().getName() + " Server is in lockdown mode!");
-		}
-		Calendar calendar = Calendar.getInstance();
-		if(calendar.get(Calendar.MONTH) == Calendar.DECEMBER) {
-			if (calendar.get(Calendar.DAY_OF_MONTH) >= 25 && calendar.get(Calendar.DAY_OF_MONTH) <= 31) {
-				HolidaySurprise.activate(event);
+		}else{
+			Calendar calendar = Calendar.getInstance();
+			if(calendar.get(Calendar.MONTH) == Calendar.DECEMBER) {
+				if (calendar.get(Calendar.DAY_OF_MONTH) >= 25 && calendar.get(Calendar.DAY_OF_MONTH) <= 31) {
+					HolidaySurprise.activate(event);
+				}
 			}
 		}
     }
@@ -55,16 +57,14 @@ public class EventListener implements Listener{
 	}
 	
 	@EventHandler
-    public void playerDamagePlayer(EntityDamageByEntityEvent event) {
-        if(event.getDamager() instanceof Player && event.getEntity() instanceof Player){
-            Player damager = (Player) event.getDamager();
-            Player victim = (Player) event.getEntity();
-            if(TagCommand.isTagOn){
-    			if(TagCommand.getTaggedPlayers().contains(damager) && TagCommand.getNonTaggedPlayers().contains(victim)){
-    				TagCommand.tagPlayer(victim);
-    			}else if(TagCommand.getTaggedPlayers().contains(damager)){
-    				damager.sendMessage(ChatColor.RED + "This player is already tagged!");
-    			}
+    public void onTag(PlayerInteractEntityEvent event) {
+        if(TagCommand.isTagOn && event.getRightClicked() instanceof Player){
+            Player tagger = (Player) event.getPlayer();
+            Player victim = (Player) event.getRightClicked();
+    		if(TagCommand.getTaggedPlayers().contains(tagger) && TagCommand.getNonTaggedPlayers().contains(victim)){
+    			TagCommand.tagPlayer(victim);
+    		}else if(TagCommand.getTaggedPlayers().contains(victim)){
+    			tagger.sendMessage(ChatColor.RED + "This player is already tagged!");
     		}
         }
     }
