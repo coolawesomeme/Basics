@@ -114,14 +114,14 @@ public class TPRCommand implements CommandExecutor{
 									pendingTeleports.remove(target);
 								}
 								pendingTeleports.put(target, teleportee);
-								sender.sendMessage("Teleport request sent to " + target.getName() + " for " + args[0]);
+								sender.sendMessage("Teleport request sent to " + target.getName() + " for " + teleportee.getName());
 								teleportee.sendMessage("Teleport request sent to " + target.getName() + " for you by " + sender.getName());
-								target.sendMessage(ChatColor.LIGHT_PURPLE + sender.getName() + " would like to teleport to you.");
+								target.sendMessage(ChatColor.LIGHT_PURPLE + teleportee.getName() + " would like to teleport to you.");
 								target.sendMessage(ChatColor.LIGHT_PURPLE + "Type /tpr a or /tpr d, to accept or decline, respectfully.");
 							}else{
-								sender.sendMessage("Teleporting " + args[0] + "...");
-								teleportee.sendMessage("Teleporting to " + args[1] + " for " + sender.getName() + "...");
-								Bukkit.getPlayer(sender.getName()).teleport(target);
+								sender.sendMessage("Teleporting " + teleportee.getName() + "...");
+								teleportee.sendMessage("Teleporting to " + target.getName() + " due to " + sender.getName() + "...");
+								Bukkit.getPlayer(teleportee.getUniqueId()).teleport(target);
 							}
 						}
 					}
