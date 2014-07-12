@@ -17,7 +17,7 @@ import coolawesomeme.basics_plugin.CommandErrorMessages;
 public class TagCommand implements CommandExecutor{
 	
 	private static Player originalTagger;
-	private static List<String> taggedPlayers = new LinkedList<String>();
+	private static Player currentTagger;
 	private static List<String> nonTaggedPlayers = new LinkedList<String>();
 	public static boolean isTagOn = false;
 	private static int id = -1;
@@ -60,11 +60,11 @@ public class TagCommand implements CommandExecutor{
 					originalTagger = onlinePlayers[playerIndex];
 					nonTaggedPlayers = getOnlinePlayers();
 					nonTaggedPlayers.remove(originalTagger.getName());
-					taggedPlayers.add(originalTagger.getName());
+					currentTagger = originalTagger;
 					isTagOn = true;
 					Bukkit.getServer().broadcastMessage(ChatColor.RED + "" + ChatColor.ITALIC + "A game of tag has started! You have " + tagMinutes + " minutes!");
 					Bukkit.getServer().broadcastMessage(ChatColor.RED + originalTagger.getName() + " is the tagger!");
-					originalTagger.sendMessage(ChatColor.LIGHT_PURPLE + "Right click other players to tag them!");
+					originalTagger.sendMessage(ChatColor.LIGHT_PURPLE + "Right click a player to tag them!");
 					id = Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(basics, new Runnable() {
 						@Override 
 						public void run() {
@@ -102,11 +102,12 @@ public class TagCommand implements CommandExecutor{
 	}
 	
 	public static void tagPlayer(Player player){
-		taggedPlayers.add(player.getName());
 		nonTaggedPlayers.remove(player.getName());
-		Bukkit.getServer().broadcastMessage(ChatColor.ITALIC + "" + ChatColor.RED + "A player has been tagged!");
+		currentTagger = player;
+		Bukkit.getServer().broadcastMessage(ChatColor.ITALIC + "" + ChatColor.RED + " has been tagged!");
+		Bukkit.getServer().broadcastMessage("Run from them!");
 		if(nonTaggedPlayers.size() != 0){
-			Bukkit.getServer().broadcastMessage(nonTaggedPlayers.size() + " non tagged players left!");
+			Bukkit.getServer().broadcastMessage(nonTaggedPlayers.size() + " players have not been tagged once yet!");
 		}else{
 			Bukkit.getServer().broadcastMessage(ChatColor.RED + "Game over!");
 			Bukkit.getServer().broadcastMessage(ChatColor.LIGHT_PURPLE + originalTagger.getName() + " (the tagger) has won!");
@@ -132,19 +133,7 @@ public class TagCommand implements CommandExecutor{
 		}
 	}
 	
-	public static List<Player> getTaggedPlayers(){
-		if(isTagOn){
-			List<Player> playerList = new LinkedList<Player>();
-			for(String x : taggedPlayers){
-				try{
-					playerList.add(Bukkit.getPlayer(x));
-				}catch(Exception e){
-					playerList.add((Player)Bukkit.getOfflinePlayer(x));
-				}
-			}
-			return playerList;
-		}else{
-			return null;
-		}
+	public static Player getCurrentTagger(){
+		return currentTagger;
 	}
 }
