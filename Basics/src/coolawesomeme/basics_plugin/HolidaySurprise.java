@@ -27,7 +27,7 @@ public class HolidaySurprise {
 	}
 	
 	public static void activate(PlayerJoinEvent event) {
-		if(!surpriseList.containsKey(event.getPlayer().getName())){
+		if(!surpriseList.containsKey(event.getPlayer().getUniqueId().toString())){
 			continueActivation(event);
 		}
 	}
@@ -75,7 +75,7 @@ public class HolidaySurprise {
 			player.sendMessage(ChatColor.RED + "Happy " + ChatColor.GREEN + "Holidays" + ChatColor.RESET + ", " + player.getName() + "!");
 			player.sendMessage(ChatColor.ITALIC + "Check the chest for a special surprise!");
 		}
-		surpriseList.put(player.getName(), true);
+		surpriseList.put(player.getUniqueId().toString(), true);
 	}
 
 	private static ItemStack getRandomItem(Random random) {
